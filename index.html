@@ -1336,9 +1336,9 @@ function generateReceipt(){
     receipt.appendChild(logo);
   }
   
-  // Add content - compact layout
+  // Add content - compact layout starting from top
   var content = document.createElement('div');
-  content.style.cssText = 'position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;';
+  content.style.cssText = 'position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-start;';
   
   // Header - smaller
   var header = document.createElement('div');
@@ -1393,7 +1393,7 @@ function generateReceipt(){
   
   // Footer - compact
   var footer = document.createElement('div');
-  footer.style.cssText = 'text-align:center;border-top:1px solid #ccc;padding-top:4px;font-size:8px;margin-top:auto;';
+  footer.style.cssText = 'text-align:center;border-top:1px solid #ccc;padding-top:4px;font-size:8px;';
   footer.innerHTML = '<div><strong>BTLTech Ltd</strong></div><div>info@btltech.co.uk • 020 8746 0193</div>';
   content.appendChild(footer);
   
