@@ -332,6 +332,121 @@
       /* Ensure totals always show */
       .totals.no-print{ display:grid !important; }
     }
+    
+    /* Mobile Responsive Design */
+    @media screen and (max-width: 768px) {
+      .wrap { max-width: 100%; margin: 0; padding: 4px; }
+      .page { 
+        width: 100%; 
+        min-height: auto; 
+        margin: 0; 
+        padding: 8px; 
+        box-shadow: none;
+        border-radius: 0;
+      }
+      
+      /* Mobile header */
+      .top { margin-bottom: 12px; }
+      .brand { flex-direction: column; align-items: center; text-align: center; }
+      .brand-title { font-size: 18px; margin-bottom: 4px; }
+      .brand img, #logoPreview { height: 40px !important; }
+      
+      /* Mobile form elements */
+      input, select, textarea { 
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 8px; 
+        margin: 2px 0; 
+        width: 100%;
+        max-width: 100%;
+      }
+      label { font-size: 12px; margin: 4px 0 2px; }
+      
+      /* Mobile grid layouts */
+      .grid-2 { grid-template-columns: 1fr; gap: 8px; }
+      .grid-3 { grid-template-columns: 1fr; gap: 8px; }
+      .row { 
+        grid-template-columns: 1fr; 
+        gap: 4px; 
+        margin-top: 6px;
+        font-size: 12px;
+      }
+      .discount-row { 
+        grid-template-columns: 1fr; 
+        gap: 4px; 
+        margin-top: 6px;
+        font-size: 12px;
+      }
+      
+      /* Mobile tables */
+      .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      table { min-width: 500px; font-size: 12px; }
+      th, td { padding: 4px 2px; }
+      
+      /* Mobile buttons */
+      .toolbar { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 8px; 
+        margin-bottom: 12px;
+        padding: 8px;
+        background: var(--panel-2);
+        border-radius: 6px;
+      }
+      .btn { 
+        flex: 1; 
+        min-width: 120px; 
+        padding: 10px 8px; 
+        font-size: 14px; 
+        border-radius: 6px;
+        touch-action: manipulation;
+      }
+      
+      /* Mobile boxes */
+      .box { 
+        padding: 8px; 
+        margin: 6px 0; 
+        border-radius: 6px;
+      }
+      .box h4 { font-size: 14px; margin: 0 0 6px 0; }
+      
+      /* Mobile totals */
+      .totals { 
+        gap: 6px; 
+        margin-top: 12px; 
+        padding: 8px;
+        font-size: 14px;
+      }
+      .sticky-totals {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--panel);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        padding: 8px;
+        z-index: 1000;
+      }
+      .body-with-sticky { padding-bottom: 80px; }
+      
+      /* Touch-friendly interactions */
+      button, .btn, select, input[type="checkbox"] {
+        min-height: 44px;
+        min-width: 44px;
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .wrap { padding: 2px; }
+      .page { padding: 6px; }
+      .brand-title { font-size: 16px; }
+      .btn { min-width: 100px; font-size: 12px; padding: 8px 6px; }
+      table { font-size: 11px; }
+      .totals { font-size: 12px; }
+      input, select, textarea { font-size: 16px; padding: 6px; }
+    }
   </style>
 </head>
 <body>
