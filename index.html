@@ -700,7 +700,11 @@ const ACCESS_CODE = 'BTL2024';
   function tryLogin(){
     if((pwd && (pwd.value||'').trim()) === ACCESS_CODE){
       localStorage.setItem('btl_logged_in','1');
-      if(loginScreen) loginScreen.style.display='none';
+      if(loginScreen){
+        loginScreen.style.display='none';
+        // Remove from DOM to ensure it cannot block clicks
+        if(loginScreen.parentNode){ loginScreen.parentNode.removeChild(loginScreen); }
+      }
     } else {
       if(error){ error.textContent='Incorrect password'; error.style.display='block'; }
       if(pwd){ pwd.focus(); pwd.select && pwd.select(); }
@@ -708,7 +712,7 @@ const ACCESS_CODE = 'BTL2024';
   }
 
   if(localStorage.getItem('btl_logged_in')==='1'){
-    if(loginScreen) loginScreen.style.display='none';
+    if(loginScreen){ loginScreen.style.display='none'; if(loginScreen.parentNode){ loginScreen.parentNode.removeChild(loginScreen); } }
   } else {
     if(loginScreen) loginScreen.style.display='flex';
   }
