@@ -1321,79 +1321,79 @@ function generateReceipt(){
     }
   }
   
-  // Create receipt element
+  // Create receipt element - compact for single A5 page
   var receipt = document.createElement('div');
-  receipt.style.cssText = 'width:148mm;height:210mm;padding:10mm;font-family:Arial,sans-serif;font-size:12px;background:#fff;color:#000;box-sizing:border-box;position:relative;margin:0 auto;';
+  receipt.style.cssText = 'width:148mm;height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;position:relative;margin:0 auto;overflow:hidden;';
   
-  // Add background logos
-  for(var i = 0; i < 6; i++) {
+  // Add background logos - fewer and smaller
+  for(var i = 0; i < 4; i++) {
     var logo = document.createElement('div');
     var row = Math.floor(i / 2);
     var col = i % 2;
-    var leftPos = col === 0 ? '10%' : '70%';
-    var topPos = (row * 30 + 15) + '%';
-    logo.style.cssText = 'position:absolute;top:'+topPos+';left:'+leftPos+';width:50px;height:50px;background-image:url(logo.jpeg);background-size:contain;background-repeat:no-repeat;opacity:0.1;z-index:1;';
+    var leftPos = col === 0 ? '15%' : '65%';
+    var topPos = (row * 40 + 20) + '%';
+    logo.style.cssText = 'position:absolute;top:'+topPos+';left:'+leftPos+';width:40px;height:40px;background-image:url(logo.jpeg);background-size:contain;background-repeat:no-repeat;opacity:0.08;z-index:1;';
     receipt.appendChild(logo);
   }
   
-  // Add content
+  // Add content - compact layout
   var content = document.createElement('div');
   content.style.cssText = 'position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;';
   
-  // Header
+  // Header - smaller
   var header = document.createElement('div');
-  header.style.cssText = 'text-align:center;margin-bottom:15px;';
-  header.innerHTML = '<h1 style="margin:0;font-size:18px;font-weight:bold;">BTLTech Ltd</h1><h2 style="margin:5px 0;font-size:14px;">DROP-OFF RECEIPT</h2>' + (isPaid ? '<div style="color:#008000;font-weight:bold;font-size:12px;">✓ PAID IN FULL</div>' : '');
+  header.style.cssText = 'text-align:center;margin-bottom:8px;';
+  header.innerHTML = '<h1 style="margin:0;font-size:14px;font-weight:bold;">BTLTech Ltd</h1><h2 style="margin:2px 0;font-size:11px;">DROP-OFF RECEIPT</h2>' + (isPaid ? '<div style="color:#008000;font-weight:bold;font-size:9px;">✓ PAID</div>' : '');
   content.appendChild(header);
   
-  // Customer info
+  // Customer info - compact
   var customerDiv = document.createElement('div');
-  customerDiv.style.cssText = 'margin-bottom:15px;font-size:11px;line-height:1.4;';
-  customerDiv.innerHTML = '<div><strong>Invoice #:</strong> '+escapeHtml(invoiceNum)+'</div><div><strong>Date:</strong> '+escapeHtml(invoiceDate)+'</div><div><strong>Customer:</strong> '+escapeHtml(customerName)+'</div>' + (contactInfo ? '<div><strong>Contact:</strong> '+escapeHtml(contactInfo)+'</div>' : '') + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo)+'</div>' : '');
+  customerDiv.style.cssText = 'margin-bottom:8px;font-size:9px;line-height:1.2;';
+  customerDiv.innerHTML = '<div><strong>Invoice #:</strong> '+escapeHtml(invoiceNum)+'</div><div><strong>Date:</strong> '+escapeHtml(invoiceDate)+'</div><div><strong>Customer:</strong> '+escapeHtml(customerName)+'</div>' + (contactInfo ? '<div><strong>Contact:</strong> '+escapeHtml(contactInfo)+'</div>' : '') + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo.length > 20 ? deviceInfo.substring(0,20)+'...' : deviceInfo)+'</div>' : '');
   content.appendChild(customerDiv);
   
-  // Services
+  // Services - compact table
   if(items.length > 0) {
     var servicesDiv = document.createElement('div');
-    servicesDiv.style.cssText = 'margin-bottom:15px;';
+    servicesDiv.style.cssText = 'margin-bottom:8px;';
     var table = document.createElement('table');
-    table.style.cssText = 'width:100%;border-collapse:collapse;font-size:10px;';
-    table.innerHTML = '<tr><th style="text-align:left;border-bottom:1px solid #ccc;padding:3px;">Description</th><th style="text-align:center;border-bottom:1px solid #ccc;padding:3px;">Qty</th><th style="text-align:right;border-bottom:1px solid #ccc;padding:3px;">Amount</th></tr>';
+    table.style.cssText = 'width:100%;border-collapse:collapse;font-size:8px;';
+    table.innerHTML = '<tr><th style="text-align:left;border-bottom:1px solid #ccc;padding:1px;font-size:7px;">Description</th><th style="text-align:center;border-bottom:1px solid #ccc;padding:1px;font-size:7px;">Qty</th><th style="text-align:right;border-bottom:1px solid #ccc;padding:1px;font-size:7px;">Amount</th></tr>';
     
-    items.slice(0, 4).forEach(function(it){
+    items.slice(0, 3).forEach(function(it){
       var v = it.qty * it.price;
       var color = it.isDiscount ? '#e74c3c' : '#000';
       var row = document.createElement('tr');
-      row.innerHTML = '<td style="padding:2px;color:'+color+';">'+escapeHtml(it.desc)+'</td><td style="padding:2px;text-align:center;color:'+color+';">'+it.qty+'</td><td style="padding:2px;text-align:right;color:'+color+';">'+gbp(v)+'</td>';
+      row.innerHTML = '<td style="padding:1px;color:'+color+';font-size:8px;">'+escapeHtml(it.desc.length > 15 ? it.desc.substring(0,15)+'...' : it.desc)+'</td><td style="padding:1px;text-align:center;color:'+color+';font-size:8px;">'+it.qty+'</td><td style="padding:1px;text-align:right;color:'+color+';font-size:8px;">'+gbp(v)+'</td>';
       table.appendChild(row);
     });
     
-    if(items.length > 4) {
+    if(items.length > 3) {
       var row = document.createElement('tr');
-      row.innerHTML = '<td colspan="3" style="padding:2px;font-style:italic;color:#777;text-align:center;">+ '+(items.length-4)+' more items</td>';
+      row.innerHTML = '<td colspan="3" style="padding:1px;font-style:italic;color:#777;text-align:center;font-size:7px;">+ '+(items.length-3)+' more</td>';
       table.appendChild(row);
     }
     
-    servicesDiv.innerHTML = '<div style="font-weight:bold;margin-bottom:5px;font-size:12px;">Services:</div>';
+    servicesDiv.innerHTML = '<div style="font-weight:bold;margin-bottom:2px;font-size:9px;">Services:</div>';
     servicesDiv.appendChild(table);
     content.appendChild(servicesDiv);
   }
   
-  // Totals
+  // Totals - compact
   var totalsDiv = document.createElement('div');
-  totalsDiv.style.cssText = 'margin-bottom:15px;text-align:right;font-size:11px;';
-  totalsDiv.innerHTML = '<div>Subtotal: '+gbp(sub)+'</div>' + (discountTotal > 0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '') + (rate > 0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '') + '<div style="border-top:1px solid #000;padding-top:3px;margin-top:3px;font-weight:bold;font-size:12px;">TOTAL: '+gbp(grandTotal)+'</div>';
+  totalsDiv.style.cssText = 'margin-bottom:8px;text-align:right;font-size:9px;';
+  totalsDiv.innerHTML = '<div>Subtotal: '+gbp(sub)+'</div>' + (discountTotal > 0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '') + (rate > 0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '') + '<div style="border-top:1px solid #000;padding-top:1px;margin-top:1px;font-weight:bold;font-size:10px;">TOTAL: '+gbp(grandTotal)+'</div>';
   content.appendChild(totalsDiv);
   
-  // Payment and terms
+  // Payment and terms - compact
   var paymentDiv = document.createElement('div');
-  paymentDiv.style.cssText = 'margin-bottom:15px;font-size:10px;';
-  paymentDiv.innerHTML = '<div style="font-weight:bold;margin-bottom:3px;">Payment:</div><div>Bank: Sort 60-83-71, Acc 56169159</div><div>Cash/Card on Collection</div><div style="font-weight:bold;margin:5px 0 3px 0;">Terms:</div><div>Payment due immediately. 30-day warranty excludes damage.</div>';
+  paymentDiv.style.cssText = 'margin-bottom:8px;font-size:8px;';
+  paymentDiv.innerHTML = '<div style="font-weight:bold;margin-bottom:1px;">Payment:</div><div>Bank: Sort 60-83-71, Acc 56169159</div><div>Cash/Card on Collection</div><div style="font-weight:bold;margin:2px 0 1px 0;">Terms:</div><div>Payment due immediately. 30-day warranty excludes damage.</div>';
   content.appendChild(paymentDiv);
   
-  // Footer
+  // Footer - compact
   var footer = document.createElement('div');
-  footer.style.cssText = 'text-align:center;border-top:1px solid #ccc;padding-top:8px;font-size:10px;margin-top:auto;';
+  footer.style.cssText = 'text-align:center;border-top:1px solid #ccc;padding-top:4px;font-size:8px;margin-top:auto;';
   footer.innerHTML = '<div><strong>BTLTech Ltd</strong></div><div>info@btltech.co.uk • 020 8746 0193</div>';
   content.appendChild(footer);
   
