@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -570,15 +570,21 @@ function rebindMainListeners(){
       clearBtn.setAttribute('data-bound', 'true');
     }
     if(printBtn && !printBtn.hasAttribute('data-bound')){
-      printBtn.addEventListener('click', function(){ saveToLedger('silent'); generatePDF(); });
+      printBtn.addEventListener('click', function(){ 
+        try{ saveToLedger('silent'); generatePDF(); }catch(e){ showToast('PDF generation failed'); }
+      });
       printBtn.setAttribute('data-bound', 'true');
     }
     if(pdfBtn && !pdfBtn.hasAttribute('data-bound')){
-      pdfBtn.addEventListener('click', function(){ saveToLedger('silent'); window.print(); });
+      pdfBtn.addEventListener('click', function(){ 
+        try{ saveToLedger('silent'); window.print(); }catch(e){ showToast('Print failed'); }
+      });
       pdfBtn.setAttribute('data-bound', 'true');
     }
     if(receiptBtn && !receiptBtn.hasAttribute('data-bound')){
-      receiptBtn.addEventListener('click', generateReceipt);
+      receiptBtn.addEventListener('click', function(){
+        try{ generateReceipt(); }catch(e){ showToast('Receipt generation failed'); }
+      });
       receiptBtn.setAttribute('data-bound', 'true');
     }
     if(bookBtn && !bookBtn.hasAttribute('data-bound')){
@@ -586,10 +592,16 @@ function rebindMainListeners(){
       bookBtn.setAttribute('data-bound', 'true');
     }
     if(closeBtn && !closeBtn.hasAttribute('data-bound')){
-      closeBtn.addEventListener('click', function(){ document.getElementById('ledgerOverlay').style.display='none'; });
+      closeBtn.addEventListener('click', function(){ 
+        var overlay=document.getElementById('ledgerOverlay'); 
+        if(overlay) overlay.style.display='none'; 
+      });
       closeBtn.setAttribute('data-bound', 'true');
     }
-  }catch(e){ console.error('Button binding failed:', e); }
+  }catch(e){ 
+    console.error('Button binding failed:', e);
+    showToast('Some buttons may not work properly');
+  }
 }
 
 (function authInit(){
@@ -794,34 +806,42 @@ var LEDGER_KEY='btl_ledger_v1';
   // Invoice number and dates
   var now=new Date();
   var pad=function(n){ return String(n).padStart(2,'0'); };
-  invDate.value = '2025-09-17';
-  dueDate.value = '2025-10-17';
+  if(invDate) invDate.value = '2025-09-17';
+  if(dueDate) dueDate.value = '2025-10-17';
   var seq = Number(localStorage.getItem('btl_seq')||0)+1; localStorage.setItem('btl_seq',seq);
-  invNo.value = '2025-09-17-'+String(seq).padStart(4,'0');
+  if(invNo) invNo.value = '2025-09-17-'+String(seq).padStart(4,'0');
   
   // Load last device selection
   var savedDevice = localStorage.getItem('btl_last_device');
   if(savedDevice) {
-    lastDeviceSelection = JSON.parse(savedDevice);
-    if(lastDeviceSelection.type) devType.value = lastDeviceSelection.type;
-    if(lastDeviceSelection.make) devMake.value = lastDeviceSelection.make;
+    try{
+      lastDeviceSelection = JSON.parse(savedDevice);
+      if(lastDeviceSelection.type && devType) devType.value = lastDeviceSelection.type;
+      if(lastDeviceSelection.make && devMake) devMake.value = lastDeviceSelection.make;
+    }catch(e){ console.error('Failed to load device selection:', e); }
   }
 
   // Populate service (names only, no prefilled prices)
-  service.innerHTML = '<option value="">Select</option>';
-  Object.keys(CATALOG).forEach(function(group){
-    var og=document.createElement('optgroup'); og.label=group;
-    Object.keys(CATALOG[group]).forEach(function(name){
-      var o=document.createElement('option');
-      o.value=name; o.textContent=name;
-      og.appendChild(o);
+  if(service){
+    service.innerHTML = '<option value="">Select</option>';
+    Object.keys(CATALOG).forEach(function(group){
+      var og=document.createElement('optgroup'); og.label=group;
+      Object.keys(CATALOG[group]).forEach(function(name){
+        var o=document.createElement('option');
+        o.value=name; o.textContent=name;
+        og.appendChild(o);
+      });
+      service.appendChild(og);
     });
-    service.appendChild(og);
-  });
+  }
 
   // Populate device selectors
-  DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
-  DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
+  if(devType){
+    DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
+  }
+  if(devMake){
+    DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
+  }
   populateModels();
 
   // Listeners
@@ -859,8 +879,8 @@ var LEDGER_KEY='btl_ledger_v1';
       price.classList.remove('error');
     }
   }
-  qty.addEventListener('input', recalc);
-  price.addEventListener('input', recalc);
+  if(qty) qty.addEventListener('input', recalc);
+  if(price) price.addEventListener('input', recalc);
   recalc();
 
   // Device model search functionality
@@ -1033,8 +1053,8 @@ var LEDGER_KEY='btl_ledger_v1';
   });
 
   rebindMainListeners();
-  markPaid.addEventListener('change', onTogglePaid);
-  jobStatus.addEventListener('change', onStatusChange);
+  if(markPaid) markPaid.addEventListener('change', onTogglePaid);
+  if(jobStatus) jobStatus.addEventListener('change', onStatusChange);
 })();
 
 // Actions
@@ -1400,6 +1420,8 @@ function autoSaveCustomer(){
 }
 function generatePDF() {
   const btn = id('generatePDF');
+  if(!btn) return;
+  
   btn.textContent = 'Generating...';
   btn.disabled = true;
 
@@ -1409,6 +1431,13 @@ function generatePDF() {
   if (stickyTotals) stickyTotals.style.display = 'none';
 
   const element = document.querySelector('.page');
+  if(!element) {
+    showToast('Cannot find invoice content');
+    btn.textContent = 'Generate PDF';
+    btn.disabled = false;
+    return;
+  }
+  
   const pageEl = element;
   const prevMinHeight = pageEl && pageEl.style.minHeight;
   const prevMaxHeight = pageEl && pageEl.style.maxHeight;
