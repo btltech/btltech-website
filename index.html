@@ -1321,24 +1321,21 @@ function generateReceipt(){
     }
   }
   
-  // Create receipt element - compact for single A5 page
+  // Create receipt element - full A5 page from top
   var receipt = document.createElement('div');
-  receipt.style.cssText = 'width:148mm;height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;position:absolute;top:0;left:50%;transform:translateX(-50%);overflow:hidden;';
+  receipt.style.cssText = 'width:148mm;min-height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;position:relative;margin:0;';
   
-  // Add background logos - fewer and smaller
-  for(var i = 0; i < 4; i++) {
+  // Add background logos - subtle watermarks
+  for(var i = 0; i < 3; i++) {
     var logo = document.createElement('div');
-    var row = Math.floor(i / 2);
-    var col = i % 2;
-    var leftPos = col === 0 ? '15%' : '65%';
-    var topPos = (row * 40 + 20) + '%';
-    logo.style.cssText = 'position:absolute;top:'+topPos+';left:'+leftPos+';width:40px;height:40px;background-image:url(logo.jpeg);background-size:contain;background-repeat:no-repeat;opacity:0.08;z-index:1;';
+    var topPos = (i * 60 + 20) + '%';
+    logo.style.cssText = 'position:absolute;top:'+topPos+';left:50%;transform:translateX(-50%);width:50px;height:50px;background-image:url(logo.jpeg);background-size:contain;background-repeat:no-repeat;opacity:0.1;z-index:1;';
     receipt.appendChild(logo);
   }
   
-  // Add content - compact layout starting from top
+  // Add content - natural flex column
   var content = document.createElement('div');
-  content.style.cssText = 'position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-start;';
+  content.style.cssText = 'position:relative;z-index:2;display:flex;flex-direction:column;min-height:100%;';
   
   // Header - smaller
   var header = document.createElement('div');
@@ -1400,13 +1397,14 @@ function generateReceipt(){
   receipt.appendChild(content);
   document.body.appendChild(receipt);
   
-  // Generate PDF
+  // Generate PDF - full A5 page with no margins
   var options = {
-    margin: [5, 5, 5, 5],
+    margin: 0,
     filename: `BTLTech-Receipt-${invoiceNum||'receipt'}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: false, allowTaint: true, backgroundColor: '#ffffff' },
-    jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+    html2canvas: { scale: 1.5, useCORS: false, allowTaint: true, backgroundColor: '#ffffff' },
+    jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' },
+    pagebreak: { mode: 'css', avoid: '.no-break' }
   };
   
   setTimeout(function(){
