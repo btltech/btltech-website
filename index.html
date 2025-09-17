@@ -1289,122 +1289,126 @@ function onStatusChange(){
 
 
 function generateReceipt(){
-  // Create proper A5 receipt
+  // Build a simple A5 receipt with embossed logos
   var isPaid = markPaid && markPaid.checked;
+  var receipt = document.createElement('div');
+  receipt.className='receipt';
+  receipt.style.cssText = 'width:148mm;height:210mm;padding:10mm;font-family:Arial,sans-serif;font-size:12px;line-height:1.4;background:#fff;color:#333;box-sizing:border-box;position:relative;overflow:hidden;margin:0 auto;';
+  
+  // Create multiple embossed logos across the page
+  for(var i = 0; i < 12; i++) {
+    var logoLayer = document.createElement('div');
+    var row = Math.floor(i / 4);
+    var col = i % 4;
+    var leftPos = (col * 25) + '%';
+    var topPos = (row * 25) + '%';
+    logoLayer.style.cssText = 'position:absolute;top:'+topPos+';left:'+leftPos+';width:60px;height:60px;background-image:url(logo.jpeg);background-repeat:no-repeat;background-position:center;background-size:contain;opacity:0.15;pointer-events:none;z-index:1;';
+    receipt.appendChild(logoLayer);
+  }
   
   // Calculate totals
-  var sub=0, discountTotal=0;
+  var rowsHtml='';
+  var sub=0; var discountTotal=0; var displayedItems=0; var maxRows=5;
   items.forEach(function(it){
-    var v = it.qty * it.price;
+    if(displayedItems >= maxRows) return;
+    var v=it.qty*it.price; 
     if(it.isDiscount) {
       discountTotal += Math.abs(v);
+      rowsHtml += '<tr><td style="padding:2px 0;color:#e74c3c;font-size:10px;">'+escapeHtml(it.desc)+'</td><td style="padding:2px 0;text-align:center;color:#e74c3c;font-size:10px;">'+it.qty+'</td><td style="padding:2px 0;text-align:right;color:#e74c3c;font-size:10px;">'+gbp(v)+'</td></tr>';
     } else {
-      sub += v;
+      sub+=v;
+      rowsHtml += '<tr><td style="padding:2px 0;font-size:10px;">'+escapeHtml(it.desc)+'</td><td style="padding:2px 0;text-align:center;font-size:10px;">'+it.qty+'</td><td style="padding:2px 0;text-align:right;font-size:10px;">'+gbp(v)+'</td></tr>';
     }
+    displayedItems++;
   });
   
-  var rate = (vatEnabled && vatEnabled.checked) ? Number(vatRate.value||0) : 0;
-  var vat = sub * (rate/100);
-  var total = sub + vat - discountTotal;
-  
-  var deviceInfo = [devType.value, devMake.value, devModel.value].filter(Boolean).join(' ');
-  
-  // Create receipt element
-  var receipt = document.createElement('div');
-  receipt.style.cssText = 'width:148mm;height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;margin:0 auto;position:relative;';
-  
-  // Add logo watermarks
-  for(var i = 0; i < 6; i++) {
-    var logo = document.createElement('div');
-    var row = Math.floor(i / 2);
-    var col = i % 2;
-    logo.style.cssText = 'position:absolute;top:'+(row*70+30)+'px;left:'+(col*160+50)+'px;width:60px;height:60px;background-image:url(logo.jpeg);background-size:contain;background-repeat:no-repeat;background-position:center;opacity:0.12;z-index:1;pointer-events:none;';
-    receipt.appendChild(logo);
+  if(items.length > maxRows) {
+    rowsHtml += '<tr><td colspan="3" style="padding:2px 0;font-style:italic;color:#777;border-top:1px dashed #ddd;font-size:9px;text-align:center;">+ '+(items.length-maxRows)+' additional item(s) - see full invoice</td></tr>';
   }
   
-  // Build content
-  var itemsHtml = '';
-  var maxItems = Math.min(items.length, 4);
-  for(var i = 0; i < maxItems; i++) {
-    var it = items[i];
-    var v = it.qty * it.price;
-    itemsHtml += '<tr><td style="padding:1px 0;font-size:9px;">'+escapeHtml(it.desc.substring(0,18))+'</td><td style="text-align:center;padding:1px 0;font-size:9px;">'+it.qty+'</td><td style="text-align:right;padding:1px 0;font-size:9px;">'+gbp(v)+'</td></tr>';
-  }
-  if(items.length > maxItems) {
-    itemsHtml += '<tr><td colspan="3" style="font-style:italic;color:#666;text-align:center;padding:2px;font-size:8px;">+'+(items.length-maxItems)+' more items</td></tr>';
+  var rate=(vatEnabled && vatEnabled.checked)? Number(vatRate.value||0):0; 
+  var vat=sub*(rate/100);
+  var grandTotal = sub + vat - discountTotal;
+  
+  var deviceInfo = '';
+  if(devType.value || devMake.value || devModel.value) {
+    deviceInfo = (devType.value || '') + ' ' + (devMake.value || '') + ' ' + (devModel.value || '');
   }
   
-  var content = document.createElement('div');
-  content.style.cssText = 'position:relative;z-index:2;';
-  content.innerHTML = ''
-    // Header
-    + '<div style="text-align:center;margin-bottom:8mm;">'
-    + '<h2 style="margin:0;font-size:16px;font-weight:bold;">BTLTech Ltd</h2>'
-    + '<h3 style="margin:2px 0;font-size:12px;">DROP-OFF RECEIPT</h3>'
-    + (isPaid ? '<div style="color:#008000;font-weight:bold;margin-top:2px;font-size:10px;">✓ PAID</div>' : '')
-    + '</div>'
-    
-    // Customer info
-    + '<div style="margin-bottom:6mm;line-height:1.3;">'
-    + '<div><strong>Invoice:</strong> '+escapeHtml(invNo.value||'')+'</div>'
-    + '<div><strong>Date:</strong> '+escapeHtml(invDate.value||'')+'</div>'
-    + '<div><strong>Customer:</strong> '+escapeHtml(clientName.value||'N/A')+'</div>'
-    + (clientContact.value ? '<div><strong>Contact:</strong> '+escapeHtml(clientContact.value)+'</div>' : '')
-    + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo)+'</div>' : '')
-    + '</div>'
-    
-    // Services table
-    + (items.length > 0 ? (
-      '<div style="margin-bottom:6mm;">'
-      + '<div style="font-weight:bold;margin-bottom:2mm;font-size:10px;">Services:</div>'
-      + '<table style="width:100%;border-collapse:collapse;font-size:9px;">'
-      + '<tr><th style="text-align:left;border-bottom:1px solid #999;padding:1px;font-size:8px;">Item</th><th style="text-align:center;border-bottom:1px solid #999;padding:1px;font-size:8px;">Qty</th><th style="text-align:right;border-bottom:1px solid #999;padding:1px;font-size:8px;">Amount</th></tr>'
-      + itemsHtml
-      + '</table></div>'
-    ) : '')
-    
-    // Totals
-    + '<div style="margin-bottom:6mm;text-align:right;font-size:9px;">'
-    + '<div>Subtotal: '+gbp(sub)+'</div>'
-    + (discountTotal > 0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '')
-    + (rate > 0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '')
-    + '<div style="border-top:1px solid #000;padding-top:2px;margin-top:2px;font-weight:bold;font-size:10px;">TOTAL: '+gbp(total)+'</div>'
-    + '</div>'
-    
-    // Payment
-    + '<div style="margin-bottom:4mm;font-size:8px;">'
-    + '<div><strong>Payment:</strong></div>'
-    + '<div>Bank: Sort 60-83-71, Acc 56169159</div>'
-    + '<div>Cash/Card on Collection</div>'
-    + '</div>'
-    
-    // Terms
-    + '<div style="margin-bottom:4mm;font-size:8px;">'
-    + '<div><strong>Terms:</strong> Payment due immediately.</div>'
-    + '<div>30-day warranty excludes damage.</div>'
-    + '</div>'
-    
-    // Footer
-    + '<div style="text-align:center;border-top:1px solid #999;padding-top:3mm;font-size:8px;">'
-    + '<div><strong>BTLTech Ltd</strong></div>'
-    + '<div>info@btltech.co.uk • 020 8746 0193</div>'
-    + '</div>';
+  // Simple, plain layout
+  var html = '<div style="position:relative;z-index:2;background:rgba(255,255,255,0.9);padding:8px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">'
+   
+   // Simple header
+   + '<div style="text-align:center;margin-bottom:12px;">'
+   + '  <h2 style="margin:0;font-size:16px;color:#000;font-weight:bold;">BTLTech Ltd</h2>'
+   + '  <h3 style="margin:4px 0;font-size:12px;color:#000;">DROP-OFF RECEIPT</h3>'
+   + (isPaid?'<div style="font-weight:bold;color:#008000;margin-top:4px;font-size:11px;">✓ PAID IN FULL</div>':'')
+   + '</div>'
+   
+   // Basic info
+   + '<div style="margin-bottom:12px;line-height:1.4;font-size:11px;">'
+   + '  <div><strong>Invoice #:</strong> '+escapeHtml(invNo.value)+'</div>'
+   + '  <div><strong>Date:</strong> '+escapeHtml(invDate.value)+'</div>'
+   + '  <div><strong>Customer:</strong> '+escapeHtml(clientName.value||'N/A')+'</div>'
+   + (clientContact.value ? '<div><strong>Contact:</strong> '+escapeHtml(clientContact.value)+'</div>' : '')
+   + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo.length > 30 ? deviceInfo.substring(0,30)+'...' : deviceInfo)+'</div>' : '')
+   + (remark && remark.value ? '<div><strong>Notes:</strong> '+escapeHtml(remark.value.length > 35 ? remark.value.substring(0,35)+'...' : remark.value)+'</div>' : '')
+   + '</div>'
+   
+   // Simple services list
+   + (items.length>0 ? ('<div style="margin-bottom:12px;">'
+   + '<div style="font-weight:bold;margin-bottom:4px;font-size:11px;">Services:</div>'
+   + '<table style="width:100%;border-collapse:collapse;font-size:10px;">'
+   + '  <tr><th style="text-align:left;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Description</th><th style="text-align:center;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Qty</th><th style="text-align:right;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Amount</th></tr>'
+   + rowsHtml
+   + '</table></div>') : '')
+   
+   // Simple totals
+   + '<div style="margin-bottom:12px;text-align:right;font-size:10px;">'
+   + '  <div>Subtotal: '+gbp(sub)+'</div>'
+   + (discountTotal>0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '')
+   + (rate>0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '')
+   + '  <div style="border-top:1px solid #000;padding-top:3px;margin-top:3px;font-weight:bold;font-size:11px;">TOTAL: '+gbp(grandTotal)+'</div>'
+   + '</div>'
+   
+   // Simple payment info
+   + '<div style="margin-bottom:10px;font-size:9px;">'
+   + '  <div style="font-weight:bold;margin-bottom:2px;">Payment Methods:</div>'
+   + '  <div>Bank Transfer: Sort 60-83-71, Account 56169159</div>'
+   + '  <div>Cash on Collection, Card Payment</div>'
+   + '</div>'
+   
+   // Simple terms
+   + '<div style="margin-bottom:10px;font-size:9px;">'
+   + '  <div style="font-weight:bold;margin-bottom:2px;">Terms:</div>'
+   + '  <div>Payment due immediately. 30-day warranty excludes damage.</div>'
+   + '</div>'
+   
+   // Simple footer
+   + '<div style="text-align:center;border-top:1px solid #ccc;padding-top:6px;font-size:9px;margin-top:auto;">'
+   + '  <div><strong>BTLTech Ltd</strong></div>'
+   + '  <div>info@btltech.co.uk • 020 8746 0193</div>'
+   + '</div>'
+   
+   + '</div>';
+   
+  var contentDiv = document.createElement('div');
+  contentDiv.style.cssText = 'position:relative;z-index:2;height:100%;';
+  contentDiv.innerHTML = html;
+  receipt.appendChild(contentDiv);
   
-  receipt.appendChild(content);
   document.body.appendChild(receipt);
   
-  // Generate PDF
-  var options = {
-    margin: [3, 3, 3, 3],
-    filename: 'BTLTech-Receipt-'+(invNo.value||'receipt')+'.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: false, allowTaint: true, backgroundColor: '#ffffff', width: 420, height: 595 },
-    jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+  var options={
+    margin:[5,5,5,5],
+    filename:`BTLTech-DropOffReceipt-${invNo.value||'receipt'}.pdf`,
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',scrollY:0,width:420,height:595,letterRendering:true},
+    jsPDF:{unit:'mm',format:'a5',orientation:'portrait',putOnlyUsedFonts:true},
+    pagebreak:{mode:['css','legacy'],avoid:['table','div','.no-break']}
   };
   
-  html2pdf().from(receipt).set(options).save().finally(function(){
-    if(receipt.parentNode) document.body.removeChild(receipt);
-  });
+  html2pdf().from(receipt).set(options).save().finally(function(){ document.body.removeChild(receipt); });
 }
 
 // Auto-save customer data
