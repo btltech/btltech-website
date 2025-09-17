@@ -1419,7 +1419,7 @@ function generateReceipt(){
     margin:[5,5,5,5],
     filename:`BTLTech-DropOffReceipt-${invoiceNum||'receipt'}.pdf`,
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',scrollY:0,width:420,height:595,letterRendering:true},
+    html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',scrollY:0,letterRendering:true},
     jsPDF:{unit:'mm',format:'a5',orientation:'portrait',putOnlyUsedFonts:true},
     pagebreak:{mode:['css','legacy'],avoid:['table','div','.no-break']}
   };
@@ -1468,9 +1468,9 @@ function generatePDF() {
   const prevMinHeight = pageEl && pageEl.style.minHeight;
   const prevMaxHeight = pageEl && pageEl.style.maxHeight;
   if(pageEl){ 
-    pageEl.style.minHeight = 'auto'; 
-    pageEl.style.maxHeight = '297mm';
-    pageEl.style.overflow = 'hidden';
+    pageEl.style.minHeight = '';
+    pageEl.style.maxHeight = '';
+    pageEl.style.overflow = '';
   }
 
   const cleanup = () => {
@@ -1496,8 +1496,7 @@ function generatePDF() {
       backgroundColor: '#ffffff',
       letterRendering: true,
       scrollY: 0,
-      width: 794,
-      height: 1123,
+      // Let html2pdf paginate naturally without fixed bitmap size
       ignoreElements: function(el){
         try{
           if(!el) return false;
@@ -1513,7 +1512,7 @@ function generatePDF() {
       }
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true },
-    pagebreak: { mode: ['css', 'legacy'], avoid: ['.banking-details', '.note'], before: '.page-break' }
+    pagebreak: { mode: ['css', 'legacy'], avoid: ['.banking-details', '.note', '.row', '.box', '.totals', '.grid-2', '.grid-3'], before: '.page-break' }
   };
 
   // enforce centered layout just for export
