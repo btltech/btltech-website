@@ -645,9 +645,24 @@
       <div class="modal-controls">
         <label>From <input type="date" id="ledgerStart"></label>
         <label>To <input type="date" id="ledgerEnd"></label>
+        <label>Paid 
+          <select id="filterPaid">
+            <option value="all">All</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </label>
+        <label>Customer <input type="text" id="filterCustomer" placeholder="Search customer"></label>
+        <label>Device <input type="text" id="filterDevice" placeholder="Type/make/model"></label>
         <button class="btn btn-ghost" id="exportCsv">Export CSV</button>
+        <button class="btn btn-ghost" id="exportJson">Backup JSON</button>
+        <button class="btn btn-ghost" id="importJsonBtn">Restore JSON</button>
+        <input type="file" id="importJson" accept="application/json" style="display:none" />
+        <button class="btn btn-danger" id="resetData">Reset Data</button>
       </div>
       <div id="ledgerTotals" class="totals-inline"></div>
+      <div id="ledgerKpis" class="box" style="margin-top:8px"></div>
+      <div id="ledgerCharts" class="box" style="margin-top:8px"></div>
       <div class="modal-body">
         <div class="table-responsive">
           <table>
@@ -661,8 +676,9 @@
               <th>Discounts</th>
               <th>VAT</th>
               <th>Total</th>
+              <th>Actions</th>
             </tr>
-          </thead>
+            </thead>
             <tbody id="ledgerTable"></tbody>
           </table>
         </div>
@@ -1140,23 +1156,25 @@ function onClear(){ items=[]; render(); }
 function render(){
   list.innerHTML='';
   items.forEach(function(it, i){
+    if(typeof it.cost === 'undefined') it.cost = 0;
     var row=document.createElement('div');
     row.className='row';
     var removeBtn = it.isDiscount ? 
       '<button class="icon-btn" title="Remove discount">🗑️</button>' :
       '<button class="icon-btn" title="Remove item">🗑️</button>';
-    
     row.innerHTML= ''
       + '<input value="'+escapeHtml(it.desc)+'"' + (it.isDiscount ? ' class="discount-item"' : '') + '>'
       + '<input type="number" min="1" value="'+it.qty+'">'
       + '<input type="number" min="0" step="0.01" value="'+it.price+'">'
+      + '<input type="number" min="0" step="0.01" value="'+(it.cost||0)+'" title="Cost per unit">'
       + '<input disabled value="'+gbp(it.qty*it.price)+'">'
       + removeBtn;
     var controls=row.querySelectorAll('input,button');
-    var d=controls[0], q=controls[1], p=controls[2], rm=controls[4];
+    var d=controls[0], q=controls[1], p=controls[2], c=controls[3], outs=controls[4], rm=controls[5];
     d.addEventListener('input', function(e){ it.desc=e.target.value; });
     q.addEventListener('input', function(e){ it.qty=Number(e.target.value||0); updateTotals(); });
     p.addEventListener('input', function(e){ it.price=Number(e.target.value||0); updateTotals(); });
+    c.addEventListener('input', function(e){ it.cost=Number(e.target.value||0); updateTotals(); });
     rm.addEventListener('click', function(){ 
       lastRemovedItem = {item: JSON.parse(JSON.stringify(it)), index: i};
       items.splice(i,1); 
@@ -1169,8 +1187,8 @@ function render(){
 }
 
 function updateTotals(){
-  var sub=0;
-  items.forEach(function(it){ sub+=it.qty*it.price; });
+  var sub=0, costSum=0;
+  items.forEach(function(it){ sub+=it.qty*it.price; costSum += (Number(it.cost||0) * Number(it.qty||0)); });
   subtotal.textContent=gbp(sub);
   var rate = (vatEnabled && vatEnabled.checked) ? Number(vatRate.value||0) : 0;
   var vat = sub * (rate/100);
@@ -1183,7 +1201,7 @@ function updateTotals(){
   if(stickyTotal) stickyTotal.textContent = gbp(sub + vat);
   
   Array.prototype.forEach.call(list.querySelectorAll('.row'), function(row, idx){
-    var outs=row.querySelectorAll('input')[3];
+    var outs=row.querySelectorAll('input')[4];
     outs.value=gbp(items[idx].qty*items[idx].price);
   });
 }
@@ -1198,25 +1216,28 @@ function onTogglePaid(){
 
 // Ledger helpers
 function currentInvoiceRecord(){
-  var sub=0, discounts=0; var sales=0, serviceSum=0;
+  var sub=0, discounts=0, sales=0, serviceSum=0, costSum=0;
   items.forEach(function(it){
-    var val=it.qty*it.price; sub+=val; if(it.isDiscount) discounts+=val;
-    else {
-      if(it.category==='sales') sales+=val; else serviceSum+=val;
-    }
+    var val=it.qty*it.price; sub+=val; if(it.isDiscount) discounts+=val; else { if(it.category==='sales') sales+=val; else serviceSum+=val; }
+    costSum += (Number(it.cost||0) * Number(it.qty||0));
   });
   var rate=(vatEnabled && vatEnabled.checked)? Number(vatRate.value||0):0;
   var vat=sub*(rate/100);
   var isPaid = markPaid && markPaid.checked;
   return {
     date: invDate.value,
+    dueDate: dueDate.value || '',
     invoice: invNo.value,
     customer: clientName.value || '',
+    contact: (clientContact && clientContact.value) || '',
+    device: (device && device.value) || '',
     sales: Number(sales.toFixed(2)),
     service: Number(serviceSum.toFixed(2)),
     discounts: Number(discounts.toFixed(2)),
     vat: Number(vat.toFixed(2)),
     total: Number((sub+vat).toFixed(2)),
+    cost: Number(costSum.toFixed(2)),
+    profit: Number((sub - Math.abs(discounts) - costSum).toFixed(2)),
     paid: !!isPaid,
     status: jobStatus ? jobStatus.value : 'received'
   };
@@ -1242,36 +1263,85 @@ function populateLedger(){
   var ledger=JSON.parse(localStorage.getItem(LEDGER_KEY)||'[]');
   var start=ledgerStart.value? new Date(ledgerStart.value):null;
   var end=ledgerEnd.value? new Date(ledgerEnd.value):null;
+  var paidFilter=(document.getElementById('filterPaid')||{}).value||'all';
+  var customerFilter=(document.getElementById('filterCustomer')||{}).value||'';
+  var deviceFilter=(document.getElementById('filterDevice')||{}).value||'';
   var filtered=ledger.filter(function(r){
     if(start && new Date(r.date) < start) return false;
     if(end && new Date(r.date) > end) return false;
+    if(paidFilter==='paid' && !r.paid) return false;
+    if(paidFilter==='unpaid' && r.paid) return false;
+    if(customerFilter && !(r.customer||'').toLowerCase().includes(customerFilter.toLowerCase())) return false;
+    if(deviceFilter && !(r.device||'').toLowerCase().includes(deviceFilter.toLowerCase())) return false;
     return true;
   });
   ledgerTable.innerHTML='';
-  var totals={sales:0, service:0, discounts:0, vat:0, total:0};
+  var totals={sales:0, service:0, discounts:0, vat:0, total:0, cost:0, profit:0, paidAmt:0, unpaidAmt:0, paidCount:0, unpaidCount:0};
   filtered.forEach(function(r){
-    totals.sales+=r.sales; totals.service+=r.service; totals.discounts+=r.discounts; totals.vat+=r.vat; totals.total+=r.total;
+    totals.sales+=r.sales||0; totals.service+=r.service||0; totals.discounts+=r.discounts||0; totals.vat+=r.vat||0; totals.total+=r.total||0; totals.cost+=(r.cost||0); totals.profit+=(r.profit||((r.sales+r.service)-(Math.abs(r.discounts||0))));
+    if(r.paid){ totals.paidAmt+=r.total||0; totals.paidCount++; } else { totals.unpaidAmt+=r.total||0; totals.unpaidCount++; }
     var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+escapeHtml(r.date)+'</td>'+
-      '<td>'+escapeHtml(r.invoice)+'</td>'+
-      '<td>'+escapeHtml(r.customer)+'</td>'+
-      '<td>'+gbp(r.sales)+'</td>'+
-      '<td>'+gbp(r.service)+'</td>'+
-      '<td>'+gbp(r.discounts)+'</td>'+
-      '<td>'+gbp(r.vat)+'</td>'+
-      '<td>'+gbp(r.total)+' '+(r.paid?'✅':'❌')+'</td>';
+    var remind='';
+    if(!r.paid && r.contact && r.contact.indexOf('@')>0){
+      var subject=encodeURIComponent('Payment reminder for invoice '+(r.invoice||''));
+      var body=encodeURIComponent('Dear '+(r.customer||'')+"%0D%0A%0D%0AThis is a friendly reminder that invoice "+(r.invoice||'')+" dated "+(r.date||'')+" remains outstanding. Amount due: "+gbp(r.total||0)+".%0D%0A%0D%0AThank you,%0D%0ABTLTech Ltd");
+      remind='<a href="mailto:'+r.contact+'?subject='+subject+'&body='+body+'">Remind</a>';
+    }
+    tr.innerHTML='<td>'+escapeHtml(r.date||'')+'</td>'+
+      '<td>'+escapeHtml(r.invoice||'')+'</td>'+
+      '<td>'+escapeHtml(r.customer||'')+'</td>'+
+      '<td>'+gbp(r.sales||0)+'</td>'+
+      '<td>'+gbp(r.service||0)+'</td>'+
+      '<td>'+gbp(r.discounts||0)+'</td>'+
+      '<td>'+gbp(r.vat||0)+'</td>'+
+      '<td>'+gbp(r.total||0)+' '+(r.paid?'✅':'❌')+'</td>'+
+      '<td>'+(remind||'')+'</td>';
     ledgerTable.appendChild(tr);
   });
+  var net=totals.total - totals.vat;
+  var marginBase=(totals.sales+totals.service - Math.abs(totals.discounts));
+  var marginPct = marginBase>0 ? ((totals.profit / marginBase)*100) : 0;
+  var box1 = totals.vat; // VAT due on sales
+  var box6 = net; // value of supplies excluding VAT
+  // Aging buckets for unpaid
+  var today=new Date(); var a0=0,a30=0,a60=0,a90=0;
+  filtered.forEach(function(r){ if(r.paid) return; var dd=r.dueDate? new Date(r.dueDate):null; if(!dd) return; var days=Math.floor((today - dd)/(1000*60*60*24)); if(days<=0) a0++; else if(days<=30) a30++; else if(days<=60) a60++; else a90++; });
   ledgerTotals.innerHTML=''
-    +'<div><strong>Sales:</strong> '+gbp(totals.sales)+'</div>'
-    +'<div><strong>Service:</strong> '+gbp(totals.service)+'</div>'
-    +'<div><strong>Discounts:</strong> '+gbp(totals.discounts)+'</div>'
+    +'<div><strong>Revenue:</strong> '+gbp(totals.total)+'</div>'
     +'<div><strong>VAT:</strong> '+gbp(totals.vat)+'</div>'
-    +'<div><strong>Total:</strong> '+gbp(totals.total)+'</div>';
+    +'<div><strong>Discounts:</strong> '+gbp(totals.discounts)+'</div>'
+    +'<div><strong>Paid:</strong> '+gbp(totals.paidAmt)+' ('+totals.paidCount+')</div>'
+    +'<div><strong>Unpaid:</strong> '+gbp(totals.unpaidAmt)+' ('+totals.unpaidCount+')</div>';
+  document.getElementById('ledgerKpis').innerHTML='
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+      <div class="box"><div><strong>Cost</strong></div><div>'+gbp(totals.cost)+'</div></div>
+      <div class="box"><div><strong>Profit</strong></div><div>'+gbp(totals.profit)+'</div></div>
+      <div class="box"><div><strong>Margin%</strong></div><div>'+marginPct.toFixed(1)+'%</div></div>
+      <div class="box"><div><strong>VAT Box 1 / Box 6</strong></div><div>'+gbp(box1)+' / '+gbp(box6)+'</div></div>
+    </div>
+    <div style="margin-top:8px"><strong>Aging (unpaid):</strong> 0d:'+a0+' · 1–30:'+a30+' · 31–60:'+a60+' · 61–90+:'+a90+'</div>';
+  // Trends
+  var byMonth={}; var salesVs={sales:0,service:0};
+  filtered.forEach(function(r){ var m=(r.date||'').slice(0,7); if(!byMonth[m]) byMonth[m]=0; byMonth[m]+= (r.total||0); salesVs.sales += (r.sales||0); salesVs.service += (r.service||0); });
+  var months=Object.keys(byMonth).sort(); var max=0; months.forEach(function(m){ if(byMonth[m]>max) max=byMonth[m]; });
+  var bars=months.map(function(m){ var w=max? Math.max(2, Math.round((byMonth[m]/max)*100)) : 0; return '<div style="display:flex;align-items:center;gap:8px;"><div style="width:60px">'+m+'</div><div style="background:#dbeafe;height:10px;width:'+w+'%"></div><div>'+gbp(byMonth[m])+'</div></div>'; }).join('');
+  var svcTotal = salesVs.sales + salesVs.service; var sw = svcTotal? Math.round((salesVs.sales/svcTotal)*100):0; var svw=100-sw;
+  document.getElementById('ledgerCharts').innerHTML='
+    <div><strong>Monthly revenue</strong></div>
+    <div style="display:flex;flex-direction:column;gap:4px;margin:6px 0;">'+bars+'</div>
+    <div style="margin-top:8px"><strong>Sales vs Service</strong></div>
+    <div style="display:flex;height:12px;background:#eef2ff;border-radius:6px;overflow:hidden;margin:6px 0;">
+      <div title="Sales" style="width:'+sw+'%;background:#60a5fa"></div>
+      <div title="Service" style="width:'+svw+'%;background:#34d399"></div>
+    </div>
+    <div style="font-size:12px;color:#64748b">Sales '+gbp(salesVs.sales)+' · Service '+gbp(salesVs.service)+'</div>';
 }
 
 ledgerStart && ledgerStart.addEventListener('change', populateLedger);
 ledgerEnd && ledgerEnd.addEventListener('change', populateLedger);
+document.getElementById('filterPaid') && document.getElementById('filterPaid').addEventListener('change', populateLedger);
+document.getElementById('filterCustomer') && document.getElementById('filterCustomer').addEventListener('input', populateLedger);
+document.getElementById('filterDevice') && document.getElementById('filterDevice').addEventListener('input', populateLedger);
 
 function exportCSV(){
   var ledger=JSON.parse(localStorage.getItem(LEDGER_KEY)||'[]');
@@ -1586,6 +1656,36 @@ function undoRemove(){
     showToast('Item restored!');
   }
 }
+
+function exportJSON(){
+  var data={ ledger: JSON.parse(localStorage.getItem(LEDGER_KEY)||'[]'), customers: JSON.parse(localStorage.getItem('btl_customers')||'[]') };
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a'); a.href=url; a.download='btltech-backup.json'; a.click(); URL.revokeObjectURL(url);
+}
+function importJSONFile(file){
+  var reader=new FileReader();
+  reader.onload=function(){
+    try{ var data=JSON.parse(reader.result||'{}');
+      if(Array.isArray(data.ledger)) localStorage.setItem(LEDGER_KEY, JSON.stringify(data.ledger));
+      if(Array.isArray(data.customers)) localStorage.setItem('btl_customers', JSON.stringify(data.customers));
+      showToast('Data restored'); populateLedger();
+    }catch(e){ showToast('Invalid JSON'); }
+  };
+  reader.readAsText(file);
+}
+
+document.getElementById('exportJson') && document.getElementById('exportJson').addEventListener('click', exportJSON);
+document.getElementById('importJsonBtn') && document.getElementById('importJsonBtn').addEventListener('click', function(){ var f=document.getElementById('importJson'); f && f.click(); });
+document.getElementById('importJson') && document.getElementById('importJson').addEventListener('change', function(e){ var f=e.target.files && e.target.files[0]; if(f) importJSONFile(f); });
+
+document.getElementById('resetData') && document.getElementById('resetData').addEventListener('click', function(){
+  if(confirm('Reset ledger data? This cannot be undone.')){
+    localStorage.removeItem(LEDGER_KEY);
+    if(confirm('Also remove saved customers?')){ localStorage.removeItem('btl_customers'); }
+    showToast('Data reset'); populateLedger();
+  }
+});
 </script>
 </body>
 </html>
