@@ -331,6 +331,7 @@
       
       /* Ensure totals always show */
       .totals.no-print{ display:grid !important; }
+      .login-screen{ display:none !important; }
     }
     
     /* Mobile Responsive Design */
@@ -447,9 +448,30 @@
       .totals { font-size: 12px; }
       input, select, textarea { font-size: 16px; padding: 6px; }
     }
+    
+    /* Login screen styles */
+    .login-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(15,23,42,.85), rgba(15,23,42,.75));z-index:2000;padding:16px}
+    .login-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);width:100%;max-width:360px;padding:20px;text-align:center}
+    .login-logo{height:72px;width:auto;object-fit:contain;margin-bottom:12px}
+    .login-card h2{margin:0 0 8px 0;font-size:18px;color:#0f172a}
+    .login-card p{margin:0 0 12px 0;color:#64748b;font-size:12px}
+    .login-card input{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:16px;margin:8px 0}
+    .login-card button{width:100%;padding:10px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}
+    .login-card button:hover{background:#1e4ed8}
+    .login-error{display:none;color:#ef4444;font-size:12px;margin-top:8px}
   </style>
 </head>
 <body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <img src="logo.jpeg" alt="BTLTech logo" class="login-logo" />
+      <h2>Enter Access Code</h2>
+      <p>Authorised use only</p>
+      <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" />
+      <button id="loginSubmit">Enter</button>
+      <div id="loginError" class="login-error">Incorrect password</div>
+    </div>
+  </div>
   <div class="wrap body-with-sticky">
     <div class="page">
     <div class="card">
@@ -650,6 +672,36 @@
 
 <script>
 "use strict";
+
+// Auth (password gate)
+const ACCESS_CODE = 'BTL2024';
+(function authInit(){
+  var loginScreen=document.getElementById('loginScreen');
+  var pwd=document.getElementById('loginPassword');
+  var submit=document.getElementById('loginSubmit');
+  var error=document.getElementById('loginError');
+
+  function tryLogin(){
+    if((pwd && (pwd.value||'').trim()) === ACCESS_CODE){
+      localStorage.setItem('btl_logged_in','1');
+      if(loginScreen) loginScreen.style.display='none';
+    } else {
+      if(error){ error.textContent='Incorrect password'; error.style.display='block'; }
+      if(pwd){ pwd.focus(); pwd.select && pwd.select(); }
+    }
+  }
+
+  if(localStorage.getItem('btl_logged_in')==='1'){
+    if(loginScreen) loginScreen.style.display='none';
+  } else {
+    if(loginScreen) loginScreen.style.display='flex';
+  }
+
+  submit && submit.addEventListener('click', function(e){ e.preventDefault(); tryLogin(); });
+  pwd && pwd.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); tryLogin(); }});
+  window.logout = function(){ localStorage.removeItem('btl_logged_in'); if(loginScreen){ loginScreen.style.display='flex'; } };
+})();
+
 // Helpers
 function gbp(n){ return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n||0)); }
 function id(x){ return document.getElementById(x); }
