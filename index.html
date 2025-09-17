@@ -46,15 +46,6 @@
     .watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);opacity:0.15;z-index:1;pointer-events:none;max-width:300px;max-height:300px;}
     .paid-stamp{position:absolute; top:12px; right:12px; color:#15803d; border:2px solid #15803d; padding:6px 10px; border-radius:6px; font-weight:800; font-size:18px; transform:rotate(-10deg); background:rgba(240,253,244,.95); z-index:2; display:none;}
     .is-paid .paid-stamp{display:block;}
-    .qr-container{width:140px;height:140px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:6px}
-    .payment-box .small{font-size:11px;color:#64748b;margin-top:6px}
-    .signature-box{margin-top:8px}
-    .status-pill{display:inline-block;margin-top:6px;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700}
-    .status-received{background:#f1f5f9;color:#0f172a;border:1px solid #cbd5e1}
-    .status-progress{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-    .status-completed{background:#ecfeff;color:#155e75;border:1px solid #a5f3fc}
-    .status-collected{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-    .signature-canvas{border:1px dashed #cbd5e1; border-radius:6px; background:#fff;}
     .visually-hidden{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
     /* Compact receipt (A5) */
     .receipt{background:#fff;color:#0f172a;padding:8mm;width:100%;box-sizing:border-box}
@@ -66,8 +57,6 @@
     .text-right{text-align:right}
     .receipt-paid{color:#15803d;border:2px solid #15803d;padding:4px 8px;border-radius:6px;font-weight:800;transform:rotate(-6deg)}
     .receipt-small{font-size:11px;color:#64748b}
-    .receipt-qr{display:flex;align-items:center;justify-content:center;width:100px;height:100px;border:1px solid var(--line);border-radius:6px;background:#fff;margin-left:auto}
-    .signature-img{width:180px;border:1px dashed #cbd5e1;border-radius:6px;background:#fff}
     .sticky-totals{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:2px solid var(--primary);padding:16px;box-shadow:0 -4px 20px rgba(0,0,0,0.1);z-index:100;}
     .sticky-totals .wrap{max-width:800px;margin:0 auto;padding:0 8px;}
     .sticky-totals .totals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:0;}
@@ -448,31 +437,14 @@
         <div class="box"><h4>Total</h4><div id="grand">£0.00</div></div>
       </div>
 
-        <div class="grid-3">
-          <div class="box payment-box">
-            <h4>Payment</h4>
-            <input id="paymentLink" placeholder="Optional payment link (Stripe/PayPal/Open Banking)">
-            <div class="small">If provided, a QR code will be added to the invoice.</div>
-          </div>
-          <div class="box">
-            <h4>Status</h4>
-            <label for="jobStatus" class="visually-hidden">Job status</label>
-            <select id="jobStatus" aria-label="Job status">
+        <div class="grid-2">
+          <div><label for="jobStatus">Status</label><select id="jobStatus" aria-label="Job status">
               <option value="received">Received</option>
               <option value="progress">In progress</option>
               <option value="completed">Completed</option>
               <option value="collected">Collected</option>
-            </select>
-            <div id="statusPill" class="status-pill status-received">Received</div>
-          </div>
-          <div class="box">
-            <h4>Customer Signature</h4>
-            <button class="btn btn-ghost" id="openSignature">Capture signature</button>
-            <div class="signature-box">
-              <canvas id="signatureCanvas" width="260" height="90" class="signature-canvas"></canvas>
-              <div class="small">Appears on print/PDF once captured.</div>
-            </div>
-          </div>
+            </select></div>
+          <div></div>
         </div>
         
         <div class="discount-row">
@@ -675,9 +647,7 @@ var ledgerOverlay=id('ledgerOverlay'), closeLedger=id('closeLedger');
 var ledgerStart=id('ledgerStart'), ledgerEnd=id('ledgerEnd');
 var ledgerTable=id('ledgerTable'), ledgerTotals=id('ledgerTotals');
 var markPaid=id('markPaid'), paidStamp=id('paidStamp');
-var paymentLink=id('paymentLink');
-var jobStatus=id('jobStatus'), statusPill=id('statusPill');
-var signatureCanvas=id('signatureCanvas'), openSignature=id('openSignature');
+var jobStatus=id('jobStatus');
 
 // Data
 var DEV_TYPES=['Phone','Tablet','Laptop','Desktop','Console','Watch','Other'];
@@ -1064,9 +1034,7 @@ var LEDGER_KEY='btl_ledger_v1';
 
   rebindMainListeners();
   markPaid.addEventListener('change', onTogglePaid);
-  paymentLink.addEventListener('blur', renderQR);
   jobStatus.addEventListener('change', onStatusChange);
-  setupSignature();
 })();
 
 // Actions
@@ -1292,44 +1260,10 @@ id('exportCsv') && id('exportCsv').addEventListener('click', exportCSV);
 
 // Status
 function onStatusChange(){
-  var v=jobStatus.value;
-  statusPill.textContent = (v==='received'?'Received': v==='progress'?'In progress': v==='completed'?'Completed':'Collected');
-  statusPill.className='status-pill '+(v==='received'?'status-received': v==='progress'?'status-progress': v==='completed'?'status-completed':'status-collected');
   saveToLedger('silent');
 }
 
-// QR generation (simple API-based fallback)
-function renderQR(){
-  var url=(paymentLink && paymentLink.value || '').trim();
-  var container=document.getElementById('paymentQR');
-  if(!container){
-    container=document.createElement('div');
-    container.id='paymentQR';
-    container.className='qr-container';
-    var paymentBox=document.querySelector('.payment-box');
-    if(paymentBox) paymentBox.appendChild(container);
-  }
-  container.innerHTML='';
-  if(!url){ return; }
-  var img=new Image();
-  img.alt='Payment QR';
-  img.style.maxWidth='100%'; img.style.maxHeight='100%';
-  img.crossOrigin='anonymous';
-  img.src='https://api.qrserver.com/v1/create-qr-code/?size=280x280&data='+encodeURIComponent(url);
-  container.appendChild(img);
-}
 
-// Signature capture (basic drawing on canvas)
-function setupSignature(){
-  if(!signatureCanvas) return;
-  var ctx=signatureCanvas.getContext('2d');
-  ctx.lineWidth=2; ctx.lineJoin='round'; ctx.lineCap='round'; ctx.strokeStyle='#111827';
-  var drawing=false, last=[0,0];
-  function pos(e){ var r=signatureCanvas.getBoundingClientRect(); return [ (e.clientX - r.left), (e.clientY - r.top) ]; }
-  signatureCanvas.addEventListener('mousedown', function(e){ drawing=true; last=pos(e); });
-  window.addEventListener('mouseup', function(){ drawing=false; saveToLedger('silent'); });
-  signatureCanvas.addEventListener('mousemove', function(e){ if(!drawing) return; var p=pos(e); ctx.beginPath(); ctx.moveTo(last[0],last[1]); ctx.lineTo(p[0],p[1]); ctx.stroke(); last=p; });
-}
 
 function generateReceipt(){
   // Build a simple A5 receipt with embossed logos
