@@ -1330,85 +1330,104 @@ function generateReceipt(){
   var vat=sub*(rate/100);
   var grandTotal = sub + vat - discountTotal;
   
+  // Safe access to form elements
   var deviceInfo = '';
-  if(devType.value || devMake.value || devModel.value) {
-    deviceInfo = (devType.value || '') + ' ' + (devMake.value || '') + ' ' + (devModel.value || '');
+  if(devType && devMake && devModel) {
+    if(devType.value || devMake.value || devModel.value) {
+      deviceInfo = (devType.value || '') + ' ' + (devMake.value || '') + ' ' + (devModel.value || '');
+      deviceInfo = deviceInfo.trim();
+    }
   }
   
-  // Simple, plain layout
-  var html = '<div style="position:relative;z-index:2;background:rgba(255,255,255,0.9);padding:8px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">'
-   
-   // Simple header
-   + '<div style="text-align:center;margin-bottom:12px;">'
-   + '  <h2 style="margin:0;font-size:16px;color:#000;font-weight:bold;">BTLTech Ltd</h2>'
-   + '  <h3 style="margin:4px 0;font-size:12px;color:#000;">DROP-OFF RECEIPT</h3>'
-   + (isPaid?'<div style="font-weight:bold;color:#008000;margin-top:4px;font-size:11px;">✓ PAID IN FULL</div>':'')
-   + '</div>'
-   
-   // Basic info
-   + '<div style="margin-bottom:12px;line-height:1.4;font-size:11px;">'
-   + '  <div><strong>Invoice #:</strong> '+escapeHtml(invNo.value)+'</div>'
-   + '  <div><strong>Date:</strong> '+escapeHtml(invDate.value)+'</div>'
-   + '  <div><strong>Customer:</strong> '+escapeHtml(clientName.value||'N/A')+'</div>'
-   + (clientContact.value ? '<div><strong>Contact:</strong> '+escapeHtml(clientContact.value)+'</div>' : '')
-   + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo.length > 30 ? deviceInfo.substring(0,30)+'...' : deviceInfo)+'</div>' : '')
-   + (remark && remark.value ? '<div><strong>Notes:</strong> '+escapeHtml(remark.value.length > 35 ? remark.value.substring(0,35)+'...' : remark.value)+'</div>' : '')
-   + '</div>'
-   
-   // Simple services list
-   + (items.length>0 ? ('<div style="margin-bottom:12px;">'
-   + '<div style="font-weight:bold;margin-bottom:4px;font-size:11px;">Services:</div>'
-   + '<table style="width:100%;border-collapse:collapse;font-size:10px;">'
-   + '  <tr><th style="text-align:left;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Description</th><th style="text-align:center;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Qty</th><th style="text-align:right;border-bottom:1px solid #ccc;padding:2px;font-size:9px;">Amount</th></tr>'
-   + rowsHtml
-   + '</table></div>') : '')
-   
-   // Simple totals
-   + '<div style="margin-bottom:12px;text-align:right;font-size:10px;">'
-   + '  <div>Subtotal: '+gbp(sub)+'</div>'
-   + (discountTotal>0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '')
-   + (rate>0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '')
-   + '  <div style="border-top:1px solid #000;padding-top:3px;margin-top:3px;font-weight:bold;font-size:11px;">TOTAL: '+gbp(grandTotal)+'</div>'
-   + '</div>'
-   
-   // Simple payment info
-   + '<div style="margin-bottom:10px;font-size:9px;">'
-   + '  <div style="font-weight:bold;margin-bottom:2px;">Payment Methods:</div>'
-   + '  <div>Bank Transfer: Sort 60-83-71, Account 56169159</div>'
-   + '  <div>Cash on Collection, Card Payment</div>'
-   + '</div>'
-   
-   // Simple terms
-   + '<div style="margin-bottom:10px;font-size:9px;">'
-   + '  <div style="font-weight:bold;margin-bottom:2px;">Terms:</div>'
-   + '  <div>Payment due immediately. 30-day warranty excludes damage.</div>'
-   + '</div>'
-   
-   // Simple footer
-   + '<div style="text-align:center;border-top:1px solid #ccc;padding-top:6px;font-size:9px;margin-top:auto;">'
-   + '  <div><strong>BTLTech Ltd</strong></div>'
-   + '  <div>info@btltech.co.uk • 020 8746 0193</div>'
-   + '</div>'
-   
-   + '</div>';
-   
-  var contentDiv = document.createElement('div');
-  contentDiv.style.cssText = 'position:relative;z-index:2;height:100%;';
-  contentDiv.innerHTML = html;
-  receipt.appendChild(contentDiv);
+  var remarkText = '';
+  var remarkEl = id('remark');
+  if(remarkEl && remarkEl.value) {
+    remarkText = remarkEl.value.length > 35 ? remarkEl.value.substring(0,35)+'...' : remarkEl.value;
+  }
+  
+  var invoiceNum = invNo && invNo.value ? invNo.value : 'N/A';
+  var invoiceDate = invDate && invDate.value ? invDate.value : 'N/A';
+  var customerName = clientName && clientName.value ? clientName.value : 'N/A';
+  var contactInfo = clientContact && clientContact.value ? clientContact.value : '';
+  
+  // Simple content structure
+  receipt.innerHTML = ''
+    // Logo watermarks (already added above)
+    
+    // Content container
+    + '<div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;background:rgba(255,255,255,0.9);padding:8px;">'
+      
+      // Header
+      + '<div style="text-align:center;margin-bottom:15px;">'
+        + '<h2 style="margin:0;font-size:18px;color:#000;font-weight:bold;">BTLTech Ltd</h2>'
+        + '<h3 style="margin:4px 0;font-size:14px;color:#000;">DROP-OFF RECEIPT</h3>'
+        + (isPaid ? '<div style="font-weight:bold;color:#008000;margin-top:4px;font-size:12px;">✓ PAID IN FULL</div>' : '')
+      + '</div>'
+      
+      // Customer and device info
+      + '<div style="margin-bottom:15px;line-height:1.5;font-size:12px;">'
+        + '<div><strong>Invoice #:</strong> '+escapeHtml(invoiceNum)+'</div>'
+        + '<div><strong>Date:</strong> '+escapeHtml(invoiceDate)+'</div>'
+        + '<div><strong>Customer:</strong> '+escapeHtml(customerName)+'</div>'
+        + (contactInfo ? '<div><strong>Contact:</strong> '+escapeHtml(contactInfo)+'</div>' : '')
+        + (deviceInfo ? '<div><strong>Device:</strong> '+escapeHtml(deviceInfo.length > 30 ? deviceInfo.substring(0,30)+'...' : deviceInfo)+'</div>' : '')
+        + (remarkText ? '<div><strong>Notes:</strong> '+escapeHtml(remarkText)+'</div>' : '')
+      + '</div>'
+      
+      // Services table (if items exist)
+      + (items.length > 0 ? 
+        '<div style="margin-bottom:15px;">'
+          + '<div style="font-weight:bold;margin-bottom:5px;font-size:12px;">Services:</div>'
+          + '<table style="width:100%;border-collapse:collapse;font-size:11px;">'
+            + '<tr><th style="text-align:left;border-bottom:1px solid #ccc;padding:3px;font-size:10px;">Description</th><th style="text-align:center;border-bottom:1px solid #ccc;padding:3px;font-size:10px;">Qty</th><th style="text-align:right;border-bottom:1px solid #ccc;padding:3px;font-size:10px;">Amount</th></tr>'
+            + rowsHtml
+          + '</table>'
+        + '</div>' 
+        : '')
+      
+      // Totals
+      + '<div style="margin-bottom:15px;text-align:right;font-size:11px;">'
+        + '<div>Subtotal: '+gbp(sub)+'</div>'
+        + (discountTotal > 0 ? '<div>Discount: -'+gbp(discountTotal)+'</div>' : '')
+        + (rate > 0 ? '<div>VAT ('+rate+'%): '+gbp(vat)+'</div>' : '')
+        + '<div style="border-top:1px solid #000;padding-top:4px;margin-top:4px;font-weight:bold;font-size:12px;">TOTAL: '+gbp(grandTotal)+'</div>'
+      + '</div>'
+      
+      // Payment info
+      + '<div style="margin-bottom:12px;font-size:10px;">'
+        + '<div style="font-weight:bold;margin-bottom:3px;">Payment Methods:</div>'
+        + '<div>Bank Transfer: Sort 60-83-71, Account 56169159</div>'
+        + '<div>Cash on Collection, Card Payment</div>'
+      + '</div>'
+      
+      // Terms
+      + '<div style="margin-bottom:12px;font-size:10px;">'
+        + '<div style="font-weight:bold;margin-bottom:3px;">Terms:</div>'
+        + '<div>Payment due immediately. 30-day warranty excludes damage.</div>'
+      + '</div>'
+      
+      // Footer (will be pushed to bottom by flex)
+      + '<div style="text-align:center;border-top:1px solid #ccc;padding-top:8px;font-size:10px;margin-top:auto;">'
+        + '<div><strong>BTLTech Ltd</strong></div>'
+        + '<div>info@btltech.co.uk • 020 8746 0193</div>'
+      + '</div>'
+      
+    + '</div>';
   
   document.body.appendChild(receipt);
   
   var options={
     margin:[5,5,5,5],
-    filename:`BTLTech-DropOffReceipt-${invNo.value||'receipt'}.pdf`,
+    filename:`BTLTech-DropOffReceipt-${invoiceNum||'receipt'}.pdf`,
     image:{type:'jpeg',quality:0.98},
     html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',scrollY:0,width:420,height:595,letterRendering:true},
     jsPDF:{unit:'mm',format:'a5',orientation:'portrait',putOnlyUsedFonts:true},
     pagebreak:{mode:['css','legacy'],avoid:['table','div','.no-break']}
   };
   
-  html2pdf().from(receipt).set(options).save().finally(function(){ document.body.removeChild(receipt); });
+  html2pdf().from(receipt).set(options).save().finally(function(){ 
+    if(receipt.parentNode) document.body.removeChild(receipt); 
+  });
 }
 
 // Auto-save customer data
