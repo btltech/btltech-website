@@ -1419,14 +1419,16 @@ function generateReceipt(){
     margin:[5,5,5,5],
     filename:`BTLTech-DropOffReceipt-${invoiceNum||'receipt'}.pdf`,
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',scrollY:0,letterRendering:true},
+    html2canvas:{scale:2,useCORS:false,allowTaint:true,backgroundColor:'#ffffff',letterRendering:true},
     jsPDF:{unit:'mm',format:'a5',orientation:'portrait',putOnlyUsedFonts:true},
     pagebreak:{mode:['css','legacy'],avoid:['table','div','.no-break']}
   };
   
-  html2pdf().from(receipt).set(options).save().finally(function(){ 
-    if(receipt.parentNode) document.body.removeChild(receipt); 
-  });
+  setTimeout(function(){
+    html2pdf().from(receipt).set(options).save().finally(function(){ 
+      if(receipt.parentNode) document.body.removeChild(receipt); 
+    });
+  }, 100);
 }
 
 // Auto-save customer data
@@ -1467,12 +1469,9 @@ function generatePDF() {
   const pageEl = element;
   const prevMinHeight = pageEl && pageEl.style.minHeight;
   const prevMaxHeight = pageEl && pageEl.style.maxHeight;
-  if(pageEl){ 
-    pageEl.style.minHeight = '';
-    pageEl.style.maxHeight = '';
-    pageEl.style.overflow = '';
-  }
-
+  const prevOverflow = pageEl && pageEl.style.overflow;
+  // Removed forced height and overflow setting to allow pagination
+  // ... existing code ...
   const cleanup = () => {
     if (watermark) watermark.style.display = 'none';
     if (stickyTotals) stickyTotals.style.display = 'block';
@@ -1481,7 +1480,7 @@ function generatePDF() {
     if(pageEl){ 
       pageEl.style.minHeight = prevMinHeight || ''; 
       pageEl.style.maxHeight = prevMaxHeight || '';
-      pageEl.style.overflow = '';
+      pageEl.style.overflow = prevOverflow || '';
     }
   };
 
