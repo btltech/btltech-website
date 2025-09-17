@@ -947,8 +947,8 @@ var LEDGER_KEY='btl_ledger_v1';
   
   // Hide dropdowns when clicking outside
   document.addEventListener('click', function(e) {
-    if(!devModel.parentNode.contains(e.target)) modelDropdown.style.display = 'none';
-    if(!clientName.parentNode.contains(e.target)) customerDropdown.style.display = 'none';
+    if(devModel && devModel.parentNode && !devModel.parentNode.contains(e.target)) modelDropdown.style.display = 'none';
+    if(clientName && clientName.parentNode && !clientName.parentNode.contains(e.target)) customerDropdown.style.display = 'none';
   });
 
   service.addEventListener('change', function(){
@@ -1397,21 +1397,22 @@ function generateReceipt(){
   receipt.appendChild(content);
   document.body.appendChild(receipt);
   
-  // Generate PDF - full A5 page with no margins
+  // Generate PDF - full A5 page with minimal margins
   var options = {
-    margin: 0,
+    margin: [2, 2, 2, 2],
     filename: `BTLTech-Receipt-${invoiceNum||'receipt'}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 1.5, useCORS: false, allowTaint: true, backgroundColor: '#ffffff' },
+    html2canvas: { scale: 2, useCORS: false, allowTaint: true, backgroundColor: '#ffffff' },
     jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' },
-    pagebreak: { mode: 'css', avoid: '.no-break' }
+    pagebreak: { mode: 'css' }
   };
   
+  // Allow more time for rendering
   setTimeout(function(){
     html2pdf().from(receipt).set(options).save().finally(function(){ 
       if(receipt.parentNode) document.body.removeChild(receipt); 
     });
-  }, 100);
+  }, 250);
 }
 
 // Auto-save customer data
