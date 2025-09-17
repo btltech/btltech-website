@@ -44,7 +44,6 @@
     hr{border:none;border-top:1px solid var(--line);margin:8px 0}
     .note{font-size:11px;color:var(--muted)}
     .watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);opacity:0.15;z-index:1;pointer-events:none;max-width:300px;max-height:300px;}
-    .watermark-hidden{display:none;}
     .paid-stamp{position:absolute; top:12px; right:12px; color:#15803d; border:2px solid #15803d; padding:6px 10px; border-radius:6px; font-weight:800; font-size:18px; transform:rotate(-10deg); background:rgba(240,253,244,.95); z-index:2; display:none;}
     .is-paid .paid-stamp{display:block;}
     .qr-container{width:140px;height:140px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:6px}
@@ -286,7 +285,6 @@
       input, select, textarea { font-size: 16px; padding: 6px; }
     }
     
-    /* Export helper removed to revert to prior state */
     @media print{
       @page { size: A4; margin: 6mm; }
       html,body{ height:100%; margin:0; padding:0; }
@@ -334,121 +332,6 @@
       .login-screen{ display:none !important; }
     }
     
-    /* Mobile Responsive Design */
-    @media screen and (max-width: 768px) {
-      .wrap { max-width: 100%; margin: 0; padding: 4px; }
-      .page { 
-        width: 100%; 
-        min-height: auto; 
-        margin: 0; 
-        padding: 8px; 
-        box-shadow: none;
-        border-radius: 0;
-      }
-      
-      /* Mobile header */
-      .top { margin-bottom: 12px; }
-      .brand { flex-direction: column; align-items: center; text-align: center; }
-      .brand-title { font-size: 18px; margin-bottom: 4px; }
-      .brand img, #logoPreview { height: 40px !important; }
-      
-      /* Mobile form elements */
-      input, select, textarea { 
-        font-size: 16px; /* Prevent zoom on iOS */
-        padding: 8px; 
-        margin: 2px 0; 
-        width: 100%;
-        max-width: 100%;
-      }
-      label { font-size: 12px; margin: 4px 0 2px; }
-      
-      /* Mobile grid layouts */
-      .grid-2 { grid-template-columns: 1fr; gap: 8px; }
-      .grid-3 { grid-template-columns: 1fr; gap: 8px; }
-      .row { 
-        grid-template-columns: 1fr; 
-        gap: 4px; 
-        margin-top: 6px;
-        font-size: 12px;
-      }
-      .discount-row { 
-        grid-template-columns: 1fr; 
-        gap: 4px; 
-        margin-top: 6px;
-        font-size: 12px;
-      }
-      
-      /* Mobile tables */
-      .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      table { min-width: 500px; font-size: 12px; }
-      th, td { padding: 4px 2px; }
-      
-      /* Mobile buttons */
-      .toolbar { 
-        display: flex; 
-        flex-wrap: wrap; 
-        gap: 8px; 
-        margin-bottom: 12px;
-        padding: 8px;
-        background: var(--panel-2);
-        border-radius: 6px;
-      }
-      .btn { 
-        flex: 1; 
-        min-width: 120px; 
-        padding: 10px 8px; 
-        font-size: 14px; 
-        border-radius: 6px;
-        touch-action: manipulation;
-      }
-      
-      /* Mobile boxes */
-      .box { 
-        padding: 8px; 
-        margin: 6px 0; 
-        border-radius: 6px;
-      }
-      .box h4 { font-size: 14px; margin: 0 0 6px 0; }
-      
-      /* Mobile totals */
-      .totals { 
-        gap: 6px; 
-        margin-top: 12px; 
-        padding: 8px;
-        font-size: 14px;
-      }
-      .sticky-totals {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--panel);
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        padding: 8px;
-        z-index: 1000;
-      }
-      .body-with-sticky { padding-bottom: 80px; }
-      
-      /* Touch-friendly interactions */
-      button, .btn, select, input[type="checkbox"] {
-        min-height: 44px;
-        min-width: 44px;
-      }
-    }
-    
-    @media screen and (max-width: 480px) {
-      .wrap { padding: 2px; }
-      .page { padding: 6px; }
-      .brand-title { font-size: 16px; }
-      .btn { min-width: 100px; font-size: 12px; padding: 8px 6px; }
-      table { font-size: 11px; }
-      .totals { font-size: 12px; }
-      input, select, textarea { font-size: 16px; padding: 6px; }
-    }
-    
     /* Login screen styles */
     .login-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(15,23,42,.85), rgba(15,23,42,.75));z-index:2000;padding:16px}
     .login-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);width:100%;max-width:360px;padding:20px;text-align:center}
@@ -475,7 +358,7 @@
   <div class="wrap body-with-sticky">
     <div class="page">
     <div class="card">
-        <img class="watermark watermark-hidden" src="logo.jpeg" alt="BTLTech watermark">
+        <img class="watermark" src="logo.jpeg" alt="BTLTech watermark" style="display:none;">
         
         
         
@@ -691,6 +574,49 @@
 
 // Auth (password gate)
 const ACCESS_CODE = 'BTL2024';
+
+function rebindMainListeners(){
+  // Ensure all main button listeners are working
+  try{
+    var addBtn=document.getElementById('add');
+    var clearBtn=document.getElementById('clear');
+    var printBtn=document.getElementById('print');
+    var pdfBtn=document.getElementById('generatePDF');
+    var receiptBtn=document.getElementById('receipt');
+    var bookBtn=document.getElementById('bookkeeping');
+    var closeBtn=document.getElementById('closeLedger');
+    
+    if(addBtn && !addBtn.hasAttribute('data-bound')){
+      addBtn.addEventListener('click', onAdd);
+      addBtn.setAttribute('data-bound', 'true');
+    }
+    if(clearBtn && !clearBtn.hasAttribute('data-bound')){
+      clearBtn.addEventListener('click', onClear);
+      clearBtn.setAttribute('data-bound', 'true');
+    }
+    if(printBtn && !printBtn.hasAttribute('data-bound')){
+      printBtn.addEventListener('click', function(){ saveToLedger('silent'); generatePDF(); });
+      printBtn.setAttribute('data-bound', 'true');
+    }
+    if(pdfBtn && !pdfBtn.hasAttribute('data-bound')){
+      pdfBtn.addEventListener('click', function(){ saveToLedger('silent'); window.print(); });
+      pdfBtn.setAttribute('data-bound', 'true');
+    }
+    if(receiptBtn && !receiptBtn.hasAttribute('data-bound')){
+      receiptBtn.addEventListener('click', generateReceipt);
+      receiptBtn.setAttribute('data-bound', 'true');
+    }
+    if(bookBtn && !bookBtn.hasAttribute('data-bound')){
+      bookBtn.addEventListener('click', openLedger);
+      bookBtn.setAttribute('data-bound', 'true');
+    }
+    if(closeBtn && !closeBtn.hasAttribute('data-bound')){
+      closeBtn.addEventListener('click', function(){ document.getElementById('ledgerOverlay').style.display='none'; });
+      closeBtn.setAttribute('data-bound', 'true');
+    }
+  }catch(e){ console.error('Button binding failed:', e); }
+}
+
 (function authInit(){
   var loginScreen=document.getElementById('loginScreen');
   var pwd=document.getElementById('loginPassword');
@@ -705,6 +631,8 @@ const ACCESS_CODE = 'BTL2024';
         // Remove from DOM to ensure it cannot block clicks
         if(loginScreen.parentNode){ loginScreen.parentNode.removeChild(loginScreen); }
       }
+      // Rebind listeners after login
+      setTimeout(rebindMainListeners, 100);
     } else {
       if(error){ error.textContent='Incorrect password'; error.style.display='block'; }
       if(pwd){ pwd.focus(); pwd.select && pwd.select(); }
@@ -713,13 +641,14 @@ const ACCESS_CODE = 'BTL2024';
 
   if(localStorage.getItem('btl_logged_in')==='1'){
     if(loginScreen){ loginScreen.style.display='none'; if(loginScreen.parentNode){ loginScreen.parentNode.removeChild(loginScreen); } }
+    setTimeout(rebindMainListeners, 50);
   } else {
     if(loginScreen) loginScreen.style.display='flex';
   }
 
   submit && submit.addEventListener('click', function(e){ e.preventDefault(); tryLogin(); });
   pwd && pwd.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); tryLogin(); }});
-  window.logout = function(){ localStorage.removeItem('btl_logged_in'); if(loginScreen){ loginScreen.style.display='flex'; } };
+  window.logout = function(){ localStorage.removeItem('btl_logged_in'); location.reload(); };
 })();
 
 // Helpers
@@ -1022,8 +951,8 @@ var LEDGER_KEY='btl_ledger_v1';
   
   // Hide dropdowns when clicking outside
   document.addEventListener('click', function(e) {
-    if(!devModel.contains(e.target)) modelDropdown.style.display = 'none';
-    if(!clientName.contains(e.target)) customerDropdown.style.display = 'none';
+    if(!devModel.parentNode.contains(e.target)) modelDropdown.style.display = 'none';
+    if(!clientName.parentNode.contains(e.target)) customerDropdown.style.display = 'none';
   });
 
   service.addEventListener('change', function(){
@@ -1130,14 +1059,8 @@ var LEDGER_KEY='btl_ledger_v1';
     }
   });
 
-  id('add').addEventListener('click', onAdd);
-  id('clear').addEventListener('click', onClear);
-  id('print').addEventListener('click', function(){ saveToLedger('silent'); generatePDF(); });
-  id('generatePDF').addEventListener('click', function(){ saveToLedger('silent'); window.print(); });
-  id('bookkeeping').addEventListener('click', openLedger);
-  id('closeLedger').addEventListener('click', function(){ ledgerOverlay.style.display='none'; });
+  rebindMainListeners();
   markPaid.addEventListener('change', onTogglePaid);
-  id('receipt').addEventListener('click', generateReceipt);
   paymentLink.addEventListener('blur', renderQR);
   jobStatus.addEventListener('change', onStatusChange);
   setupSignature();
@@ -1316,29 +1239,29 @@ function populateLedger(){
     +'<div><strong>Discounts:</strong> '+gbp(totals.discounts)+'</div>'
     +'<div><strong>Paid:</strong> '+gbp(totals.paidAmt)+' ('+totals.paidCount+')</div>'
     +'<div><strong>Unpaid:</strong> '+gbp(totals.unpaidAmt)+' ('+totals.unpaidCount+')</div>';
-  document.getElementById('ledgerKpis').innerHTML='
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
-      <div class="box"><div><strong>Cost</strong></div><div>'+gbp(totals.cost)+'</div></div>
-      <div class="box"><div><strong>Profit</strong></div><div>'+gbp(totals.profit)+'</div></div>
-      <div class="box"><div><strong>Margin%</strong></div><div>'+marginPct.toFixed(1)+'%</div></div>
-      <div class="box"><div><strong>VAT Box 1 / Box 6</strong></div><div>'+gbp(box1)+' / '+gbp(box6)+'</div></div>
-    </div>
-    <div style="margin-top:8px"><strong>Aging (unpaid):</strong> 0d:'+a0+' · 1–30:'+a30+' · 31–60:'+a60+' · 61–90+:'+a90+'</div>';
+  document.getElementById('ledgerKpis').innerHTML=''
+    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'
+    +'  <div class="box"><div><strong>Cost</strong></div><div>'+gbp(totals.cost)+'</div></div>'
+    +'  <div class="box"><div><strong>Profit</strong></div><div>'+gbp(totals.profit)+'</div></div>'
+    +'  <div class="box"><div><strong>Margin%</strong></div><div>'+marginPct.toFixed(1)+'%</div></div>'
+    +'  <div class="box"><div><strong>VAT Box 1 / Box 6</strong></div><div>'+gbp(box1)+' / '+gbp(box6)+'</div></div>'
+    +'</div>'
+    +'<div style="margin-top:8px"><strong>Aging (unpaid):</strong> 0d:'+a0+' · 1–30:'+a30+' · 31–60:'+a60+' · 61–90+:'+a90+'</div>';
   // Trends
   var byMonth={}; var salesVs={sales:0,service:0};
   filtered.forEach(function(r){ var m=(r.date||'').slice(0,7); if(!byMonth[m]) byMonth[m]=0; byMonth[m]+= (r.total||0); salesVs.sales += (r.sales||0); salesVs.service += (r.service||0); });
   var months=Object.keys(byMonth).sort(); var max=0; months.forEach(function(m){ if(byMonth[m]>max) max=byMonth[m]; });
   var bars=months.map(function(m){ var w=max? Math.max(2, Math.round((byMonth[m]/max)*100)) : 0; return '<div style="display:flex;align-items:center;gap:8px;"><div style="width:60px">'+m+'</div><div style="background:#dbeafe;height:10px;width:'+w+'%"></div><div>'+gbp(byMonth[m])+'</div></div>'; }).join('');
   var svcTotal = salesVs.sales + salesVs.service; var sw = svcTotal? Math.round((salesVs.sales/svcTotal)*100):0; var svw=100-sw;
-  document.getElementById('ledgerCharts').innerHTML='
-    <div><strong>Monthly revenue</strong></div>
-    <div style="display:flex;flex-direction:column;gap:4px;margin:6px 0;">'+bars+'</div>
-    <div style="margin-top:8px"><strong>Sales vs Service</strong></div>
-    <div style="display:flex;height:12px;background:#eef2ff;border-radius:6px;overflow:hidden;margin:6px 0;">
-      <div title="Sales" style="width:'+sw+'%;background:#60a5fa"></div>
-      <div title="Service" style="width:'+svw+'%;background:#34d399"></div>
-    </div>
-    <div style="font-size:12px;color:#64748b">Sales '+gbp(salesVs.sales)+' · Service '+gbp(salesVs.service)+'</div>';
+  document.getElementById('ledgerCharts').innerHTML=''
+    +'<div><strong>Monthly revenue</strong></div>'
+    +'<div style="display:flex;flex-direction:column;gap:4px;margin:6px 0;">'+bars+'</div>'
+    +'<div style="margin-top:8px"><strong>Sales vs Service</strong></div>'
+    +'<div style="display:flex;height:12px;background:#eef2ff;border-radius:6px;overflow:hidden;margin:6px 0;">'
+    +'  <div title="Sales" style="width:'+sw+'%;background:#60a5fa"></div>'
+    +'  <div title="Service" style="width:'+svw+'%;background:#34d399"></div>'
+    +'</div>'
+    +'<div style="font-size:12px;color:#64748b">Sales '+gbp(salesVs.sales)+' · Service '+gbp(salesVs.service)+'</div>';
 }
 
 ledgerStart && ledgerStart.addEventListener('change', populateLedger);
