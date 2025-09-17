@@ -1323,7 +1323,7 @@ function generateReceipt(){
   
   // Create receipt element - compact for single A5 page
   var receipt = document.createElement('div');
-  receipt.style.cssText = 'width:148mm;height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;position:relative;margin:0 auto;overflow:hidden;';
+  receipt.style.cssText = 'width:148mm;height:210mm;padding:8mm;font-family:Arial,sans-serif;font-size:10px;background:#fff;color:#000;box-sizing:border-box;position:absolute;top:0;left:50%;transform:translateX(-50%);overflow:hidden;';
   
   // Add background logos - fewer and smaller
   for(var i = 0; i < 4; i++) {
