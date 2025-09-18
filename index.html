@@ -312,7 +312,7 @@
       .mark-paid-section{ display:none !important; }
       
       /* Show essential elements */
-      .watermark{ display:block !important; opacity:0.06; }
+      .watermark{ display:block !important; opacity:0.08 !important; max-width:300px; max-height:300px; }
       .is-paid .paid-stamp{ display:block !important; }
       
       /* Force page fit */
@@ -323,8 +323,8 @@
       .totals.no-print{ display:grid !important; }
       .login-screen{ display:none !important; }
       
-      /* Scale down if needed */
-      .page{ transform:scale(0.95); transform-origin:top left; }
+      /* Enforce static A4 width and natural pagination (no transform scaling) */
+      .page{ width:210mm !important; min-height:auto !important; transform:none !important; transform-origin:initial !important; overflow:visible !important; }
     }
     
     /* Login screen styles */
@@ -509,8 +509,8 @@
         </div>
         <div id="paidStamp" class="paid-stamp" style="display:none;">PAID</div>
       </div>
+      </div>
     </div>
-  </div>
 
   <!-- Sticky Totals Bar -->
   <div class="sticky-totals no-print">
@@ -566,7 +566,7 @@
               <th>Total</th>
               <th>Actions</th>
             </tr>
-            </thead>
+          </thead>
             <tbody id="ledgerTable"></tbody>
           </table>
         </div>
@@ -845,7 +845,7 @@ var LEDGER_KEY='btl_ledger_v1';
   var savedDevice = localStorage.getItem('btl_last_device');
   if(savedDevice) {
     try{
-      lastDeviceSelection = JSON.parse(savedDevice);
+    lastDeviceSelection = JSON.parse(savedDevice);
       if(lastDeviceSelection.type && devType) devType.value = lastDeviceSelection.type;
       if(lastDeviceSelection.make && devMake) devMake.value = lastDeviceSelection.make;
     }catch(e){ console.error('Failed to load device selection:', e); }
@@ -853,24 +853,24 @@ var LEDGER_KEY='btl_ledger_v1';
 
   // Populate service (names only, no prefilled prices)
   if(service){
-    service.innerHTML = '<option value="">Select</option>';
-    Object.keys(CATALOG).forEach(function(group){
-      var og=document.createElement('optgroup'); og.label=group;
-      Object.keys(CATALOG[group]).forEach(function(name){
-        var o=document.createElement('option');
-        o.value=name; o.textContent=name;
-        og.appendChild(o);
-      });
-      service.appendChild(og);
+  service.innerHTML = '<option value="">Select</option>';
+  Object.keys(CATALOG).forEach(function(group){
+    var og=document.createElement('optgroup'); og.label=group;
+    Object.keys(CATALOG[group]).forEach(function(name){
+      var o=document.createElement('option');
+      o.value=name; o.textContent=name;
+      og.appendChild(o);
     });
+    service.appendChild(og);
+  });
   }
 
   // Populate device selectors
   if(devType){
-    DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
+  DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
   }
   if(devMake){
-    DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
+  DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
   }
   populateModels();
 
@@ -1608,7 +1608,7 @@ function generatePDF() {
     filename: `BTLTech-Invoice-${invNo.value || 'invoice'}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
-      scale: 1,
+      scale: 2,
       useCORS: false,
       allowTaint: true,
       backgroundColor: '#ffffff',
@@ -1630,7 +1630,7 @@ function generatePDF() {
       }
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true },
-    pagebreak: { mode: ['css', 'legacy'], avoid: ['.banking-details', '.note', '.row', '.box', '.totals', '.grid-2', '.grid-3'], before: '.page-break' }
+    pagebreak: { mode: ['css', 'legacy'] }
   };
 
   // enforce centered layout just for export
@@ -1749,8 +1749,22 @@ function generateReceiptJsPDF(){
   function section(title){ ensureSpace(10); doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.text(String(title), margin, cursorY); cursorY+=2; doc.setDrawColor(180); doc.line(margin,cursorY,pageW-margin,cursorY); cursorY+=3; doc.setFont('helvetica','normal'); doc.setFontSize(10); }
   function labelValue(label, value){ ensureSpace(lineH); doc.setFont('helvetica','bold'); doc.text(String(label), margin, cursorY); doc.setFont('helvetica','normal'); doc.text(String(value||''), margin+30, cursorY); cursorY+=lineH; }
 
-  // Header with logo
+  // Header with logo + watermark background
   try{ var lp=document.getElementById('logoPreview'); if(lp && lp.naturalWidth){ var c=document.createElement('canvas'); c.width=lp.naturalWidth; c.height=lp.naturalHeight; var ctx=c.getContext('2d'); ctx.drawImage(lp,0,0); var data=c.toDataURL('image/jpeg'); doc.addImage(data,'JPEG', margin, cursorY, 24, 12); doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('BTLTech Ltd', margin+28, cursorY+6); doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.text('Professional Device Repair Services', margin+28, cursorY+11); cursorY+=16; } }catch(e){}
+  // Watermark
+  try{
+    var wm=document.getElementById('logoPreview');
+    if(wm && wm.naturalWidth){
+      var cw=document.createElement('canvas'); cw.width=wm.naturalWidth; cw.height=wm.naturalHeight; var cx=cw.getContext('2d'); cx.globalAlpha=0.08; cx.drawImage(wm,0,0); var wmData=cw.toDataURL('image/jpeg');
+      var wmW=50, wmH=50; var cols=3, rows=5; var gapX=(pageW - 2*margin - cols*wmW)/(cols-1); var gapY=(pageH - 2*margin - rows*wmH)/(rows-1);
+      for(var r=0;r<rows;r++){
+        for(var k=0;k<cols;k++){
+          var x=margin + k*(wmW+gapX); var y=margin + r*(wmH+gapY);
+          try{ doc.addImage(wmData,'JPEG', x, y, wmW, wmH); }catch(e){}
+        }
+      }
+    }
+  }catch(e){}
   if(cursorY===margin){ doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('BTLTech Ltd', margin, cursorY+6); doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.text('Professional Device Repair Services', margin, cursorY+11); cursorY+=16; }
   doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.text(wrap('123 High Street, London W12 3AB • info@btltech.co.uk • 020 8746 0193 • 07445 363599 • www.btltech.co.uk'), margin, cursorY); cursorY+=6; doc.setDrawColor(20); doc.line(margin,cursorY,pageW-margin,cursorY); cursorY+=5; doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text('DROP-OFF RECEIPT', pageW/2, cursorY, {align:'center'}); if(isPaid){ doc.setTextColor(21,128,61); doc.text('PAID', pageW - margin, cursorY, {align:'right'}); doc.setTextColor(0,0,0); } cursorY+=6;
 
