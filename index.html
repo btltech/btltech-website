@@ -614,6 +614,11 @@ function rebindMainListeners(){
       });
       closeBtn.setAttribute('data-bound', 'true');
     }
+    var resetBtn=document.getElementById('resetData');
+    if(resetBtn && !resetBtn.hasAttribute('data-bound')){
+      resetBtn.addEventListener('click', onResetData);
+      resetBtn.setAttribute('data-bound','true');
+    }
   }catch(e){ 
     console.error('Button binding failed:', e);
     showToast('Some buttons may not work properly');
@@ -1279,7 +1284,33 @@ function populateLedger(){
     var remind='';
     if(!r.paid && r.contact && r.contact.indexOf('@')>0){
       var subject=encodeURIComponent('Payment reminder for invoice '+(r.invoice||''));
-      var body=encodeURIComponent('Dear '+(r.customer||'')+"%0D%0A%0D%0AThis is a friendly reminder that invoice "+(r.invoice||'')+" dated "+(r.date||'')+" remains outstanding. Amount due: "+gbp(r.total||0)+".%0D%0A%0D%0AThank you,%0D%0ABTLTech Ltd");
+      var lines=[];
+      lines.push('Dear '+(r.customer||''));
+      lines.push('');
+      lines.push('This is a friendly reminder that the following invoice remains outstanding:');
+      lines.push('');
+      lines.push('Invoice: '+(r.invoice||''));
+      lines.push('Date: '+(r.date||''));
+      lines.push('Customer: '+(r.customer||''));
+      lines.push('Device: '+(r.device||''));
+      if(r.serial) lines.push('Serial/IMEI: '+r.serial);
+      lines.push('');
+      lines.push('Subtotal: '+gbp((r.sales||0)+(r.service||0)));
+      if(Math.abs(r.discounts||0)>0) lines.push('Discounts: -'+gbp(Math.abs(r.discounts||0)));
+      if(Math.abs(r.vat||0)>0) lines.push('VAT: '+gbp(r.vat||0));
+      lines.push('Total Due: '+gbp(r.total||0));
+      lines.push('');
+      lines.push('Payment details:');
+      lines.push('Bank: Starling Bank');
+      lines.push('Sort Code: 60-83-71');
+      lines.push('Account Number: 56169159');
+      lines.push('Account Name: BTLTech Ltd');
+      lines.push('');
+      lines.push('If you have already made payment, please disregard this message.');
+      lines.push('');
+      lines.push('Thank you,');
+      lines.push('BTLTech Ltd');
+      var body=encodeURIComponent(lines.join('\n'));
       remind='<a href="mailto:'+r.contact+'?subject='+subject+'&body='+body+'">Remind</a>';
     }
     tr.innerHTML='<td>'+escapeHtml(r.date||'')+'</td>'+
@@ -1725,13 +1756,30 @@ document.getElementById('exportJson') && document.getElementById('exportJson').a
 document.getElementById('importJsonBtn') && document.getElementById('importJsonBtn').addEventListener('click', function(){ var f=document.getElementById('importJson'); f && f.click(); });
 document.getElementById('importJson') && document.getElementById('importJson').addEventListener('change', function(e){ var f=e.target.files && e.target.files[0]; if(f) importJSONFile(f); });
 
-document.getElementById('resetData') && document.getElementById('resetData').addEventListener('click', function(){
+function onResetData(){
+  // Use a dedicated data reset PIN (separate from site access code)
+  var KEY='btl_reset_pin';
+  var stored=localStorage.getItem(KEY)||'';
+  if(!stored){
+    var newPin=prompt('Create data reset PIN (4–8 digits):');
+    if(newPin==null) return;
+    newPin=String(newPin).trim();
+    if(!/^[0-9]{4,8}$/.test(newPin)){ showToast('PIN must be 4–8 digits'); return; }
+    var confirmPin=prompt('Re-enter data reset PIN:');
+    if(confirmPin==null || confirmPin!==newPin){ showToast('PIN mismatch'); return; }
+    localStorage.setItem(KEY, newPin);
+    showToast('Reset PIN saved');
+    stored=newPin;
+  }
+  var pin=prompt('Enter data reset PIN to confirm:');
+  if(pin==null) return;
+  if(pin!==stored){ showToast('Incorrect PIN'); return; }
   if(confirm('Reset ledger data? This cannot be undone.')){
     localStorage.removeItem(LEDGER_KEY);
     if(confirm('Also remove saved customers?')){ localStorage.removeItem('btl_customers'); }
     showToast('Data reset'); populateLedger();
   }
-});
+}
 </script>
 </body>
 </html>
