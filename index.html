@@ -1124,11 +1124,20 @@ async function onImeiLookup(){
     var color=(data.color||'').toString();
     var capacity=(data.capacity||data.storage||'').toString();
 
-    // Update UI if fields exist
-    if(make && devMake){ devMake.value = DEV_MAKES.includes(make) ? make : make; }
-    if(type && devType){ devType.value = DEV_TYPES.includes(type) ? type : devType.value; }
-    if(model && devModel){ devModel.value=model; }
-    if(device){ device.value=[devType.value,devMake.value,devModel.value].filter(Boolean).join(' '); }
+    // Update UI and persist selection
+    if(devType){
+      var chosenType = (type && DEV_TYPES.includes(type)) ? type : (devType.value || 'Phone');
+      devType.value = chosenType;
+    }
+    if(devMake && make){ devMake.value = make; }
+    if(devModel && model){ devModel.value = model; }
+    if(device){ device.value=[devType && devType.value, devMake && devMake.value, devModel && devModel.value].filter(Boolean).join(' '); }
+    try{
+      lastDeviceSelection = { type: (devType && devType.value) || '', make: (devMake && devMake.value) || '', model: (devModel && devModel.value) || '' };
+      localStorage.setItem('btl_last_device', JSON.stringify(lastDeviceSelection));
+    }catch(_e){}
+    try{ if(typeof autoSaveCustomer === 'function') autoSaveCustomer(); }catch(_e){}
+    try{ if(typeof saveToLedger === 'function') saveToLedger('silent'); }catch(_e){}
 
     // Show summary
     var lines=[];
