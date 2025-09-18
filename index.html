@@ -392,6 +392,16 @@
           </div>
       </div>
 
+      <div class="grid-2">
+        <div><label for="devSerial">Serial / IMEI</label><input id="devSerial" placeholder="Device serial or IMEI number"></div>
+        <div><label for="devCondition">Cosmetic Condition</label><input id="devCondition" placeholder="e.g., Scratched back, screen mint"></div>
+      </div>
+
+      <div>
+        <label for="reportedFault">Reported Fault</label>
+        <textarea id="reportedFault" placeholder="Describe the issue reported by the customer"></textarea>
+      </div>
+
         <label for="remark">Remarks</label>
         <textarea id="remark" placeholder="Optional notes / comments"></textarea>
 
@@ -456,6 +466,13 @@
           <button class="btn btn-ghost apply-discount-btn" id="applyDiscount">Apply</button>
         </div>
 
+      <div class="grid-2">
+        <div>
+          <label for="staffInitials">Staff Initials</label>
+          <input id="staffInitials" placeholder="Your initials">
+        </div>
+        <div></div>
+      </div>
         <hr>
 
         <div class="toolbar no-print">
@@ -474,6 +491,7 @@
 
         
         <div class="note">Payment due immediately. Goods remain property of BTLTech Ltd until paid in full. 30-day warranty excludes accidental, liquid, or physical damage. Data recovery is not guaranteed.</div>
+        <div class="note"><strong>Uncollected Goods Policy:</strong> Devices not collected within 60 days of completion may be sold or recycled to recover costs.</div>
         <div class="note banking-details">
           <strong>Banking Details:</strong><br>
           Bank: Starling Bank<br>
@@ -484,6 +502,7 @@
         <div id="paidStamp" class="paid-stamp" style="display:none;">PAID</div>
       </div>
     </div>
+  </div>
 
   <!-- Sticky Totals Bar -->
   <div class="sticky-totals no-print">
@@ -1296,7 +1315,13 @@ function generateReceipt(){
   var invoiceNum = (invNo && invNo.value) || 'N/A';
   var invoiceDate = (invDate && invDate.value) || new Date().toLocaleDateString();
   var customerName = (clientName && clientName.value) || 'Walk-in Customer';
+  var customerContact = (clientContact && clientContact.value) || '';
   var deviceInfo = [ (devType && devType.value), (devMake && devMake.value), (devModel && devModel.value) ].filter(Boolean).join(' ');
+  var devSerial = (document.getElementById('devSerial') && document.getElementById('devSerial').value) || 'Not specified';
+  var devCondition = (document.getElementById('devCondition') && document.getElementById('devCondition').value) || 'Not specified';
+  var reportedFault = (document.getElementById('reportedFault') && document.getElementById('reportedFault').value) || 'Not specified';
+  var staffInitials = (document.getElementById('staffInitials') && document.getElementById('staffInitials').value) || 'N/A';
+
 
   // 2. Calculate totals and build item rows
   var subtotal = 0;
@@ -1329,10 +1354,19 @@ function generateReceipt(){
         <p style="margin:2px 0;"><strong>Invoice #:</strong> ${invoiceNum}</p>
         <p style="margin:2px 0;"><strong>Date:</strong> ${invoiceDate}</p>
         <p style="margin:2px 0;"><strong>Customer:</strong> ${escapeHtml(customerName)}</p>
-        ${deviceInfo ? `<p style="margin:2px 0;"><strong>Device:</strong> ${escapeHtml(deviceInfo)}</p>` : ''}
+        ${customerContact ? `<p style="margin:2px 0;"><strong>Contact:</strong> ${escapeHtml(customerContact)}</p>` : ''}
+      </div>
+
+      <div style="margin-bottom:8mm; font-size:10pt; border: 1px solid #eee; padding: 5px; border-radius: 4px;">
+        <h4 style="margin:0 0 5px 0; font-size:11pt; color:#333;">Device & Fault Details</h4>
+        <p style="margin:2px 0;"><strong>Device:</strong> ${escapeHtml(deviceInfo)}</p>
+        <p style="margin:2px 0;"><strong>Serial/IMEI:</strong> ${escapeHtml(devSerial)}</p>
+        <p style="margin:2px 0;"><strong>Condition:</strong> ${escapeHtml(devCondition)}</p>
+        <p style="margin:2px 0;"><strong>Reported Fault:</strong> ${escapeHtml(reportedFault)}</p>
       </div>
 
       ${items.length > 0 ? `
+        <h4 style="margin:8mm 0 5px 0; font-size:11pt;">Quoted Services & Parts</h4>
         <table style="width:100%; border-collapse: collapse; font-size: 9pt;">
           <thead>
             <tr>
@@ -1347,12 +1381,13 @@ function generateReceipt(){
         </table>` : '<p>No services or items listed.</p>'}
 
       <div style="margin-top:8mm; text-align:right;">
-        <h3 style="margin:0;">TOTAL: ${gbp(subtotal)}</h3>
+        <h3 style="margin:0;">TOTAL ESTIMATE: ${gbp(subtotal)}</h3>
       </div>
       
       <div style="position:absolute; bottom: 8mm; width: calc(100% - 16mm); font-size: 8pt; color: #666;">
+        <p style="margin:2px 0;"><strong>Staff:</strong> ${escapeHtml(staffInitials)}</p>
         <hr style="border:none; border-top:1px solid #ccc; margin-bottom: 4mm;">
-        <p style="margin:2px 0;"><strong>Terms:</strong> Payment due upon completion. 30-day warranty on repairs.</p>
+        <p style="margin:2px 0;"><strong>Terms:</strong> 30-day warranty excludes accidental/liquid damage. Data recovery not guaranteed. Devices not collected within 60 days of completion may be sold/recycled to recover costs.</p>
         <p style="margin:2px 0; text-align:center;"><strong>BTLTech Ltd</strong> | info@btltech.co.uk | 020 8746 0193</p>
       </div>
     </div>
