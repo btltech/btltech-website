@@ -1507,15 +1507,14 @@ function generateReceipt(){
       useCORS: false,
       allowTaint: true,
       backgroundColor: '#ffffff',
-      logging: false,
-      width: 420,  // A5 width in pixels at 72dpi
-      height: 595  // A5 height in pixels at 72dpi
+      logging: false
     },
     jsPDF: { 
       unit: 'mm', 
       format: 'a5', 
       orientation: 'portrait' 
-    }
+    },
+    pagebreak: { mode: ['css','legacy'] }
   };
 
   // Generate PDF
