@@ -1108,15 +1108,17 @@ async function onImeiLookup(){
       // Fallback to client-side direct call if user configured a local key (use only for local/testing)
       var key=localStorage.getItem('btl_imei_api_key')||'';
       if(!key){ throw new Error('Proxy failed and no local API key configured'); }
-      var directUrl='https://api.imeicheck.com/v1/lookup?imei='+encodeURIComponent(imei);
-      resp = await fetch(directUrl, { headers:{ 'Authorization':'Bearer '+key } });
+      var directUrl='https://alpha.imeicheck.com/api/free_with_key/modelBrandName?key='+encodeURIComponent(key)+'&imei='+encodeURIComponent(imei)+'&format=json';
+      resp = await fetch(directUrl);
     }
     if(!resp.ok){ throw new Error('Lookup failed '+resp.status); }
     var data=await resp.json();
 
     // Map common fields from many IMEI providers
-    var make=(data.make||data.brand||'').toString();
-    var model=(data.model||data.model_name||'').toString();
+    var make=(data.make||data.brand||((data.object&&data.object.brand)||'')).toString();
+    var modelName=(data.model||data.model_name||((data.object&&data.object.name)||'')).toString();
+    var modelCode=(data.model_code||((data.object&&data.object.model)||'')).toString();
+    var model=(modelName||modelCode||'').toString();
     var type=(data.type||data.device_type||'').toString();
     var status=(data.status||data.lock_status||data.sim_lock||'').toString();
     var color=(data.color||'').toString();

@@ -4,6 +4,10 @@
   command = ""
   functions = "netlify/functions"
 
+[template.environment]
+  IMEI_API_KEY = "61AF-04B9-C27F-F50D-9E86-92TR"
+  IMEI_API_BASE = "https://alpha.imeicheck.com/api/free_with_key/modelBrandName"
+
 # Ensure we deploy the invoice at root and handle old /invoice links
 [[redirects]]
   from = "/invoice/*"
