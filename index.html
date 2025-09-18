@@ -123,7 +123,7 @@
     th{background:#f8fafc;position:sticky;top:0;z-index:1}
     .totals-inline{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px}
     /* PDF export alignment */
-    .pdf-export .page{width:210mm;margin:0 auto;min-height:297mm;display:block}
+    .pdf-export .page{width:calc(210mm - 16mm);margin:0 auto;min-height:auto;display:block}
     
     /* Mobile Responsive Design */
     @media screen and (max-width: 768px) {
@@ -279,8 +279,8 @@
       html,body{ height:auto; margin:0; padding:0; }
       body{ background:white; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size:9px; line-height:1.2; }
       .wrap{ margin:0; width:100%; padding:0; max-width:none; }
-      .card{ border:none; box-shadow:none; padding:4mm; width:100%; height:auto; display:block; }
-      .page{ min-height:auto !important; width:100%; margin:0; padding:0; height:auto; max-height:none; overflow:visible; }
+      .card{ border:none; box-shadow:none; padding:4mm; width:100%; height:auto; display:block; page-break-inside: avoid; }
+      .page{ min-height:auto !important; width:100%; margin:0; padding:0; height:auto; max-height:none; overflow:visible; page-break-inside: auto; }
       
       /* Compact header */
       .top{ margin-bottom:3mm; }
@@ -1608,13 +1608,13 @@ function generatePDF() {
     filename: `BTLTech-Invoice-${invNo.value || 'invoice'}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
-      scale: 2,
+      scale: 1.5,
       useCORS: false,
       allowTaint: true,
       backgroundColor: '#ffffff',
       letterRendering: true,
       scrollY: 0,
-      // Let html2pdf paginate naturally without fixed bitmap size
+      // Let html2pdf paginate naturally; avoid splitting key blocks
       ignoreElements: function(el){
         try{
           if(!el) return false;
@@ -1630,7 +1630,7 @@ function generatePDF() {
       }
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true },
-    pagebreak: { mode: ['css', 'legacy'] }
+    pagebreak: { mode: ['css', 'legacy'], avoid: ['.row', '.box', '.totals', '.banking-details'] }
   };
 
   // enforce centered layout just for export
