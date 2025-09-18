@@ -393,12 +393,20 @@
       </div>
 
       <div class="grid-2">
-          <div><label for="devSerial">Serial / IMEI</label><input id="devSerial" placeholder="Enter serial or IMEI"></div>
+          <div>
+            <label for="devSerial">Serial / IMEI</label>
+            <input id="devSerial" placeholder="Enter serial or IMEI">
+            <div class="toolbar" style="margin-top:4px;gap:4px;">
+              <button class="btn btn-ghost" id="imeiLookup" title="Lookup IMEI details">Lookup</button>
+              <button class="btn btn-ghost" id="imeiSettings" title="Configure IMEI API">⚙</button>
+            </div>
+            <div id="imeiInfo" class="note"></div>
+          </div>
           <div></div>
       </div>
 
-        <label for="remark">Remarks</label>
-        <textarea id="remark" placeholder="Optional notes / comments"></textarea>
+        <label for="remark">Remarks / Device Condition</label>
+        <textarea id="remark" placeholder="e.g., cracked screen, water damage signs, powers on intermittently"></textarea>
 
       <div class="grid-2">
           <div><label for="device">Device (auto-filled)</label><input id="device"></div>
@@ -544,7 +552,7 @@
               <th>Total</th>
               <th>Actions</th>
             </tr>
-            </thead>
+          </thead>
             <tbody id="ledgerTable"></tbody>
           </table>
         </div>
@@ -824,7 +832,7 @@ var LEDGER_KEY='btl_ledger_v1';
   var savedDevice = localStorage.getItem('btl_last_device');
   if(savedDevice) {
     try{
-      lastDeviceSelection = JSON.parse(savedDevice);
+    lastDeviceSelection = JSON.parse(savedDevice);
       if(lastDeviceSelection.type && devType) devType.value = lastDeviceSelection.type;
       if(lastDeviceSelection.make && devMake) devMake.value = lastDeviceSelection.make;
     }catch(e){ console.error('Failed to load device selection:', e); }
@@ -832,24 +840,24 @@ var LEDGER_KEY='btl_ledger_v1';
 
   // Populate service (names only, no prefilled prices)
   if(service){
-    service.innerHTML = '<option value="">Select</option>';
-    Object.keys(CATALOG).forEach(function(group){
-      var og=document.createElement('optgroup'); og.label=group;
-      Object.keys(CATALOG[group]).forEach(function(name){
-        var o=document.createElement('option');
-        o.value=name; o.textContent=name;
-        og.appendChild(o);
-      });
-      service.appendChild(og);
+  service.innerHTML = '<option value="">Select</option>';
+  Object.keys(CATALOG).forEach(function(group){
+    var og=document.createElement('optgroup'); og.label=group;
+    Object.keys(CATALOG[group]).forEach(function(name){
+      var o=document.createElement('option');
+      o.value=name; o.textContent=name;
+      og.appendChild(o);
     });
+    service.appendChild(og);
+  });
   }
 
   // Populate device selectors
   if(devType){
-    DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
+  DEV_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; devType.appendChild(o); });
   }
   if(devMake){
-    DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
+  DEV_MAKES.forEach(function(m){ var o=document.createElement('option'); o.value=m; o.textContent=m; devMake.appendChild(o); });
   }
   populateModels();
 
@@ -924,6 +932,7 @@ var LEDGER_KEY='btl_ledger_v1';
   
   devType.addEventListener('change', function(){ populateModels(); updateDevice(); });
   devMake.addEventListener('change', function(){ populateModels(); updateDevice(); });
+  devSerial && devSerial.addEventListener('blur', function(){ if((this.value||'').trim().length>=14){ onImeiLookup(); } });
   
   // Model search functionality
   devModel.addEventListener('input', function(){
@@ -1061,10 +1070,68 @@ var LEDGER_KEY='btl_ledger_v1';
     }
   });
 
+  // IMEI lookup bindings
+  if(imeiLookupBtn && !imeiLookupBtn.hasAttribute('data-bound')){
+    imeiLookupBtn.addEventListener('click', onImeiLookup);
+    imeiLookupBtn.setAttribute('data-bound','true');
+  }
+  if(imeiSettingsBtn && !imeiSettingsBtn.hasAttribute('data-bound')){
+    imeiSettingsBtn.addEventListener('click', function(){
+      var key = prompt('Enter IMEI API key (stored locally):', localStorage.getItem('btl_imei_api_key')||'');
+      if(key!=null){ localStorage.setItem('btl_imei_api_key', key.trim()); showToast('API key saved'); }
+    });
+    imeiSettingsBtn.setAttribute('data-bound','true');
+  }
+
   rebindMainListeners();
   if(markPaid) markPaid.addEventListener('change', onTogglePaid);
   if(jobStatus) jobStatus.addEventListener('change', onStatusChange);
 })();
+// External API (Real-time IMEI lookup)
+async function onImeiLookup(){
+  try{
+    if(!devSerial){ showToast('No IMEI/Serial field'); return; }
+    var imei=(devSerial.value||'').replace(/\D/g,'');
+    if(!imei){ showToast('Enter an IMEI/Serial'); return; }
+    imeiInfo && (imeiInfo.textContent='Looking up…');
+    var key=localStorage.getItem('btl_imei_api_key')||'';
+    if(!key){ showToast('Set IMEI API key (⚙) first'); imeiInfo && (imeiInfo.textContent=''); return; }
+
+    // Example endpoint (replace with your provider). This is a placeholder.
+    var url='https://api.imeicheck.com/v1/lookup?imei='+encodeURIComponent(imei);
+    var resp=await fetch(url, { headers:{ 'Authorization':'Bearer '+key } });
+    if(!resp.ok){ throw new Error('Lookup failed '+resp.status); }
+    var data=await resp.json();
+
+    // Map common fields from many IMEI providers
+    var make=(data.make||data.brand||'').toString();
+    var model=(data.model||data.model_name||'').toString();
+    var type=(data.type||data.device_type||'').toString();
+    var status=(data.status||data.lock_status||data.sim_lock||'').toString();
+    var color=(data.color||'').toString();
+    var capacity=(data.capacity||data.storage||'').toString();
+
+    // Update UI if fields exist
+    if(make && devMake){ devMake.value = DEV_MAKES.includes(make) ? make : make; }
+    if(type && devType){ devType.value = DEV_TYPES.includes(type) ? type : devType.value; }
+    if(model && devModel){ devModel.value=model; }
+    if(device){ device.value=[devType.value,devMake.value,devModel.value].filter(Boolean).join(' '); }
+
+    // Show summary
+    var lines=[];
+    if(make) lines.push('Make: '+make);
+    if(model) lines.push('Model: '+model);
+    if(type) lines.push('Type: '+type);
+    if(color) lines.push('Color: '+color);
+    if(capacity) lines.push('Capacity: '+capacity);
+    if(status) lines.push('Status: '+status);
+    imeiInfo && (imeiInfo.innerHTML=lines.length? lines.join(' · ') : 'No extra details');
+  }catch(e){
+    console.error(e);
+    imeiInfo && (imeiInfo.textContent='Lookup failed');
+    showToast('IMEI lookup failed');
+  }
+}
 
 // Actions
 function onAdd(){
@@ -1297,7 +1364,7 @@ function onStatusChange(){
 
 function generateReceipt(){
   try{
-    var isPaid = markPaid && markPaid.checked;
+  var isPaid = markPaid && markPaid.checked;
 
     var sub=0, discountTotal=0;
     var rows=[];
@@ -1305,8 +1372,8 @@ function generateReceipt(){
     (items||[]).forEach(function(it){
       var v = (Number(it.qty)||0) * (Number(it.price)||0);
       if(it.isDiscount){
-        discountTotal += Math.abs(v);
-      } else {
+      discountTotal += Math.abs(v);
+    } else {
         sub += v; 
       }
       if(rows.length < maxRows){
@@ -1323,7 +1390,7 @@ function generateReceipt(){
     var invoiceDate = safeVal(invDate, 'N/A');
     var customerName = safeVal(clientName, 'N/A');
     var contactInfo = safeVal(clientContact, '');
-    var deviceInfo = '';
+  var deviceInfo = '';
     if(devType && devMake && devModel){
       deviceInfo = [safeVal(devType,''), safeVal(devMake,''), safeVal(devModel,'')].join(' ').trim();
     }
@@ -1341,32 +1408,25 @@ function generateReceipt(){
 
     function addWatermark(imgData){
       try{
-        var wmW = 90, wmH = 90;
+        var wmW = 100, wmH = 100; // large centered watermark
         var wmX = (pageW - wmW) / 2;
         var wmY = (pageH - wmH) / 2;
-        if(doc.GState){
-          doc.setGState(new doc.GState({ opacity: 0.15 }));
-          doc.addImage(imgData, 'PNG', wmX, wmY, wmW, wmH, undefined, 'FAST', 315);
-          doc.setGState(new doc.GState({ opacity: 1 }));
-        } else {
-          doc.addImage(imgData, 'PNG', wmX, wmY, wmW, wmH, undefined, 'FAST', 315);
-        }
+        doc.addImage(imgData, 'PNG', wmX, wmY, wmW, wmH, undefined, 'FAST', 315);
       }catch(_e){ /* ignore */ }
     }
 
-    function loadLogoAsPngDataUrl(){
+    function buildLogoDataUrl(alpha){
       return new Promise(function(resolve){
         var img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = function(){
           try{
             var canvas = document.createElement('canvas');
-            var size = 600; // generous resolution
+            var size = 800; // high resolution for crisp rendering
             canvas.width = size; canvas.height = size;
             var ctx = canvas.getContext('2d');
             ctx.clearRect(0,0,size,size);
-            ctx.globalAlpha = 0.15;
-            // center fit
+            ctx.globalAlpha = Math.max(0, Math.min(1, Number(alpha||1)));
             var ratio = Math.min(size/img.width, size/img.height);
             var w = img.width*ratio, h = img.height*ratio;
             var x = (size - w)/2, y = (size - h)/2;
@@ -1384,8 +1444,16 @@ function generateReceipt(){
       doc.text(String(text), xRight - w, y);
     }
 
-    function draw(){
+    function draw(headerLogoDataUrl){
       var y = margin;
+
+      // Header logo (centered)
+      if(headerLogoDataUrl){
+        var logoW = 30, logoH = 30; // mm
+        var logoX = (pageW - logoW) / 2;
+        doc.addImage(headerLogoDataUrl, 'PNG', logoX, y, logoW, logoH, undefined, 'FAST', 315);
+        y += logoH + 2;
+      }
 
       // Header
       doc.setFont('helvetica','bold');
@@ -1413,7 +1481,7 @@ function generateReceipt(){
       if(contactInfo) { doc.text('Contact: ' + String(contactInfo), margin, y); y += 5; }
       if(deviceInfo) { doc.text('Device: ' + (deviceInfo.length>60? (deviceInfo.slice(0,57)+'...'): deviceInfo), margin, y); y += 5; }
       if(devSerial && devSerial.value){ doc.text('Serial/IMEI: ' + String(devSerial.value), margin, y); y += 5; }
-      if(remarkText){ doc.text('Notes: ' + (remarkText.length>64? (remarkText.slice(0,61)+'...'): remarkText), margin, y); y += 6; }
+      if(remarkText){ doc.text('Remarks/Condition: ' + (remarkText.length>64? (remarkText.slice(0,61)+'...'): remarkText), margin, y); y += 6; }
 
       // Services
       if(rows.length){
@@ -1469,8 +1537,15 @@ function generateReceipt(){
 
       // Terms
       doc.setFontSize(9);
-      doc.text('Terms:', margin, y); y += 4;
-      doc.text('Payment due immediately. 30-day warranty excludes damage.', margin, y); y += 8;
+      doc.text('Terms & Conditions:', margin, y); y += 4;
+      var terms = [
+        'Payment due immediately. 30-day warranty excludes accidental/liquid damage.',
+        'Customer is responsible for data backup. Data loss is not liable.',
+        'Uncollected items after 90 days may be recycled/disposed.',
+        'Devices remain property of BTLTech Ltd until full payment is received.'
+      ];
+      terms.forEach(function(t){ doc.text(t, margin, y); y += 4; });
+      y += 2;
 
       // Footer centered
       doc.setFontSize(9);
@@ -1480,14 +1555,15 @@ function generateReceipt(){
       doc.text('info@btltech.co.uk • 020 8746 0193', pageW/2, pageH - margin - 2, { align: 'center' });
     }
 
-    loadLogoAsPngDataUrl().then(function(dataUrl){
-      if(dataUrl){ addWatermark(dataUrl); }
-      draw();
-      doc.save('BTLTech-DropOffReceipt-' + (invoiceNum||'receipt') + '.pdf');
-    }).catch(function(){
-      draw();
-      doc.save('BTLTech-DropOffReceipt-' + (invoiceNum||'receipt') + '.pdf');
-    });
+    // Build two versions of the logo: faint for watermark, solid for header
+    Promise.all([buildLogoDataUrl(0.15), buildLogoDataUrl(1.0)])
+      .then(function(results){
+        var wm = results[0], header = results[1];
+        if(wm){ addWatermark(wm); }
+        draw(header);
+        doc.save('BTLTech-DropOffReceipt-' + (invoiceNum||'receipt') + '.pdf');
+      })
+      .catch(function(){ draw(null); doc.save('BTLTech-DropOffReceipt-' + (invoiceNum||'receipt') + '.pdf'); });
   }catch(err){
     console.error(err);
     if(typeof showToast === 'function') showToast('Failed to generate receipt');
