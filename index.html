@@ -402,6 +402,11 @@
         <textarea id="reportedFault" placeholder="Describe the issue reported by the customer"></textarea>
       </div>
 
+      <div>
+        <label for="devAccessories">Accessories Left (charger, case, etc.)</label>
+        <input id="devAccessories" placeholder="List any accessories left with device">
+      </div>
+
         <label for="remark">Remarks</label>
         <textarea id="remark" placeholder="Optional notes / comments"></textarea>
 
@@ -468,10 +473,13 @@
 
       <div class="grid-2">
         <div>
-          <label for="staffInitials">Staff Initials</label>
-          <input id="staffInitials" placeholder="Your initials">
+          <label for="staffName">Staff Name</label>
+          <input id="staffName" placeholder="Your name (or initials)">
         </div>
-        <div></div>
+        <div>
+          <label for="staffInitials">Staff Initials</label>
+          <input id="staffInitials" placeholder="Initials (optional)">
+        </div>
       </div>
         <hr>
 
@@ -1335,7 +1343,9 @@ function generateReceipt(){
   var devSerial = (document.getElementById('devSerial') && document.getElementById('devSerial').value) || 'Not specified';
   var devCondition = (document.getElementById('devCondition') && document.getElementById('devCondition').value) || 'Not assessed';
   var reportedFault = (document.getElementById('reportedFault') && document.getElementById('reportedFault').value) || 'Not specified';
-  var staffInitials = (document.getElementById('staffInitials') && document.getElementById('staffInitials').value) || 'Staff';
+  var devAccessories = (document.getElementById('devAccessories') && document.getElementById('devAccessories').value) || '';
+  var staffName = (document.getElementById('staffName') && document.getElementById('staffName').value) || '';
+  var staffInitials = (document.getElementById('staffInitials') && document.getElementById('staffInitials').value) || (staffName ? staffName.split(' ').map(function(n){return n[0]||''}).join('').toUpperCase() : 'Staff');
   var remarks = (remark && remark.value) || '';
 
   console.log('📋 Receipt data:', {
@@ -1377,7 +1387,7 @@ function generateReceipt(){
 
   // Create comprehensive receipt HTML
   var receiptHtml = `
-    <div style="width:148mm; height:210mm; margin:0; padding:8mm; box-sizing:border-box; font-family:Arial,sans-serif; font-size:10pt; background:white; color:#000; position:relative;">
+    <div style="width:148mm; margin:0; padding:8mm; box-sizing:border-box; font-family:Arial,sans-serif; font-size:10pt; background:white; color:#000; position:relative;">
       
       <!-- Header -->
       <div style="text-align:center; border-bottom:2px solid #333; padding-bottom:8mm; margin-bottom:6mm;">
@@ -1389,8 +1399,8 @@ function generateReceipt(){
           </div>
         </div>
         <div style="font-size:9pt; color:#666; line-height:1.3;">
-          📧 info@btltech.co.uk | 📞 020 8746 0193 | 📱 07445 363599<br>
-          🌐 www.btltech.co.uk
+          123 High Street, London W12 3AB<br>
+          📧 info@btltech.co.uk | 📞 020 8746 0193 | 📱 07445 363599 · 🌐 www.btltech.co.uk
         </div>
       </div>
 
@@ -1400,7 +1410,7 @@ function generateReceipt(){
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm; font-size:10pt;">
           <div><strong>Receipt #:</strong> ${escapeHtml(invoiceNum)}</div>
           <div><strong>Date:</strong> ${escapeHtml(invoiceDate)}</div>
-          <div><strong>Staff:</strong> ${escapeHtml(staffInitials)}</div>
+          <div><strong>Staff:</strong> ${escapeHtml(staffName || staffInitials)}</div>
           <div><strong>Status:</strong> <span style="color:#0066cc; font-weight:bold;">RECEIVED</span></div>
         </div>
       </div>
@@ -1423,6 +1433,7 @@ function generateReceipt(){
           <div><strong>Device:</strong> ${escapeHtml(deviceInfo)}</div>
           <div><strong>Serial/IMEI:</strong> ${escapeHtml(devSerial)}</div>
           <div><strong>Condition on Arrival:</strong> ${escapeHtml(devCondition)}</div>
+        ${devAccessories ? `<div><strong>Accessories left:</strong> ${escapeHtml(devAccessories)}</div>` : ''}
           <div style="margin-top:2mm;"><strong>Reported Problem:</strong></div>
           <div style="background:#fff3cd; border:1px solid #ffeaa7; border-radius:3mm; padding:3mm; margin-top:1mm; font-style:italic;">
             "${escapeHtml(reportedFault)}"
@@ -1433,7 +1444,11 @@ function generateReceipt(){
 
       <!-- Services/Estimate -->
       <div style="border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:5mm;">
-        <h3 style="margin:0 0 3mm 0; font-size:11pt; color:#333; border-bottom:1px solid #eee; padding-bottom:2mm;">🔧 Services & Estimate</h3>
+        <h3 style="margin:0 0 3mm 0; font-size:11pt; color:#333; border-bottom:1px solid #eee; padding-bottom:2mm;">🔧 Service Details</h3>
+        <div style="font-size:10pt; line-height:1.4; margin-bottom:3mm;">
+          <div><strong>Reported issue:</strong> ${escapeHtml(reportedFault)}</div>
+          ${remarks ? `<div><strong>Notes:</strong> ${escapeHtml(remarks)}</div>` : ''}
+        </div>
         <table style="width:100%; border-collapse:collapse; margin-top:2mm;">
           <thead>
             <tr style="background:#f1f3f4;">
