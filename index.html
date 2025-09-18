@@ -476,6 +476,7 @@
           <button class="btn btn-ghost" id="generatePDF">Print Preview</button>
           <button class="btn btn-ok" id="receipt">Receipt</button>
           <button class="btn btn-ghost" id="bookkeeping">Bookkeeping</button>
+          <button class="btn btn-ghost" id="stockList">Stock List</button>
       </div>
 
         <div class="mark-paid-section no-print" style="margin: 15px 0; padding: 10px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9f9f9;">
@@ -575,6 +576,7 @@ function rebindMainListeners(){
     var pdfBtn=document.getElementById('generatePDF');
     var receiptBtn=document.getElementById('receipt');
     var bookBtn=document.getElementById('bookkeeping');
+    var stockBtn=document.getElementById('stockList');
     var closeBtn=document.getElementById('closeLedger');
     
     if(addBtn && !addBtn.hasAttribute('data-bound')){
@@ -606,6 +608,12 @@ function rebindMainListeners(){
     if(bookBtn && !bookBtn.hasAttribute('data-bound')){
       bookBtn.addEventListener('click', openLedger);
       bookBtn.setAttribute('data-bound', 'true');
+    }
+    if(stockBtn && !stockBtn.hasAttribute('data-bound')){
+      stockBtn.addEventListener('click', function(){
+        try{ window.open('inventory.html','_blank'); }catch(_e){ location.href='inventory.html'; }
+      });
+      stockBtn.setAttribute('data-bound','true');
     }
     if(closeBtn && !closeBtn.hasAttribute('data-bound')){
       closeBtn.addEventListener('click', function(){ 
@@ -662,6 +670,30 @@ function rebindMainListeners(){
 // Helpers
 function gbp(n){ return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n||0)); }
 function id(x){ return document.getElementById(x); }
+// Listen for inventory selection messages
+try{
+  window.addEventListener('message', function(e){
+    try{
+      var data=e && e.data; if(!data || data.type!=='btl-stock-select') return;
+      var it=data.item||{};
+      // Fill description and models
+      if(desc){ desc.value = it.name || desc.value; }
+      if(devModel){ devModel.value = (it.models||'').split(',')[0] || devModel.value; }
+      // Try to infer make/type from text
+      var txt = (it.name+' '+it.models).toLowerCase();
+      var make='';
+      DEV_MAKES.forEach(function(m){ if(!make && txt.indexOf(m.toLowerCase())>=0){ make=m; } });
+      if(make && devMake){ devMake.value=make; }
+      if(devType){ devType.value = (it.deviceType && DEV_TYPES.includes(it.deviceType))? it.deviceType : devType.value; }
+      if(service && !service.value){ service.value = (it.category||''); }
+      // Update device field and persist
+      if(device){ device.value=[devType && devType.value, devMake && devMake.value, devModel && devModel.value].filter(Boolean).join(' '); }
+      try{ lastDeviceSelection={ type:devType.value, make:devMake.value, model:devModel.value }; localStorage.setItem('btl_last_device', JSON.stringify(lastDeviceSelection)); }catch(_e){}
+      try{ saveToLedger('silent'); }catch(_e){}
+      showToast && showToast('Stock item applied');
+    }catch(_err){}
+  });
+}catch(_e){}
 
 // Elements
 var invNo=id('invNo'), invDate=id('invDate'), dueDate=id('dueDate');
@@ -828,10 +860,13 @@ var LEDGER_KEY='btl_ledger_v1';
   // Invoice number and dates
   var now=new Date();
   var pad=function(n){ return String(n).padStart(2,'0'); };
-  if(invDate) invDate.value = '2025-09-17';
-  if(dueDate) dueDate.value = '2025-10-17';
+  var todayStr = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+  var dueDt = new Date(now.getTime() + 30*24*60*60*1000);
+  var dueStr = dueDt.getFullYear()+'-'+pad(dueDt.getMonth()+1)+'-'+pad(dueDt.getDate());
+  if(invDate) invDate.value = todayStr;
+  if(dueDate) dueDate.value = dueStr;
   var seq = Number(localStorage.getItem('btl_seq')||0)+1; localStorage.setItem('btl_seq',seq);
-  if(invNo) invNo.value = '2025-09-17-'+String(seq).padStart(4,'0');
+  if(invNo) invNo.value = todayStr+'-'+String(seq).padStart(4,'0');
   
   // Load last device selection
   var savedDevice = localStorage.getItem('btl_last_device');
