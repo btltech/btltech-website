@@ -103,6 +103,8 @@
     .discount-amount{grid-column:5;}
     .apply-discount-btn{grid-column:6;}
     .banking-details{background:#f8fafc; padding:8px; border-radius:6px; border-left:3px solid #2563eb; margin-top:10px;}
+    .staff-fields{break-inside: avoid; page-break-inside: avoid;}
+    .banking-details, .note{break-inside: avoid; page-break-inside: avoid;}
     .undo-btn{margin-left:8px; background:white; color:#10b981; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;}
     .discount-item{color:#ef4444; font-style:italic;}
     .tooltip{position:relative;}
@@ -302,7 +304,9 @@
       .box h4{ font-size:9px; margin:0 0 1px 0; }
       .totals{ gap:2px; margin-top:3mm; break-inside: avoid; }
       .note{ font-size:7px; margin:1px 0; line-height:1.1; }
-      .banking-details{ margin-top:3mm; padding:2px; break-inside: avoid; font-size:7px; display:block !important; }
+      .banking-details{ margin-top:3mm; padding:2px; break-inside: avoid; page-break-inside: avoid; font-size:7px; display:block !important; }
+      .staff-fields{ break-inside: avoid; page-break-inside: avoid; }
+      .note{ break-inside: avoid; page-break-inside: avoid; }
       
       /* Hide ALL interactive elements */
       .toolbar, .no-print, #add, .primary-add, .btn, button, .copy-icon{ display:none !important; }
@@ -312,7 +316,7 @@
       .mark-paid-section{ display:none !important; }
       
       /* Show essential elements */
-      .watermark{ display:block !important; opacity:0.08 !important; max-width:300px; max-height:300px; }
+      .watermark{ display:block !important; opacity:0.05 !important; max-width:300px; max-height:300px; }
       .is-paid .paid-stamp{ display:block !important; }
       
       /* Force page fit */
@@ -471,7 +475,7 @@
           <button class="btn btn-ghost apply-discount-btn" id="applyDiscount">Apply</button>
         </div>
 
-      <div class="grid-2">
+      <div class="grid-2 staff-fields">
         <div>
           <label for="staffName">Staff Name</label>
           <input id="staffName" placeholder="Your name (or initials)">
@@ -1751,12 +1755,12 @@ function generateReceiptJsPDF(){
 
   // Header with logo + watermark background
   try{ var lp=document.getElementById('logoPreview'); if(lp && lp.naturalWidth){ var c=document.createElement('canvas'); c.width=lp.naturalWidth; c.height=lp.naturalHeight; var ctx=c.getContext('2d'); ctx.drawImage(lp,0,0); var data=c.toDataURL('image/jpeg'); doc.addImage(data,'JPEG', margin, cursorY, 24, 12); doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('BTLTech Ltd', margin+28, cursorY+6); doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.text('Professional Device Repair Services', margin+28, cursorY+11); cursorY+=16; } }catch(e){}
-  // Watermark
+  // Watermark (make sure it's very light)
   try{
     var wm=document.getElementById('logoPreview');
     if(wm && wm.naturalWidth){
-      var cw=document.createElement('canvas'); cw.width=wm.naturalWidth; cw.height=wm.naturalHeight; var cx=cw.getContext('2d'); cx.globalAlpha=0.08; cx.drawImage(wm,0,0); var wmData=cw.toDataURL('image/jpeg');
-      var wmW=50, wmH=50; var cols=3, rows=5; var gapX=(pageW - 2*margin - cols*wmW)/(cols-1); var gapY=(pageH - 2*margin - rows*wmH)/(rows-1);
+      var cw=document.createElement('canvas'); cw.width=wm.naturalWidth; cw.height=wm.naturalHeight; var cx=cw.getContext('2d'); cx.clearRect(0,0,cw.width,cw.height); cx.globalAlpha=0.05; cx.drawImage(wm,0,0); var wmData=cw.toDataURL('image/jpeg');
+      var wmW=40, wmH=40; var cols=3, rows=5; var gapX=(pageW - 2*margin - cols*wmW)/(cols-1); var gapY=(pageH - 2*margin - rows*wmH)/(rows-1);
       for(var r=0;r<rows;r++){
         for(var k=0;k<cols;k++){
           var x=margin + k*(wmW+gapX); var y=margin + r*(wmH+gapY);
