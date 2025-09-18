@@ -28,28 +28,38 @@ exports.handler = async (event) => {
       return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: 'Server not configured: IMEI_API_KEY missing' }) };
     }
 
-    const base = process.env.IMEI_API_BASE || 'https://api.imeicheck.com/v1/lookup';
-    const url = `${base}?imei=${encodeURIComponent(query)}`;
+    const base = process.env.IMEI_API_BASE || 'https://alpha.imeicheck.com/api/free_with_key/modelBrandName';
+    const url = `${base}?key=${encodeURIComponent(apiKey)}&imei=${encodeURIComponent(query)}&format=json`;
 
-    const upstream = await fetch(url, {
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Accept': 'application/json'
-      }
-    });
-
+    const upstream = await fetch(url, { headers: { 'Accept': 'application/json' } });
     const text = await upstream.text();
-
     if (!upstream.ok) {
       return { statusCode: upstream.status, headers: corsHeaders, body: text || JSON.stringify({ error: 'Upstream error' }) };
     }
 
-    // Pass through JSON body
-    return {
-      statusCode: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      body: text
-    };
+    // Normalize common fields for frontend
+    let bodyOut = text;
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed && parsed.object) {
+        const brand = parsed.brand || parsed.object.brand || '';
+        const name = parsed.name || parsed.object.name || '';
+        const modelCode = parsed.object.model || '';
+        const normalized = {
+          ...parsed,
+          brand,
+          make: brand,
+          model: name || modelCode,
+          model_name: name || modelCode,
+          model_code: modelCode
+        };
+        bodyOut = JSON.stringify(normalized);
+      }
+    } catch (_) {
+      // leave as-is
+    }
+
+    return { statusCode: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' }, body: bodyOut };
   } catch (err) {
     return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: 'Server error', details: String(err && err.message || err) }) };
   }
