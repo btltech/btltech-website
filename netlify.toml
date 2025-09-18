@@ -2,6 +2,7 @@
   base = "."
   publish = "."
   command = ""
+  functions = "netlify/functions"
 
 # Ensure we deploy the invoice at root and handle old /invoice links
 [[redirects]]
