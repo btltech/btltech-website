@@ -880,14 +880,14 @@ var LEDGER_KEY='btl_ledger_v1';
 
   // Listeners
   function recalc(){ 
-    var q=Number(qty.value||0), p=Number(price.value||0);
-    line.value = gbp(q*p);
+    var q=Number((qty && qty.value)||0), p=Number((price && price.value)||0);
+    if(line) line.value = gbp(q*p);
     
     // Validation
-    var qtyError = qty.parentNode.querySelector('.error');
-    var priceError = price.parentNode.querySelector('.error');
+    var qtyError = qty && qty.parentNode ? qty.parentNode.querySelector('.error') : null;
+    var priceError = price && price.parentNode ? price.parentNode.querySelector('.error') : null;
     
-    if(q < 1) {
+    if(qty && q < 1) {
       if(!qtyError) {
         qtyError = document.createElement('div');
         qtyError.className = 'error';
@@ -897,10 +897,10 @@ var LEDGER_KEY='btl_ledger_v1';
       qty.classList.add('error');
     } else {
       if(qtyError) qtyError.remove();
-      qty.classList.remove('error');
+      if(qty) qty.classList.remove('error');
     }
     
-    if(p < 0) {
+    if(price && p < 0) {
       if(!priceError) {
         priceError = document.createElement('div');
         priceError.className = 'error';
@@ -910,7 +910,7 @@ var LEDGER_KEY='btl_ledger_v1';
       price.classList.add('error');
     } else {
       if(priceError) priceError.remove();
-      price.classList.remove('error');
+      if(price) price.classList.remove('error');
     }
   }
   if(qty) qty.addEventListener('input', recalc);
@@ -1093,13 +1093,13 @@ var LEDGER_KEY='btl_ledger_v1';
 
 // Actions
 function onAdd(){
-  var q=Number(qty.value||0), p=Number(price.value||0); if(q<=0) return;
+  var q=Number((qty && qty.value)||0), p=Number((price && price.value)||0); if(q<=0) return;
   var selected=service && service.options && service.selectedIndex>0 ? service.options[service.selectedIndex] : null;
   var group=(selected && selected.parentElement && selected.parentElement.tagName==='OPTGROUP') ? selected.parentElement.label : '';
   var category=(group==='Sales') ? 'sales' : 'service';
-  var item={desc: (desc.value||service.value||'Item'), qty:q, price:p, category:category};
+  var item={desc: ((desc && desc.value)||(service && service.value)||'Item'), qty:q, price:p, category:category};
   items.push(item);
-  desc.value=''; qty.value=1; price.value=0; id('line').value='£0.00';
+  if(desc) desc.value=''; if(qty) qty.value=1; if(price) price.value=0; var lineEl=id('line'); if(lineEl) lineEl.value='£0.00';
   render();
   saveToLedger('silent');
 }
@@ -1319,240 +1319,7 @@ function onStatusChange(){
 
 
 
-function generateReceipt(){
-  console.log('🧾 Starting receipt generation...');
-  
-  // Debug: Check if elements exist
-  console.log('Elements check:', {
-    invNo: !!invNo,
-    invDate: !!invDate,
-    clientName: !!clientName,
-    clientContact: !!clientContact
-  });
-
-  // Get all data with debugging
-  var invoiceNum = (invNo && invNo.value) || 'RECEIPT-' + new Date().getTime();
-  var invoiceDate = (invDate && invDate.value) || new Date().toISOString().split('T')[0];
-  var customerName = (clientName && clientName.value) || 'Walk-in Customer';
-  var customerContact = (clientContact && clientContact.value) || 'Not provided';
-  var customerEmail = customerContact.includes('@') ? customerContact : '';
-  var customerPhone = !customerContact.includes('@') ? customerContact : '';
-
-  // Device information
-  var deviceType = (devType && devType.value) || '';
-  var deviceMake = (devMake && devMake.value) || '';
-  var deviceModel = (devModel && devModel.value) || '';
-  var deviceInfo = [deviceType, deviceMake, deviceModel].filter(Boolean).join(' ') || 'Not specified';
-  
-  var devSerial = (document.getElementById('devSerial') && document.getElementById('devSerial').value) || 'Not specified';
-  var devCondition = (document.getElementById('devCondition') && document.getElementById('devCondition').value) || 'Not assessed';
-  var reportedFault = (document.getElementById('reportedFault') && document.getElementById('reportedFault').value) || 'Not specified';
-  var devAccessories = (document.getElementById('devAccessories') && document.getElementById('devAccessories').value) || '';
-  var staffName = (document.getElementById('staffName') && document.getElementById('staffName').value) || '';
-  var staffInitials = (document.getElementById('staffInitials') && document.getElementById('staffInitials').value) || (staffName ? staffName.split(' ').map(function(n){return n[0]||''}).join('').toUpperCase() : 'Staff');
-  var remarks = (remark && remark.value) || '';
-
-  console.log('📋 Receipt data:', {
-    invoiceNum, invoiceDate, customerName, customerContact, deviceInfo, devSerial, reportedFault, staffInitials
-  });
-
-  // Calculate totals and build services table
-  var subtotal = 0;
-  var serviceRows = '';
-  if(items && items.length > 0) {
-    items.forEach(function(item, index){
-      if(index < 6) { // Limit to 6 items for space
-        var amount = item.qty * item.price;
-        subtotal += amount;
-        serviceRows += `
-          <tr>
-            <td style="border:1px solid #ddd; padding:4px; font-size:9pt;">${escapeHtml(item.desc || 'Service')}</td>
-            <td style="border:1px solid #ddd; padding:4px; text-align:center; font-size:9pt;">${item.qty || 1}</td>
-            <td style="border:1px solid #ddd; padding:4px; text-align:right; font-size:9pt;">${gbp(amount)}</td>
-          </tr>`;
-      }
-    });
-    if(items.length > 6) {
-      serviceRows += `
-        <tr>
-          <td colspan="3" style="border:1px solid #ddd; padding:4px; text-align:center; font-style:italic; color:#666; font-size:9pt;">
-            +${items.length - 6} additional services (see full invoice)
-          </td>
-        </tr>`;
-    }
-  } else {
-    serviceRows = `
-      <tr>
-        <td colspan="3" style="border:1px solid #ddd; padding:8px; text-align:center; color:#666; font-size:9pt;">
-          Diagnostic / Assessment only
-        </td>
-      </tr>`;
-  }
-
-  // Create comprehensive receipt HTML
-  var receiptHtml = `
-    <div style="width:148mm; margin:0; padding:8mm; box-sizing:border-box; font-family:Arial,sans-serif; font-size:10pt; background:white; color:#000; position:relative;">
-      
-      <!-- Header -->
-      <div style="text-align:center; border-bottom:2px solid #333; padding-bottom:8mm; margin-bottom:6mm;">
-        <div style="display:flex; align-items:center; justify-content:center; gap:8mm; margin-bottom:4mm;">
-          <img src="logo.jpeg" alt="BTLTech Logo" style="height:25mm; width:auto; object-fit:contain;" onerror="this.style.display='none'">
-          <div>
-            <h1 style="margin:0; font-size:18pt; font-weight:bold; color:#333;">BTLTech Ltd</h1>
-            <p style="margin:2mm 0 0 0; font-size:9pt; color:#666;">Professional Device Repair Services</p>
-          </div>
-        </div>
-        <div style="font-size:9pt; color:#666; line-height:1.3;">
-          123 High Street, London W12 3AB<br>
-          📧 info@btltech.co.uk | 📞 020 8746 0193 | 📱 07445 363599 · 🌐 www.btltech.co.uk
-        </div>
-      </div>
-
-      <!-- Receipt Details -->
-      <div style="background:#f8f9fa; border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:6mm;">
-        <h2 style="margin:0 0 3mm 0; font-size:14pt; color:#d63384; text-align:center; font-weight:bold;">📋 JOB DROP-OFF RECEIPT</h2>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:3mm; font-size:10pt;">
-          <div><strong>Receipt #:</strong> ${escapeHtml(invoiceNum)}</div>
-          <div><strong>Date:</strong> ${escapeHtml(invoiceDate)}</div>
-          <div><strong>Staff:</strong> ${escapeHtml(staffName || staffInitials)}</div>
-          <div><strong>Status:</strong> <span style="color:#0066cc; font-weight:bold;">RECEIVED</span></div>
-        </div>
-      </div>
-
-      <!-- Customer Details -->
-      <div style="border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:5mm;">
-        <h3 style="margin:0 0 3mm 0; font-size:11pt; color:#333; border-bottom:1px solid #eee; padding-bottom:2mm;">👤 Customer Information</h3>
-        <div style="font-size:10pt; line-height:1.4;">
-          <div><strong>Name:</strong> ${escapeHtml(customerName)}</div>
-          ${customerPhone ? `<div><strong>Phone:</strong> ${escapeHtml(customerPhone)}</div>` : ''}
-          ${customerEmail ? `<div><strong>Email:</strong> ${escapeHtml(customerEmail)}</div>` : ''}
-          ${!customerPhone && !customerEmail ? `<div><strong>Contact:</strong> ${escapeHtml(customerContact)}</div>` : ''}
-        </div>
-      </div>
-
-      <!-- Device Details -->
-      <div style="border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:5mm;">
-        <h3 style="margin:0 0 3mm 0; font-size:11pt; color:#333; border-bottom:1px solid #eee; padding-bottom:2mm;">📱 Device Information</h3>
-        <div style="font-size:10pt; line-height:1.4;">
-          <div><strong>Device:</strong> ${escapeHtml(deviceInfo)}</div>
-          <div><strong>Serial/IMEI:</strong> ${escapeHtml(devSerial)}</div>
-          <div><strong>Condition on Arrival:</strong> ${escapeHtml(devCondition)}</div>
-        ${devAccessories ? `<div><strong>Accessories left:</strong> ${escapeHtml(devAccessories)}</div>` : ''}
-          <div style="margin-top:2mm;"><strong>Reported Problem:</strong></div>
-          <div style="background:#fff3cd; border:1px solid #ffeaa7; border-radius:3mm; padding:3mm; margin-top:1mm; font-style:italic;">
-            "${escapeHtml(reportedFault)}"
-          </div>
-          ${remarks ? `<div style="margin-top:2mm;"><strong>Additional Notes:</strong> ${escapeHtml(remarks)}</div>` : ''}
-        </div>
-      </div>
-
-      <!-- Services/Estimate -->
-      <div style="border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:5mm;">
-        <h3 style="margin:0 0 3mm 0; font-size:11pt; color:#333; border-bottom:1px solid #eee; padding-bottom:2mm;">🔧 Service Details</h3>
-        <div style="font-size:10pt; line-height:1.4; margin-bottom:3mm;">
-          <div><strong>Reported issue:</strong> ${escapeHtml(reportedFault)}</div>
-          ${remarks ? `<div><strong>Notes:</strong> ${escapeHtml(remarks)}</div>` : ''}
-        </div>
-        <table style="width:100%; border-collapse:collapse; margin-top:2mm;">
-          <thead>
-            <tr style="background:#f1f3f4;">
-              <th style="border:1px solid #ddd; padding:4mm; text-align:left; font-size:9pt;">Description</th>
-              <th style="border:1px solid #ddd; padding:4mm; text-align:center; font-size:9pt; width:15mm;">Qty</th>
-              <th style="border:1px solid #ddd; padding:4mm; text-align:right; font-size:9pt; width:20mm;">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${serviceRows}
-          </tbody>
-        </table>
-        <div style="text-align:right; margin-top:3mm; font-size:12pt; font-weight:bold; color:#0066cc;">
-          ESTIMATED TOTAL: ${gbp(subtotal)}
-        </div>
-        <div style="font-size:8pt; color:#666; text-align:center; margin-top:2mm; font-style:italic;">
-          *Final cost may vary based on actual work required
-        </div>
-      </div>
-
-      <!-- Terms & Conditions -->
-      <div style="border:1px solid #ddd; border-radius:4mm; padding:4mm; margin-bottom:8mm; font-size:8pt; line-height:1.3;">
-        <h4 style="margin:0 0 2mm 0; font-size:9pt; color:#333;">📋 Terms & Conditions</h4>
-        <div style="column-count:1;">
-          • <strong>Warranty:</strong> 30-day warranty on completed repairs (excludes accidental/liquid damage)<br>
-          • <strong>Data:</strong> Data recovery not guaranteed - backup your data regularly<br>
-          • <strong>Collection:</strong> Devices not collected within 60 days may be sold/recycled to recover costs<br>
-          • <strong>Liability:</strong> Liability limited to repair cost - BTLTech Ltd not liable for data loss<br>
-          • <strong>Payment:</strong> Payment due on completion - cash, card, or bank transfer accepted<br>
-          • <strong>Estimates:</strong> Estimates valid for 30 days and subject to change upon diagnosis
-        </div>
-      </div>
-
-      <!-- Signature Section -->
-      <div style="position:absolute; bottom:8mm; left:8mm; right:8mm;">
-        <div style="border-top:2px solid #333; padding-top:4mm;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; font-size:9pt;">
-            <div>
-              <div style="border-bottom:1px solid #666; height:8mm; margin-bottom:2mm;"></div>
-              <div style="text-align:center;"><strong>Customer Signature</strong></div>
-              <div style="text-align:center; font-size:8pt; color:#666;">I acknowledge receipt of this job sheet</div>
-            </div>
-            <div>
-              <div style="border-bottom:1px solid #666; height:8mm; margin-bottom:2mm;"></div>
-              <div style="text-align:center;"><strong>Staff Signature (${escapeHtml(staffInitials)})</strong></div>
-              <div style="text-align:center; font-size:8pt; color:#666;">Device received in described condition</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  `;
-
-  console.log('✅ Receipt HTML generated, creating PDF...');
-
-  // Create temporary container
-  var tempContainer = document.createElement('div');
-  tempContainer.style.cssText = 'position:fixed; top:-9999px; left:-9999px; z-index:-1;';
-  tempContainer.innerHTML = receiptHtml;
-  document.body.appendChild(tempContainer);
-  var receiptElement = tempContainer.firstElementChild;
-
-  // PDF generation options
-  var options = {
-    margin: [3, 3, 3, 3],
-    filename: `BTLTech-Receipt-${invoiceNum}.pdf`,
-    image: { type: 'jpeg', quality: 0.95 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: false,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      logging: false
-    },
-    jsPDF: { 
-      unit: 'mm', 
-      format: 'a5', 
-      orientation: 'portrait' 
-    },
-    pagebreak: { mode: ['css','legacy'] }
-  };
-
-  // Generate PDF
-  html2pdf().from(receiptElement).set(options)
-    .save()
-    .then(function(){
-      console.log('✅ Receipt PDF generated successfully!');
-      showToast('Receipt generated successfully!');
-    })
-    .catch(function(error){
-      console.error('❌ Receipt generation failed:', error);
-      showToast('Receipt generation failed. Please try again.');
-    })
-    .finally(function(){
-      if(tempContainer && tempContainer.parentNode) {
-        document.body.removeChild(tempContainer);
-      }
-    });
-}
+// Unused function removed - using generateReceiptJsPDF() instead
 
 // Auto-save customer data
 function autoSaveCustomer(){
