@@ -1,0 +1,23 @@
+[build]
+  base = "."
+  publish = "."
+  command = ""
+  functions = "netlify/functions"
+
+# Ensure we deploy the invoice at root and handle old /invoice links
+[[redirects]]
+  from = "/invoice/*"
+  to = "/index.html"
+  status = 200
+
+# Bust caches on HTML to avoid stale UI
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Also be conservative for all HTML files
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
