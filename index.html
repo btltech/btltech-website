@@ -56,7 +56,41 @@
     "geo":{"@type":"GeoCoordinates","latitude":51.5074,"longitude":-0.1278},
     "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"13:00","closes":"17:00"}],
     "sameAs":["https://wa.me/447445363599"],
-    "priceRange":"££"
+    "priceRange":"££",
+    "potentialAction":{
+      "@type":"ReserveAction",
+      "target":{
+        "@type":"EntryPoint",
+        "urlTemplate":"https://btltech.co.uk/book.html",
+        "actionPlatform":["http://schema.org/DesktopWebPlatform","http://schema.org/MobileWebPlatform"]
+      },
+      "result":{
+        "@type":"Reservation",
+        "name":"Repair Service Booking"
+      }
+    },
+    "hasOfferCatalog":{
+      "@type":"OfferCatalog",
+      "name":"Repair Services",
+      "itemListElement":[
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Phone Repair","description":"Screen, battery, charging port repairs for all major brands"}
+        },
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Laptop Repair","description":"Screen, keyboard, overheating, and boot issues fixed"}
+        },
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Tablet Repair","description":"iPad and Android tablets serviced with quality parts"}
+        },
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Console Repair","description":"PlayStation, Xbox, Nintendo diagnostics and fixes"}
+        }
+      ]
+    }
   }
   </script>
 </head>
@@ -70,7 +104,7 @@
       <a href="mailto:info@btltech.co.uk"><i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk</a>
       <a href="tel:+442087460193"><i class="fa-solid fa-phone mr-1"></i>020 8746 0193</a>
       <a href="tel:+447445363599"><i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599</a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
+      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
     </div>
   </div>
 </div>
@@ -93,7 +127,7 @@
       <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100"><i class="fa-solid fa-bars"></i></button>
+    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100" aria-label="Toggle mobile menu"><i class="fa-solid fa-bars"></i></button>
   </div>
   <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
     <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
@@ -125,9 +159,22 @@
     </div>
     <p class="text-xs text-gray-500 mt-2">*Same day service subject to parts availability</p>
     
-    <div class="mt-6 flex gap-3">
-      <a href="book.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Book a Repair</a>
-      <a href="https://wa.me/447445363599" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors" target="_blank">WhatsApp Us</a>
+    <div class="mt-6 flex flex-col sm:flex-row gap-3">
+      <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" 
+         target="_blank" 
+         rel="noopener"
+         class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+        <i class="fa-brands fa-google"></i>
+        Book with Google
+      </a>
+      <a href="book.html" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+        <i class="fa-solid fa-calendar-check"></i>
+        Book a Repair
+      </a>
+      <a href="https://wa.me/447445363599" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i>
+        WhatsApp Us
+      </a>
     </div>
   </div>
   <img src="hero-repair.jpeg" alt="Professional repair service at BTLTech" class="w-full rounded-xl shadow-lg" loading="eager"/>
@@ -170,6 +217,64 @@
   </div>
 </section>
 
+<!-- GOOGLE BOOKING SECTION -->
+<section class="py-16 bg-blue-50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4">Book Your Repair Today</h2>
+      <p class="text-lg text-gray-600 mb-8">Choose your preferred booking method</p>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Google Booking -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-blue-100">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-brands fa-google text-xl text-blue-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Book with Google</h3>
+          <p class="text-sm text-gray-600 mb-4">Quick booking through your Google account with calendar integration</p>
+          <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" 
+             target="_blank" 
+             rel="noopener"
+             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-brands fa-google"></i>
+            Book with Google
+          </a>
+        </div>
+        
+        <!-- Direct Booking -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-green-100">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-calendar-check text-xl text-green-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Online Form</h3>
+          <p class="text-sm text-gray-600 mb-4">Fill out our detailed booking form with your repair requirements</p>
+          <a href="book.html" 
+             class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-calendar-plus"></i>
+            Book Online
+          </a>
+        </div>
+        
+        <!-- WhatsApp Booking -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-green-100">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-brands fa-whatsapp text-xl text-green-600"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">WhatsApp</h3>
+          <p class="text-sm text-gray-600 mb-4">Quick chat booking for immediate assistance and support</p>
+          <a href="https://wa.me/447445363599?text=Hi! I'd like to book a repair appointment." 
+             target="_blank" 
+             rel="noopener"
+             class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp"></i>
+            WhatsApp Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- REVIEWS & TRUST -->
 <section class="py-16 bg-gray-50">
   <div class="container mx-auto px-4">
@@ -186,7 +291,7 @@
           <i class="fa-regular fa-star"></i>
         </div>
         <span class="font-semibold text-gray-700">3.7/5 on Google</span>
-        <a href="https://www.google.com/search?q=BTLTech+Ltd+Acton+Vale+reviews" target="_blank" class="text-blue-600 hover:underline text-sm">View Reviews</a>
+        <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" target="_blank" rel="noopener" class="text-blue-600 hover:underline text-sm">View Reviews</a>
       </div>
     </div>
 
@@ -197,11 +302,11 @@
         <p class="text-gray-600 mb-6">We'd love to hear about your experience! Your feedback helps us improve and helps other customers make informed decisions.</p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://www.google.com/search?q=BTLTech+Ltd+Acton+Vale" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+          <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" target="_blank" rel="noopener" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
             <i class="fa-brands fa-google"></i>
             Leave a Google Review
           </a>
-          <a href="https://wa.me/447445363599?text=Hi! I'd like to leave feedback about my recent repair service." target="_blank" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+          <a href="https://wa.me/447445363599?text=Hi! I'd like to leave feedback about my recent repair service." target="_blank" rel="noopener" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
             <i class="fa-brands fa-whatsapp"></i>
             Share Feedback via WhatsApp
           </a>
