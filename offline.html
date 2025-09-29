@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Offline - BTLTech Ltd</title>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- OFFLINE PAGE -->
+<div class="min-h-screen flex items-center justify-center">
+  <div class="max-w-md mx-auto text-center p-8">
+    <!-- Offline Icon -->
+    <div class="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-8">
+      <i class="fa-solid fa-wifi-slash text-4xl text-yellow-600"></i>
+    </div>
+    
+    <!-- Offline Message -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">You're Offline</h1>
+    <p class="text-lg text-gray-600 mb-8">
+      It looks like you're not connected to the internet. Don't worry, you can still browse some of our content!
+    </p>
+    
+    <!-- Available Actions -->
+    <div class="space-y-4">
+      <button onclick="window.location.reload()" 
+              class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+        <i class="fa-solid fa-refresh"></i>
+        Try Again
+      </button>
+      
+      <a href="/" 
+         class="w-full bg-gray-600 text-white py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2">
+        <i class="fa-solid fa-home"></i>
+        Go to Homepage
+      </a>
+    </div>
+    
+    <!-- Contact Info -->
+    <div class="mt-12 p-6 bg-blue-50 rounded-lg">
+      <h3 class="font-semibold text-blue-800 mb-3">Need Help?</h3>
+      <div class="text-sm text-blue-700 space-y-1">
+        <p><i class="fa-solid fa-phone mr-2"></i>020 8746 0193</p>
+        <p><i class="fa-solid fa-mobile-screen mr-2"></i>07445 363 599</p>
+        <p><i class="fa-solid fa-envelope mr-2"></i>info@btltech.co.uk</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Auto-retry when back online
+window.addEventListener('online', () => {
+  window.location.reload();
+});
+</script>
+</body>
+</html>

@@ -1,12 +1,77 @@
 {
-  "name": "BTLTech Invoice PRO Light",
-  "short_name": "Invoice",
-  "start_url": "BtltechLtdInvoice-pro-light-embedded.html",
+  "name": "BTLTech Ltd - Phone & Computer Repairs",
+  "short_name": "BTLTech",
+  "description": "Expert phone, tablet, laptop & console repairs in Acton Vale. Same-day service, quality parts, 3.7/5 Google rating.",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#f3f6fb",
-  "theme_color": "#f3f6fb",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
   "icons": [
-    {"src": "icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml"},
-    {"src": "icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml"}
-  ]
+    {
+      "src": "btltech-logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "btltech-logo-192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "hero-repair.jpeg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "BTLTech Repair Services"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Repair",
+      "short_name": "Book",
+      "description": "Book a repair appointment",
+      "url": "/book.html",
+      "icons": [
+        {
+          "src": "btltech-logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "WhatsApp",
+      "short_name": "WhatsApp",
+      "description": "Contact us via WhatsApp",
+      "url": "https://wa.me/447445363599",
+      "icons": [
+        {
+          "src": "btltech-logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Call Us",
+      "short_name": "Call",
+      "description": "Call us directly",
+      "url": "tel:+442087460193",
+      "icons": [
+        {
+          "src": "btltech-logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

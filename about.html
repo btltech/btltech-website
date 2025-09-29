@@ -1,65 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic Meta Tags -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>About Us – BTLTech Ltd</title>
   <meta name="description" content="Learn more about BTLTech Ltd, your trusted phone, tablet, laptop, and console repair experts in Acton Vale, West London."/>
   <meta name="author" content="BTLTech Ltd"/>
 
-  <!-- Open Graph -->
+  <!-- Open Graph Meta Tags for Social Media Sharing -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://btltech.co.uk/about.html"/>
   <meta property="og:title" content="About Us – BTLTech Ltd"/>
   <meta property="og:description" content="Expert repairs, data recovery, and accessories. Serving Acton Vale, West London."/>
   <meta property="og:image" content="https://btltech.co.uk/og-btltech.jpg"/>
 
-  <!-- Favicon -->
+  <!-- Favicon and App Icons -->
   <link rel="icon" href="btltech-logo-192.png"/>
   <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
 
-  <!-- Styles -->
+  <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-<!-- TOP BAR -->
+<!-- TOP BAR: Contact Information -->
 <div class="w-full bg-blue-950 text-white text-sm">
   <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <div><i class="fa-solid fa-location-dot mr-1"></i>161 The Vale, Acton, London W3 7RD</div>
+    <!-- Business Address -->
+    <div>
+      <i class="fa-solid fa-location-dot mr-1"></i>
+      161 The Vale, Acton, London W3 7RD
+    </div>
+    
+    <!-- Contact Methods -->
     <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk" class="hover:underline"><i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk</a>
-      <a href="tel:+442087460193" class="hover:underline"><i class="fa-solid fa-phone mr-1"></i>020 8746 0193</a>
-      <a href="tel:+447445363599" class="hover:underline"><i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599</a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700 transition" href="https://wa.me/447445363599" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
+      <a href="mailto:info@btltech.co.uk" class="hover:underline">
+        <i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk
+      </a>
+      <a href="tel:+442087460193" class="hover:underline">
+        <i class="fa-solid fa-phone mr-1"></i>020 8746 0193
+      </a>
+      <a href="tel:+447445363599" class="hover:underline">
+        <i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599
+      </a>
+      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700 transition" 
+         href="https://wa.me/447445363599" 
+         target="_blank" 
+         rel="noopener">
+        <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
+      </a>
     </div>
   </div>
 </div>
 
-<!-- HEADER -->
+<!-- HEADER: Navigation -->
 <header class="sticky top-0 z-40 bg-white shadow-sm">
   <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Logo and Brand -->
     <a href="index.html" class="flex items-center gap-3">
-      <img src="btltech-logo-192.png" alt="BTLTech logo" class="w-14 h-14 rounded-lg border bg-white"/>
+      <img src="btltech-logo-192.png" 
+           alt="BTLTech logo" 
+           class="w-14 h-14 rounded-lg border bg-white"/>
       <div>
         <div class="font-bold text-2xl">BTLTech Ltd</div>
         <div class="text-sm text-gray-500">Phone • Tablet • Computer • Console</div>
       </div>
     </a>
-    <nav class="hidden md:flex gap-5 text-sm font-medium">
+    
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex gap-5 text-sm font-medium" role="navigation" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
       <a href="accessories.html">Accessories</a>
       <a href="pricing.html">Quotes</a>
       <a href="book.html">Book</a>
-      <a href="about.html" class="text-blue-600">About</a>
+      <a href="about.html" class="text-blue-600" aria-current="page">About</a>
       <a href="testimonials-faqs.html">Testimonials</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <button id="menuBtn" aria-label="Toggle menu" class="md:hidden w-11 h-11 border rounded-lg flex items-center justify-center hover:bg-gray-100"><i class="fa-solid fa-bars"></i></button>
+    
+    <!-- Mobile Menu Toggle -->
+    <button id="menuBtn" 
+            aria-label="Toggle mobile menu" 
+            aria-expanded="false"
+            class="md:hidden w-11 h-11 border rounded-lg flex items-center justify-center hover:bg-gray-100">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </div>
+  
+  <!-- Mobile Navigation Menu -->
   <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
     <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
       <a href="index.html">Home</a>
@@ -68,97 +100,157 @@
       <a href="accessories.html">Accessories</a>
       <a href="pricing.html">Quotes</a>
       <a href="book.html">Book</a>
-      <a href="about.html">About</a>
+      <a href="about.html" aria-current="page">About</a>
       <a href="testimonials-faqs.html">Testimonials</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO: Page Introduction -->
 <section class="relative bg-blue-950 text-white py-20">
   <div class="container mx-auto px-4 text-center">
     <h1 class="text-4xl md:text-5xl font-extrabold">About BTLTech Ltd</h1>
-    <p class="mt-4 text-lg text-gray-200">Your trusted local experts for phone, tablet, laptop, and console repairs in Acton Vale.</p>
+    <p class="mt-4 text-lg text-gray-200">
+      Your trusted local experts for phone, tablet, laptop, and console repairs in Acton Vale.
+    </p>
   </div>
 </section>
 
-<!-- OUR STORY -->
+<!-- OUR STORY: Company Background -->
 <section class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
   <div>
     <h2 class="text-3xl font-bold mb-4">Our Story</h2>
-    <p class="text-gray-600 mb-4">For over a decade, BTLTech Ltd has been providing reliable and affordable repair services in Acton Vale, West London. From cracked phone screens to complex data recovery, our certified technicians are here to help.</p>
-    <p class="text-gray-600">We believe in honesty, speed, and quality — ensuring every repair is carried out with care and precision so you can get back to what matters most.</p>
+    <p class="text-gray-600 mb-4">
+      For over a decade, BTLTech Ltd has been providing reliable and affordable repair services 
+      in Acton Vale, West London. From cracked phone screens to complex data recovery, our 
+      certified technicians are here to help.
+    </p>
+    <p class="text-gray-600">
+      We believe in honesty, speed, and quality — ensuring every repair is carried out with 
+      care and precision so you can get back to what matters most.
+    </p>
   </div>
   <div>
-    <img src="pexels-thefullonmonet-28379999.jpeg" alt="Old broken phones" class="rounded-xl shadow border object-cover"/>
+    <img src="pexels-thefullonmonet-28379999.jpeg" 
+         alt="Old broken phones" 
+         class="rounded-xl shadow border object-cover"/>
   </div>
 </section>
 
-<!-- MISSION & VALUES -->
+<!-- MISSION & VALUES: Company Values -->
 <section class="bg-blue-50 py-16">
   <div class="container mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
-    <img src="pexels-zeleboba-19892557.jpeg" alt="Motherboard close-up repair" class="rounded-xl shadow border object-cover"/>
+    <img src="pexels-zeleboba-19892557.jpeg" 
+         alt="Motherboard close-up repair" 
+         class="rounded-xl shadow border object-cover"/>
     <div>
       <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
-      <p class="text-gray-600 mb-4">We are committed to delivering fast, professional, and affordable repairs. Whether it's a smartphone, laptop, tablet, or console, our mission is to make technology work for you again.</p>
+      <p class="text-gray-600 mb-4">
+        We are committed to delivering fast, professional, and affordable repairs. Whether it's 
+        a smartphone, laptop, tablet, or console, our mission is to make technology work for you again.
+      </p>
       <ul class="text-gray-700 space-y-2">
-        <li><i class="fa-solid fa-check text-blue-600 mr-2"></i> Certified and experienced technicians</li>
-        <li><i class="fa-solid fa-check text-blue-600 mr-2"></i> Genuine quality parts</li>
-        <li><i class="fa-solid fa-check text-blue-600 mr-2"></i> Transparent pricing</li>
-        <li><i class="fa-solid fa-check text-blue-600 mr-2"></i> Friendly customer service</li>
+        <li>
+          <i class="fa-solid fa-check text-blue-600 mr-2"></i> 
+          Certified and experienced technicians
+        </li>
+        <li>
+          <i class="fa-solid fa-check text-blue-600 mr-2"></i> 
+          Genuine quality parts
+        </li>
+        <li>
+          <i class="fa-solid fa-check text-blue-600 mr-2"></i> 
+          Transparent pricing
+        </li>
+        <li>
+          <i class="fa-solid fa-check text-blue-600 mr-2"></i> 
+          Friendly customer service
+        </li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- TEAM & EXPERTISE -->
+<!-- TEAM & EXPERTISE: Service Areas -->
 <section class="container mx-auto px-4 py-16 text-center">
   <h2 class="text-3xl font-bold mb-10">Our Expertise</h2>
   <div class="grid md:grid-cols-3 gap-6">
+    <!-- Laptop & PC Repairs -->
     <div class="p-6 bg-white border rounded-xl shadow">
-      <img src="pexels-pixabay-270257.jpeg" alt="Laptop internals" class="rounded-lg mb-3"/>
+      <img src="pexels-pixabay-270257.jpeg" 
+           alt="Laptop internals" 
+           class="rounded-lg mb-3"/>
       <h3 class="font-semibold">Laptop & PC Repairs</h3>
-      <p class="text-sm text-gray-600 mt-2">From hardware replacements to performance upgrades, we’ve got you covered.</p>
+      <p class="text-sm text-gray-600 mt-2">
+        From hardware replacements to performance upgrades, we've got you covered.
+      </p>
     </div>
+    
+    <!-- Screen & Display Fixes -->
     <div class="p-6 bg-white border rounded-xl shadow">
-      <img src="pexels-tima-miroshnichenko-6755132.jpeg" alt="Broken laptop screen" class="rounded-lg mb-3"/>
+      <img src="pexels-tima-miroshnichenko-6755132.jpeg" 
+           alt="Broken laptop screen" 
+           class="rounded-lg mb-3"/>
       <h3 class="font-semibold">Screen & Display Fixes</h3>
-      <p class="text-sm text-gray-600 mt-2">Fast screen replacements for phones, tablets, and laptops.</p>
+      <p class="text-sm text-gray-600 mt-2">
+        Fast screen replacements for phones, tablets, and laptops.
+      </p>
     </div>
+    
+    <!-- Smartphone Repairs -->
     <div class="p-6 bg-white border rounded-xl shadow">
-      <img src="hero-repair.jpeg" alt="Phone repair tools" class="rounded-lg mb-3"/>
+      <img src="hero-repair.jpeg" 
+           alt="Phone repair tools" 
+           class="rounded-lg mb-3"/>
       <h3 class="font-semibold">Smartphone Repairs</h3>
-      <p class="text-sm text-gray-600 mt-2">Battery, charging port, and board-level repairs handled with care.</p>
+      <p class="text-sm text-gray-600 mt-2">
+        Battery, charging port, and board-level repairs handled with care.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- CALL TO ACTION -->
+<!-- CALL TO ACTION: Contact Options -->
 <section class="bg-blue-950 text-white py-16 text-center">
   <h2 class="text-3xl font-bold mb-4">Need a Repair?</h2>
-  <p class="mb-6 text-gray-200">Book an appointment today or reach out to us on WhatsApp for quick support.</p>
+  <p class="mb-6 text-gray-200">
+    Book an appointment today or reach out to us on WhatsApp for quick support.
+  </p>
   <div class="flex justify-center gap-4">
-    <a href="book.html" class="px-5 py-3 bg-white text-blue-950 rounded-lg font-medium hover:bg-gray-100"><i class="fa-solid fa-calendar-check mr-2"></i>Book Online</a>
-    <a href="https://wa.me/447445363599" class="px-5 py-3 bg-green-600 rounded-lg font-medium hover:bg-green-700" target="_blank"><i class="fa-brands fa-whatsapp mr-2"></i>Chat on WhatsApp</a>
+    <a href="book.html" 
+       class="px-5 py-3 bg-white text-blue-950 rounded-lg font-medium hover:bg-gray-100">
+      <i class="fa-solid fa-calendar-check mr-2"></i>Book Online
+    </a>
+    <a href="https://wa.me/447445363599" 
+       class="px-5 py-3 bg-green-600 rounded-lg font-medium hover:bg-green-700" 
+       target="_blank" 
+       rel="noopener">
+      <i class="fa-brands fa-whatsapp mr-2"></i>Chat on WhatsApp
+    </a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER: Site Information -->
 <footer class="bg-gray-900 text-white text-sm py-6">
   <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
+    <!-- Contact Information -->
     <div>
       <h3 class="font-semibold mb-2">Contact Info</h3>
       <p>161 The Vale, Acton, London W3 7RD</p>
       <p>020 8746 0193 • 07445 363 599</p>
       <p>info@btltech.co.uk</p>
     </div>
+    
+    <!-- Business Hours -->
     <div>
       <h3 class="font-semibold mb-2">Opening Hours</h3>
       <p>Mon-Fri: 10:00 - 19:00</p>
       <p>Saturday: 13:00 - 17:00</p>
       <p>Sunday: Closed</p>
     </div>
+    
+    <!-- Services Offered -->
     <div>
       <h3 class="font-semibold mb-2">Services</h3>
       <p>Phone & Tablet Repairs</p>
@@ -166,13 +258,29 @@
       <p>Data Recovery</p>
     </div>
   </div>
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">© <span id="year"></span> BTLTech Ltd • All rights reserved</div>
+  
+  <!-- Copyright -->
+  <div class="text-center mt-6 border-t border-gray-700 pt-4">
+    © <span id="year"></span> BTLTech Ltd • All rights reserved
+  </div>
 </footer>
 
+<!-- JavaScript: Interactive Functionality -->
 <script>
+// Update copyright year dynamically
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mobile menu toggle functionality
 document.getElementById('menuBtn').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.toggle('hidden');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuBtn = document.getElementById('menuBtn');
+  
+  // Toggle menu visibility
+  mobileMenu.classList.toggle('hidden');
+  
+  // Update aria-expanded attribute for accessibility
+  const isExpanded = !mobileMenu.classList.contains('hidden');
+  menuBtn.setAttribute('aria-expanded', isExpanded);
 });
 </script>
 </body>
