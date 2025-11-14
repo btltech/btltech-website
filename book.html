@@ -135,25 +135,43 @@
         </div>
         
         <form action="https://formspree.io/f/xandajyr" method="POST" class="space-y-4">
-          <input type="text" name="name" placeholder="Your Name" class="w-full p-3 border rounded" required/>
-          <input type="email" name="email" placeholder="Your Email" class="w-full p-3 border rounded" required/>
-          <input type="tel" name="phone" placeholder="Phone Number" class="w-full p-3 border rounded" required/>
-          <select name="device" class="w-full p-3 border rounded" required aria-label="Select device type">
-            <option value="">Select device</option>
-            <option>Phone</option>
-            <option>Tablet</option>
-            <option>Laptop</option>
-            <option>Console</option>
-            <option>Other</option>
-          </select>
-          <select name="urgency" class="w-full p-3 border rounded" required aria-label="Select urgency level">
-            <option value="">How urgent is this repair?</option>
-            <option>Same day (if possible)</option>
-            <option>Within 2-3 days</option>
-            <option>Within a week</option>
-            <option>No rush</option>
-          </select>
-          <textarea name="issue" rows="3" placeholder="Describe your issue" class="w-full p-3 border rounded" required></textarea>
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" class="w-full p-3 border rounded" required/>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email *</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" class="w-full p-3 border rounded" required/>
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone Number" class="w-full p-3 border rounded" required/>
+          </div>
+          <div>
+            <label for="device" class="block text-sm font-medium text-gray-700 mb-1">Device Type *</label>
+            <select id="device" name="device" class="w-full p-3 border rounded" required aria-label="Select device type">
+              <option value="">Select device</option>
+              <option>Phone</option>
+              <option>Tablet</option>
+              <option>Laptop</option>
+              <option>Console</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="urgency" class="block text-sm font-medium text-gray-700 mb-1">How urgent is this repair? *</label>
+            <select id="urgency" name="urgency" class="w-full p-3 border rounded" required aria-label="Select urgency level">
+              <option value="">How urgent is this repair?</option>
+              <option>Same day (if possible)</option>
+              <option>Within 2-3 days</option>
+              <option>Within a week</option>
+              <option>No rush</option>
+            </select>
+          </div>
+          <div>
+            <label for="issue" class="block text-sm font-medium text-gray-700 mb-1">Describe your issue *</label>
+            <textarea id="issue" name="issue" rows="3" placeholder="Describe your issue" class="w-full p-3 border rounded" required></textarea>
+          </div>
           
           <!-- Review Request Checkbox -->
           <div class="bg-blue-50 p-3 rounded-lg">
