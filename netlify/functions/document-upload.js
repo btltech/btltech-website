@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
 
     // Email content
     const emailData = {
-      from: 'BTLTech Website <noreply@yourdomain.com>', // You'll need to verify your domain
+      from: 'onboarding@resend.dev', // Use Resend's verified domain for free tier
       to: 'info@btltech.co.uk',
       subject: `Document Upload from ${name} - BTLTech Printing Service`,
       html: `
