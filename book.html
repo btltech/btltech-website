@@ -31,6 +31,9 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
 
+<!-- SKIP LINKS -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip to main content</a>
+
 <!-- TOP BAR: Contact Information -->
 <div class="w-full bg-blue-950 text-white text-sm">
   <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
@@ -107,7 +110,7 @@
 </header>
 
 <!-- BOOKING OPTIONS: Main Booking Section -->
-<section class="container mx-auto px-4 py-16">
+<section id="main-content" class="container mx-auto px-4 py-16">
   <div class="max-w-4xl mx-auto">
     <!-- Page Header -->
     <div class="text-center mb-8">
@@ -188,6 +191,9 @@
             Book Repair
           </button>
         </form>
+        
+        <!-- Form Error Messages -->
+        <div id="form-errors" aria-live="polite" aria-atomic="true" class="mt-4"></div>
       </div>
     </div>
     
