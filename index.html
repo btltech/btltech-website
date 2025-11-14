@@ -114,6 +114,14 @@
         {
           "@type":"Offer",
           "itemOffered":{"@type":"Service","name":"Console Repair","description":"PlayStation, Xbox, Nintendo diagnostics and fixes"}
+        },
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Document Printing","description":"PDF, Word, Excel, labels and custom printing services"}
+        },
+        {
+          "@type":"Offer",
+          "itemOffered":{"@type":"Service","name":"Data Recovery","description":"Recover lost data from damaged devices and drives"}
         }
       ]
     }
@@ -170,6 +178,7 @@
     <nav class="hidden md:flex gap-6 text-sm font-medium" role="navigation" aria-label="Main navigation">
       <a href="index.html" class="text-blue-600" aria-current="page">Home</a>
       <a href="repairs.html">Repairs</a>
+      <a href="printing.html">Printing</a>
       <a href="data-recovery.html">Data Recovery</a>
       <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
@@ -190,6 +199,7 @@
     <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
       <a href="index.html" aria-current="page">Home</a>
       <a href="repairs.html">Repairs</a>
+      <a href="printing.html">Printing</a>
       <a href="data-recovery.html">Data Recovery</a>
       <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
@@ -313,6 +323,36 @@
         </div>
         <h3 class="font-semibold mb-2">Console Repairs</h3>
         <p class="text-sm text-gray-600">PlayStation, Xbox, Nintendo diagnostics and fixes</p>
+      </div>
+    </div>
+    
+    <!-- Additional Services Row -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <!-- Printing Services -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-print text-2xl text-red-600"></i>
+        </div>
+        <h3 class="font-semibold mb-2">Document Printing</h3>
+        <p class="text-sm text-gray-600">PDF, Word, Excel, labels & custom printing services</p>
+      </div>
+      
+      <!-- Data Recovery -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-hard-drive text-2xl text-yellow-600"></i>
+        </div>
+        <h3 class="font-semibold mb-2">Data Recovery</h3>
+        <p class="text-sm text-gray-600">Recover lost data from damaged devices and drives</p>
+      </div>
+      
+      <!-- Accessories -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-headphones text-2xl text-indigo-600"></i>
+        </div>
+        <h3 class="font-semibold mb-2">Accessories</h3>
+        <p class="text-sm text-gray-600">Cases, chargers, cables & device accessories</p>
       </div>
     </div>
   </div>
@@ -449,6 +489,9 @@ const services = [
   { name: 'Tablet Screen Repair', url: 'repairs.html#tablet', category: 'Tablet' },
   { name: 'Console Repair', url: 'repairs.html#console', category: 'Console' },
   { name: 'Data Recovery', url: 'data-recovery.html', category: 'Data' },
+  { name: 'Document Printing', url: 'printing.html', category: 'Printing' },
+  { name: 'PDF Printing', url: 'printing.html', category: 'Printing' },
+  { name: 'Label Printing', url: 'printing.html', category: 'Printing' },
   { name: 'iPhone Repair', url: 'repairs.html#phone', category: 'Phone' },
   { name: 'Samsung Repair', url: 'repairs.html#phone', category: 'Phone' },
   { name: 'MacBook Repair', url: 'repairs.html#laptop', category: 'Laptop' },
