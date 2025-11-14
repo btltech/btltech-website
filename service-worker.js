@@ -1,30 +1,30 @@
 // BTLTech PWA Service Worker
 // Version 1.0.0
 
-const CACHE_NAME = 'btltech-v1.0.0';
-const STATIC_CACHE_URLS = [
+const CACHE_NAME = 'btltech-cache-v1';
+const urlsToCache = [
   '/',
   '/index.html',
-  '/landing.html',
-  '/about.html',
-  '/book.html',
   '/repairs.html',
   '/data-recovery.html',
-  '/accessories.html',
-  '/pricing.html',
+  '/faq.html',
+  '/book.html',
   '/contact.html',
-  '/reviews.html',
   '/warranty.html',
-  '/blog.html',
-  '/acton-phone-repair.html',
-  '/acton-laptop-repair.html',
-  '/inventory.html',
+  '/landing.html',
+  '/offline.html',
+  '/styles.min.css',
+  '/script.js',
+  '/menu.js',
+  '/cookie-consent.js',
   '/btltech-logo-192.png',
-  '/hero-repair.jpeg',
+  '/btltech-logo-512.png',
   '/favicon.ico',
   '/manifest.json',
   'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
+  'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css',
+  'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js'
 ];
 
 // Install event - cache static assets

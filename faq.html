@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Frequently Asked Questions – BTLTech Ltd</title>
+  <meta name="description" content="Find answers to common questions about our phone, laptop, tablet, and console repair services in Acton Vale, W3."/>
+  <meta name="keywords" content="faq, frequently asked questions, repair questions, Acton Vale, W3, BTLTech"/>
+  <link rel="icon" href="favicon.ico"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
+  <script src="cookie-consent.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+<!-- TOP BAR -->
+<div class="w-full bg-blue-950 text-white text-sm">
+  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
+    <div><i class="fa-solid fa-location-dot mr-1"></i>161 The Vale, Acton, London W3 7RD</div>
+    <div class="flex items-center gap-3">
+      <a href="mailto:info@btltech.co.uk"><i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk</a>
+      <a href="tel:+442087460193"><i class="fa-solid fa-phone mr-1"></i>020 8746 0193</a>
+      <a href="tel:+447445363599"><i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599</a>
+      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20 logo-img"/><span class="brand-text">BTLTech Ltd</span></a>
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="index.html">Home</a>
+      <a href="repairs.html">Repairs</a>
+      <a href="data-recovery.html">Data Recovery</a>
+      <a href="faq.html" class="text-blue-600" aria-current="page">FAQ</a>
+      <a href="book.html">Book</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100" aria-label="Toggle mobile menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
+      <a href="index.html">Home</a>
+      <a href="repairs.html">Repairs</a>
+      <a href="data-recovery.html">Data Recovery</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
+      <a href="book.html">Book</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bg-blue-600 text-white py-16 text-center relative">
+  <img src="hero-repair.jpeg" alt="Professional repair tools and devices at BTLTech" class="absolute inset-0 w-full h-full object-cover opacity-20" loading="lazy"/>
+  <div class="relative container mx-auto px-4">
+    <h1 class="text-4xl font-bold">Frequently Asked Questions</h1>
+    <p class="mt-3 text-lg text-blue-100">Find answers to common questions about our services</p>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16">
+  <div class="container mx-auto px-4 max-w-4xl">
+      <!-- FAQ Item 1 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group" open>
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-clock text-blue-600 mr-2" aria-hidden="true"></i>How long do repairs take?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>Repair times vary depending on the issue and parts availability. Many common repairs, like screen or battery replacements, can often be completed the same day if we have the parts in stock. More complex issues may take 1-3 business days. We will always provide an estimated timeframe when you book your device in.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 2 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-shield-halved text-green-600 mr-2" aria-hidden="true"></i>Do you offer a warranty on your repairs?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>Yes, we offer a 90-day warranty on all our repairs. This warranty covers the specific parts we replaced and the labour associated with the repair. It does not cover accidental damage (like drops or water damage) that occurs after the repair. For more details, please see our <a href="warranty.html" class="text-blue-600 hover:underline">Warranty Terms</a>.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 3 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-mobile-screen text-purple-600 mr-2" aria-hidden="true"></i>What types of devices do you repair?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>We repair a wide range of electronic devices, including:</p>
+          <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+            <li>Smartphones (iPhone, Samsung, Google Pixel, etc.)</li>
+            <li>Laptops (MacBook, Dell, HP, Lenovo, etc.)</li>
+            <li>Tablets (iPad, Samsung Galaxy Tab, etc.)</li>
+            <li>Gaming Consoles (PlayStation, Xbox, Nintendo Switch)</li>
+          </ul>
+          <p class="mt-2">If you have a device not listed here, please <a href="contact.html" class="text-blue-600 hover:underline">contact us</a> to see if we can help.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 4 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-calendar-check text-orange-600 mr-2" aria-hidden="true"></i>Do I need to book an appointment?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>While walk-ins are welcome, we highly recommend <a href="book.html" class="text-blue-600 hover:underline">booking an appointment</a> online. This ensures we can give your device our full attention and reduces your waiting time. Booking also helps us confirm that we have the necessary parts in stock for your specific repair.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 5 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-pound-sign text-red-600 mr-2" aria-hidden="true"></i>How much will my repair cost?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>The cost of a repair depends on the device and the extent of the damage. We offer free, no-obligation diagnostics and quotes. You can <a href="contact.html" class="text-blue-600 hover:underline">contact us</a> with your device model and issue for an estimated cost, or bring it in for a precise quote.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 6 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-lock text-indigo-600 mr-2" aria-hidden="true"></i>Is my data safe during repair?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>Your privacy and data security are our top priorities. We only access your device as necessary for the repair and never view or copy personal data without your explicit permission. For data recovery services, we use secure, encrypted methods to protect your information. We recommend backing up your data before any repair, as we cannot guarantee data preservation in all cases.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 7 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-credit-card text-teal-600 mr-2" aria-hidden="true"></i>What payment methods do you accept?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>We accept cash, card (Visa, Mastercard, American Express), and contactless payments. For larger repairs, we may require payment upfront, but we always discuss this with you first. We do not accept checks or cryptocurrency at this time.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 8 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-tools text-yellow-600 mr-2" aria-hidden="true"></i>What should I bring when I come for a repair?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>Please bring your device, any accessories (chargers, cases), and proof of purchase if available. If you're dropping off a device, ensure it's charged and unlocked. For laptops, bring the power adapter. We'll provide you with a repair ticket and keep you updated throughout the process.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 9 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-truck text-pink-600 mr-2" aria-hidden="true"></i>Do you offer pickup and delivery services?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>Currently, we do not offer pickup and delivery services. All repairs must be brought to our shop in Acton Vale. However, we are located conveniently and have free parking available. If you're unable to visit, we can recommend trusted courier services for shipping, though we recommend this only for simple repairs.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 10 -->
+      <details class="bg-white p-6 rounded-lg shadow-sm border group">
+        <summary class="font-semibold cursor-pointer flex justify-between items-center">
+          <i class="fa-solid fa-question-circle text-gray-600 mr-2" aria-hidden="true"></i>What if my device can't be repaired?
+          <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 text-gray-700">
+          <p>In rare cases, a device may be beyond repair due to extensive damage. We'll always inform you upfront if this is the case and provide options like data recovery or device replacement recommendations. There are no charges for diagnostics, and we'll only proceed with repairs after your approval.</p>
+        </div>
+      </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-blue-50 py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">Still Have Questions?</h2>
+    <p class="text-lg text-gray-600 mb-8">If you can't find the answer you're looking for, please get in touch. We're here to help!</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="contact.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Contact Us</a>
+      <a href="tel:+442087460193" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">Call Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white text-sm py-6">
+  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
+    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="book.html" class="hover:underline">Book a Repair</a></p><p><a href="warranty.html" class="hover:underline">Warranty Terms</a></p></div>
+    <div><h3 class="font-semibold mb-2">Contact Info</h3><p>161 The Vale, Acton, London W3 7RD</p><p>020 8746 0193 • 07445 363 599</p><p>info@btltech.co.uk</p></div>
+    <div><h3 class="font-semibold mb-2">Opening Hours</h3><p>Mon-Fri: 10:00 - 19:00</p><p>Saturday: 13:00 - 17:00</p><p>Sunday: Closed</p></div>
+  </div>
+  <div class="text-center mt-6 border-t border-gray-700 pt-4">© <span id="year"></span> BTLTech Ltd</div>
+</footer>
+
+<script src="menu.js"></script>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -4,8 +4,8 @@
   <!-- Basic Meta Tags -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>BTLTech Ltd – Phone & Computer Repairs in Acton Vale, W3</title>
-  <meta name="description" content="BTLTech Ltd: phone, tablet, laptop & console repairs, data recovery & accessories. Serving Acton Vale, West London. Book online or WhatsApp today."/>
+  <title>Phone & Laptop Repairs in Acton Vale, W3 | Fast, Reliable Service – BTLTech Ltd</title>
+  <meta name="description" content="Expert phone, laptop, tablet & console repairs in Acton Vale. Same-day service, quality parts, free diagnostics. Book online or WhatsApp today!"/>
   <meta name="keywords" content="phone repair Acton Vale, laptop repair Acton, tablet repair W3, console repair West London, data recovery Acton, phone repair near me, laptop repair near me, tablet repair near me, console repair near me, BTLTech, Acton Vale repairs, West London repairs, W3 repairs, Acton phone repair, Acton laptop repair, Acton tablet repair, Acton console repair, Acton data recovery, West London phone repair, West London laptop repair, West London tablet repair, West London console repair, West London data recovery, Acton Vale phone repair, Acton Vale laptop repair, Acton Vale tablet repair, Acton Vale console repair, Acton Vale data recovery, W3 phone repair, W3 laptop repair, W3 tablet repair, W3 console repair, W3 data recovery"/>
   <meta name="author" content="BTLTech Ltd"/>
   
@@ -33,6 +33,7 @@
   <link rel="icon" href="favicon.ico"/>
   <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml"/>
+  <link rel="canonical" href="https://btltech.co.uk/" />
   
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json"/>
@@ -48,6 +49,11 @@
   <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
+  <script src="cookie-consent.js"></script>
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -118,40 +124,43 @@
   <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
     <!-- Business Address -->
     <div>
-      <i class="fa-solid fa-location-dot mr-1"></i>
-      161 The Vale, Acton, London W3 7RD
+      <a href="https://www.google.com/maps/place/BTLTech+Ltd/@51.509942,-0.258805,17z/data=!3m1!4b1!4m6!3m5!1s0x48760e6d33323ded:0x23622be085a83e0!8m2!3d51.509942!4d-0.258805!16s%2Fg%2F11h3f_0y1l?entry=ttu" target="_blank" rel="noopener" aria-label="View our address on Google Maps">
+        <i class="fa-solid fa-location-dot mr-1" aria-hidden="true"></i>
+        161 The Vale, Acton, London W3 7RD
+      </a>
     </div>
     
     <!-- Contact Methods -->
     <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk" class="hover:underline">
-        <i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk
+      <a href="mailto:info@btltech.co.uk" class="hover:underline" aria-label="Email us at info@btltech.co.uk">
+        <i class="fa-solid fa-at mr-1" aria-hidden="true"></i>info@btltech.co.uk
       </a>
-      <a href="tel:+442087460193" class="hover:underline">
-        <i class="fa-solid fa-phone mr-1"></i>020 8746 0193
+      <a href="tel:+442087460193" class="hover:underline" aria-label="Call us at 020 8746 0193">
+        <i class="fa-solid fa-phone mr-1" aria-hidden="true"></i>020 8746 0193
       </a>
-      <a href="tel:+447445363599" class="hover:underline">
-        <i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599
+      <a href="tel:+447445363599" class="hover:underline" aria-label="Call us at 07445 363 599">
+        <i class="fa-solid fa-mobile-screen mr-1" aria-hidden="true"></i>07445 363 599
       </a>
       <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700 transition" 
          href="https://wa.me/447445363599" 
          target="_blank" 
-         rel="noopener">
-        <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
+         rel="noopener"
+         aria-label="Message us on WhatsApp">
+        <i class="fa-brands fa-whatsapp mr-1" aria-hidden="true"></i>WhatsApp
       </a>
     </div>
   </div>
 </div>
 
 <!-- HEADER: Navigation -->
-<header class="sticky top-0 z-40 bg-white shadow-sm">
+<header class="sticky top-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4 py-3 flex items-center justify-between">
     <!-- Logo and Brand -->
     <a href="index.html" class="flex items-center gap-4">
       <img src="btltech-logo-192.png" 
            alt="BTLTech logo" 
-           class="w-20 h-20"/>
-      <span class="font-bold text-3xl">BTLTech Ltd</span>
+           class="w-20 h-20 logo-img"/>
+      <span class="brand-text">BTLTech Ltd</span>
     </a>
     
     <!-- Desktop Navigation -->
@@ -159,11 +168,8 @@
       <a href="index.html" class="text-blue-600" aria-current="page">Home</a>
       <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="blog.html">Blog</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
-      <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact</a>
     </nav>
     
@@ -182,18 +188,22 @@
       <a href="index.html" aria-current="page">Home</a>
       <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="blog.html">Blog</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
-      <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
 </header>
 
+<!-- BREADCRUMB NAVIGATION -->
+<div class="container mx-auto px-4">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a>
+  </nav>
+</div>
+
 <!-- HERO: Main Call-to-Action -->
-<section class="container mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+<section class="hero-overlay container mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
   <div>
     <h1 class="text-4xl md:text-5xl font-extrabold">
       Fast, Professional Repairs in <span class="text-blue-600">Acton Vale</span>
@@ -205,10 +215,6 @@
     <!-- Trust Indicators -->
     <div class="mt-6 flex flex-wrap gap-4 text-sm text-gray-600">
       <div class="flex items-center gap-1">
-        <i class="fa-solid fa-star text-yellow-400"></i>
-        <span>3.7/5 Google Rating</span>
-      </div>
-      <div class="flex items-center gap-1">
         <i class="fa-solid fa-tools text-green-600"></i>
         <span>Expert Technicians</span>
       </div>
@@ -216,36 +222,53 @@
         <i class="fa-solid fa-clock text-blue-600"></i>
         <span>Same Day Service*</span>
       </div>
+      <div class="flex items-center gap-1">
+        <i class="fa-solid fa-shield-halved text-purple-600"></i>
+        <span>Warranty Protected</span>
+      </div>
     </div>
     <p class="text-xs text-gray-500 mt-2">*Same day service subject to parts availability</p>
     
     <!-- Action Buttons -->
     <div class="mt-6 flex flex-col sm:flex-row gap-3">
       <a href="book.html" 
-         class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-        <i class="fa-solid fa-calendar-check"></i>
+         class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+         aria-label="Book a repair appointment">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
         Book a Repair
       </a>
       <a href="https://wa.me/447445363599" 
          class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2" 
          target="_blank" 
-         rel="noopener">
-        <i class="fa-brands fa-whatsapp"></i>
-        WhatsApp Us
-      </a>
-      <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" 
-         target="_blank" 
          rel="noopener"
-         class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2">
-        <i class="fa-brands fa-google"></i>
-        Leave a Review
+         aria-label="Message us on WhatsApp">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        WhatsApp Us
       </a>
     </div>
   </div>
   <img src="hero-repair.jpeg" 
        alt="Professional repair service at BTLTech" 
        class="w-full rounded-xl shadow-lg" 
-       loading="eager"/>
+       loading="lazy"/>
+</section>
+
+<!-- QUICK SEARCH -->
+<section class="py-12 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-4">Find Your Repair Service</h2>
+      <div class="search-container mx-auto">
+        <i class="fa-solid fa-search search-icon"></i>
+        <input type="text" 
+               id="serviceSearch" 
+               class="search-input" 
+               placeholder="Search for phone repair, laptop screen, data recovery..."
+               aria-label="Search for repair services">
+      </div>
+      <div id="searchResults" class="mt-4 text-left hidden"></div>
+    </div>
+  </div>
 </section>
 
 <!-- SERVICES OVERVIEW: Service Categories -->
@@ -299,23 +322,7 @@
       <h2 class="text-3xl font-bold mb-4">Book Your Repair Today</h2>
       <p class="text-lg text-gray-600 mb-8">Choose your preferred booking method</p>
       
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- Google Review Option -->
-        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-blue-100">
-          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fa-brands fa-google text-xl text-blue-600"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-2">Leave a Google Review</h3>
-          <p class="text-sm text-gray-600 mb-4">Share your experience and help other customers</p>
-          <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" 
-             target="_blank" 
-             rel="noopener"
-             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-            <i class="fa-brands fa-google"></i>
-            Leave a Review
-          </a>
-        </div>
-        
+      <div class="grid md:grid-cols-2 gap-6">
         <!-- Direct Booking Form -->
         <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-green-100">
           <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -350,83 +357,12 @@
   </div>
 </section>
 
-<!-- REVIEWS & TRUST: Social Proof -->
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">Trusted by Our Community</h2>
-    
-    <!-- Google Reviews Integration -->
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border">
-        <div class="flex text-yellow-400">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-        </div>
-        <span class="font-semibold text-gray-700">3.7/5 on Google</span>
-        <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" 
-           target="_blank" 
-           rel="noopener" 
-           class="text-blue-600 hover:underline text-sm">View Reviews</a>
-      </div>
-    </div>
-
-    <!-- Review Request Section -->
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-white p-8 rounded-lg shadow-sm border text-center">
-        <h3 class="text-2xl font-bold mb-4">Recently Had Your Device Repaired?</h3>
-        <p class="text-gray-600 mb-6">We'd love to hear about your experience! Your feedback helps us improve and helps other customers make informed decisions.</p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://www.google.com/search?q=BtlTech+Ltd&stick=H4sIAAAAAAAA_-NgU1I1qDCxMDczSDUySks0MTYyNba0MqhISk41SDI1SzZJNjBKTUozXcTK7VSSE5KanKHgU5ICAEye8F83AAAA&hl=en&mat=CaeEf0swPOaMElcBYJahaUtter4xEQpkS_Y8ev2wG-W1uMZI_WxYSlqXhfFBpFSWcjfB9SDMsrBSgc3b_M8ZbV4ePpVx1mpqDe7xCU1dKfWSdRG-wzSlqMRwJCuwrDf1pIE&authuser=0" target="_blank" rel="noopener" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-            <i class="fa-brands fa-google"></i>
-            Leave a Google Review
-          </a>
-          <a href="https://wa.me/447445363599?text=Hi! I'd like to leave feedback about my recent repair service." target="_blank" rel="noopener" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
-            <i class="fa-brands fa-whatsapp"></i>
-            Share Feedback via WhatsApp
-          </a>
-        </div>
-        
-        <p class="text-sm text-gray-500 mt-4">
-          <i class="fa-solid fa-shield-halved mr-1"></i>
-          All reviews are genuine and from real customers
-        </p>
-      </div>
-    </div>
-
-    <!-- Trust Badges -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <i class="fa-solid fa-shield-halved text-3xl text-green-600 mb-2"></i>
-        <h4 class="font-semibold text-sm">Quality Parts</h4>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <i class="fa-solid fa-clock text-3xl text-blue-600 mb-2"></i>
-        <h4 class="font-semibold text-sm">Fast Turnaround*</h4>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <i class="fa-solid fa-tools text-3xl text-purple-600 mb-2"></i>
-        <h4 class="font-semibold text-sm">Expert Technicians</h4>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <i class="fa-solid fa-lock text-3xl text-orange-600 mb-2"></i>
-        <h4 class="font-semibold text-sm">Secure & Confidential</h4>
-      </div>
-    </div>
-    <p class="text-xs text-gray-500 mt-4 text-center">*Repair time depends on parts availability and complexity</p>
-  </div>
-</section>
-
 <!-- FOOTER: Site Information -->
 <footer class="bg-gray-900 text-white text-sm py-6">
   <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
     <!-- Quick Links -->
     <div>
       <h3 class="font-semibold mb-2">Quick Links</h3>
-      <p><a href="pricing.html" class="hover:underline">Request a Quote</a></p>
       <p><a href="book.html" class="hover:underline">Book a Repair</a></p>
       <p><a href="warranty.html" class="hover:underline">Warranty Terms</a></p>
     </div>
@@ -454,6 +390,14 @@
   </div>
 </footer>
 
+<!-- STICKY CTA BUTTON -->
+<div class="sticky-cta" id="stickyCta">
+  <button onclick="window.location.href='book.html'" aria-label="Book a repair now">
+    <i class="fa-solid fa-calendar-check"></i>
+    <span>Book Now</span>
+  </button>
+</div>
+
 <!-- Tawk.to Live Chat Integration -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -468,21 +412,100 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 
 <!-- JavaScript: Interactive Functionality -->
+<script src="menu.js"></script>
 <script>
 // Update copyright year dynamically
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Mobile menu toggle functionality
-document.getElementById('menuBtn').addEventListener('click', () => {
-  const mobileMenu = document.getElementById('mobileMenu');
-  const menuBtn = document.getElementById('menuBtn');
+// Sticky CTA Button - Show on scroll
+const stickyCta = document.getElementById('stickyCta');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
   
-  // Toggle menu visibility
+  // Show button after scrolling down 300px
+  if (currentScroll > 300) {
+    stickyCta.classList.add('visible');
+  } else {
+    stickyCta.classList.remove('visible');
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// Search Functionality
+const serviceSearch = document.getElementById('serviceSearch');
+const searchResults = document.getElementById('searchResults');
+
+const services = [
+  { name: 'Phone Screen Repair', url: 'repairs.html#phone', category: 'Phone' },
+  { name: 'Phone Battery Replacement', url: 'repairs.html#phone', category: 'Phone' },
+  { name: 'Laptop Screen Replacement', url: 'repairs.html#laptop', category: 'Laptop' },
+  { name: 'Laptop Keyboard Repair', url: 'repairs.html#laptop', category: 'Laptop' },
+  { name: 'Tablet Screen Repair', url: 'repairs.html#tablet', category: 'Tablet' },
+  { name: 'Console Repair', url: 'repairs.html#console', category: 'Console' },
+  { name: 'Data Recovery', url: 'data-recovery.html', category: 'Data' },
+  { name: 'iPhone Repair', url: 'repairs.html#phone', category: 'Phone' },
+  { name: 'Samsung Repair', url: 'repairs.html#phone', category: 'Phone' },
+  { name: 'MacBook Repair', url: 'repairs.html#laptop', category: 'Laptop' },
+  { name: 'iPad Repair', url: 'repairs.html#tablet', category: 'Tablet' },
+  { name: 'PlayStation Repair', url: 'repairs.html#console', category: 'Console' },
+  { name: 'Xbox Repair', url: 'repairs.html#console', category: 'Console' }
+];
+
+serviceSearch?.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+  
+  if (query.length < 2) {
+    searchResults.classList.add('hidden');
+    return;
+  }
+  
+  const filtered = services.filter(service => 
+    service.name.toLowerCase().includes(query) || 
+    service.category.toLowerCase().includes(query)
+  );
+  
+  if (filtered.length > 0) {
+    searchResults.innerHTML = `
+      <div class="bg-white border rounded-lg shadow-lg p-4 max-h-80 overflow-y-auto">
+        <div class="text-sm font-semibold text-gray-600 mb-2">Search Results:</div>
+        ${filtered.map(service => `
+          <a href="${service.url}" class="block p-3 hover:bg-gray-50 rounded-lg transition-colors">
+            <div class="font-semibold text-blue-600">${service.name}</div>
+            <div class="text-xs text-gray-500">${service.category}</div>
+          </a>
+        `).join('')}
+      </div>
+    `;
+    searchResults.classList.remove('hidden');
+  } else {
+    searchResults.innerHTML = `
+      <div class="bg-white border rounded-lg shadow-lg p-4">
+        <div class="text-sm text-gray-600">No services found. Try "phone", "laptop", or "data recovery"</div>
+      </div>
+    `;
+    searchResults.classList.remove('hidden');
+  }
+});
+
+// Close search results when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-container') && !e.target.closest('#searchResults')) {
+    searchResults?.classList.add('hidden');
+  }
+});
+
+// Mobile Menu Animation
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn?.addEventListener('click', () => {
   mobileMenu.classList.toggle('hidden');
-  
-  // Update aria-expanded attribute for accessibility
-  const isExpanded = !mobileMenu.classList.contains('hidden');
-  menuBtn.setAttribute('aria-expanded', isExpanded);
+  if (!mobileMenu.classList.contains('hidden')) {
+    mobileMenu.classList.add('mobile-menu-enter');
+  }
 });
 
 // PWA Service Worker Registration

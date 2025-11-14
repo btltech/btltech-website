@@ -9,6 +9,10 @@
   <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
+  <script src="cookie-consent.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
@@ -26,17 +30,17 @@
 </div>
 
 <!-- HEADER -->
-<header class="sticky top-0 z-40 bg-white shadow-sm">
+<header class="sticky top-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20"/><span class="font-bold text-3xl">BTLTech Ltd</span></a>
+    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20 logo-img"/><span class="brand-text">BTLTech Ltd</span></a>
     <nav class="hidden md:flex gap-6 text-sm font-medium">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="data-recovery.html">Data Recovery</a><a href="accessories.html">Accessories</a><a href="pricing.html">Quotes</a><a href="book.html">Book</a><a href="reviews.html">Reviews</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html">Contact</a>
     </nav>
     <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100"><i class="fa-solid fa-bars"></i></button>
   </div>
   <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
     <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="data-recovery.html">Data Recovery</a><a href="accessories.html">Accessories</a><a href="pricing.html">Quotes</a><a href="book.html">Book</a><a href="reviews.html">Reviews</a><a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html">Contact</a>
     </div>
   </div>
 </header>
@@ -137,7 +141,7 @@
 <!-- FOOTER -->
 <footer class="bg-gray-900 text-white text-sm py-6">
   <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="pricing.html" class="hover:underline">Request a Quote</a></p><p><a href="book.html" class="hover:underline">Book a Repair</a></p></div>
+    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="book.html" class="hover:underline">Book a Repair</a></p></div>
     <div><h3 class="font-semibold mb-2">Contact Info</h3><p>161 The Vale, Acton, London W3 7RD</p><p>020 8746 0193 • 07445 363 599</p><p>info@btltech.co.uk</p></div>
     <div><h3 class="font-semibold mb-2">Opening Hours</h3><p>Mon-Fri: 10:00 - 19:00</p><p>Saturday: 13:00 - 17:00</p><p>Sunday: Closed</p></div>
   </div>

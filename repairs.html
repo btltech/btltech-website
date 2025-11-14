@@ -13,6 +13,7 @@
   <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
 
   <!-- LocalBusiness Schema for SEO -->
   <script type="application/ld+json">
@@ -52,23 +53,22 @@
 </div>
 
 <!-- HEADER: Navigation -->
-<header class="sticky top-0 z-40 bg-white shadow-sm">
+<header class="sticky top-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4 py-3 flex items-center justify-between">
     <!-- Logo and Brand -->
     <a href="index.html" class="flex items-center gap-4">
       <img src="btltech-logo-192.png" 
            alt="BTLTech logo" 
-           class="w-20 h-20"/>
-      <span class="font-bold text-3xl">BTLTech Ltd</span>
+           class="w-20 h-20 logo-img"/>
+      <span class="brand-text">BTLTech Ltd</span>
     </a>
     
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex gap-6 text-sm font-medium" role="navigation" aria-label="Main navigation">
+        <nav class="hidden md:flex gap-6 text-sm font-medium">
       <a href="index.html">Home</a>
-      <a href="repairs.html" class="text-blue-600" aria-current="page">Repairs</a>
+      <a href="repairs.html" class="text-blue-600">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -86,15 +86,23 @@
   <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
     <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
       <a href="index.html">Home</a>
-      <a href="repairs.html" aria-current="page">Repairs</a>
+      <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
 </header>
+
+<!-- BREADCRUMB NAVIGATION -->
+<div class="container mx-auto px-4">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <span>Repairs</span>
+  </nav>
+</div>
 
 <!-- HERO: Page Introduction -->
 <section class="container mx-auto px-4 py-16 text-center">
@@ -171,6 +179,14 @@
   </div>
 </footer>
 
+<!-- STICKY CTA BUTTON -->
+<div class="sticky-cta" id="stickyCta">
+  <button onclick="window.location.href='book.html'" aria-label="Book a repair now">
+    <i class="fa-solid fa-calendar-check"></i>
+    <span>Book Now</span>
+  </button>
+</div>
+
 <!-- Tawk.to Live Chat Integration -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -189,13 +205,26 @@ s0.parentNode.insertBefore(s1,s0);
 // Update copyright year dynamically
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Mobile menu toggle functionality
+// Sticky CTA Button
+const stickyCta = document.getElementById('stickyCta');
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    stickyCta.classList.add('visible');
+  } else {
+    stickyCta.classList.remove('visible');
+  }
+});
+
+// Mobile menu toggle functionality with animation
 document.getElementById('menuBtn').addEventListener('click', () => {
   const mobileMenu = document.getElementById('mobileMenu');
   const menuBtn = document.getElementById('menuBtn');
   
   // Toggle menu visibility
   mobileMenu.classList.toggle('hidden');
+  if (!mobileMenu.classList.contains('hidden')) {
+    mobileMenu.classList.add('mobile-menu-enter');
+  }
   
   // Update aria-expanded attribute for accessibility
   const isExpanded = !mobileMenu.classList.contains('hidden');

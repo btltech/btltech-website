@@ -46,7 +46,12 @@
   
   <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
+  <script src="cookie-consent.js"></script>
+</head>
   
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -120,23 +125,22 @@
 </div>
 
 <!-- HEADER: Navigation -->
-<header class="sticky top-0 z-40 bg-white shadow-sm">
+<header class="sticky top-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4 py-3 flex items-center justify-between">
     <!-- Logo and Brand -->
     <a href="index.html" class="flex items-center gap-4">
       <img src="btltech-logo-192.png" 
            alt="BTLTech logo" 
-           class="w-20 h-20"/>
-      <span class="font-bold text-3xl">BTLTech Ltd</span>
+           class="w-20 h-20 logo-img"/>
+      <span class="brand-text">BTLTech Ltd</span>
     </a>
     
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex gap-6 text-sm font-medium" role="navigation" aria-label="Main navigation">
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
       <a href="index.html">Home</a>
       <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -156,8 +160,7 @@
       <a href="index.html">Home</a>
       <a href="repairs.html">Repairs</a>
       <a href="data-recovery.html">Data Recovery</a>
-      <a href="accessories.html">Accessories</a>
-      <a href="pricing.html">Quotes</a>
+      <a href="faq.html">FAQ</a>
       <a href="book.html">Book</a>
       <a href="contact.html">Contact</a>
     </div>
