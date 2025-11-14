@@ -1,1 +1,11 @@
 node_modules/
+
+# Image backups and optimization folders
+*-original.jpeg
+*-original.jpg
+*-original.png
+optimized_images/
+
+# OS Files
+.DS_Store
+Thumbs.db
