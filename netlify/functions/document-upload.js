@@ -1,7 +1,6 @@
-const sgMail = require('@sendgrid/mail');
+const { Resend } = require('resend');
 
-// Set SendGrid API key
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.handler = async (event, context) => {
   // Only allow POST requests
@@ -23,7 +22,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // For free tier, limit to 10 files per submission to stay well under limits
+    // For free tier, limit to 10 files per submission
     if (files.length > 10) {
       return {
         statusCode: 400,
@@ -33,39 +32,43 @@ exports.handler = async (event, context) => {
 
     // Prepare email attachments
     const attachments = files.map((file, index) => ({
-      content: file.content, // Base64 encoded content
       filename: file.name,
-      type: file.type || 'application/octet-stream',
-      disposition: 'attachment'
+      content: Buffer.from(file.content, 'base64'),
+      content_type: file.type || 'application/octet-stream'
     }));
 
-    // Email content using SendGrid template
-    const msg = {
+    // Email content
+    const emailData = {
+      from: 'BTLTech Website <noreply@yourdomain.com>', // You'll need to verify your domain
       to: 'info@btltech.co.uk',
-      from: {
-        email: process.env.FROM_EMAIL || 'noreply@btltech.co.uk',
-        name: 'BTLTech Website'
-      },
-      templateId: 'd-d95140eaa7414dd4a0d39bad8afe2030', // Your template ID
-      dynamicTemplateData: {
-        name: name,
-        email: email,
-        phone: phone || 'Not provided',
-        message: message || 'No message provided',
-        fileCount: files.length,
-        subject: `Document Upload from ${name} - BTLTech Printing Service`
-      },
+      subject: `Document Upload from ${name} - BTLTech Printing Service`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #1e3a8a;">New Document Upload Request</h2>
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            <p><strong>Message:</strong> ${message || 'No message provided'}</p>
+            <p><strong>Number of files:</strong> ${files.length}</p>
+          </div>
+          <p>Please find the attached documents for printing services.</p>
+          <br>
+          <p style="color: #666; font-size: 12px;">This email was sent from the BTLTech website contact form.</p>
+        </div>
+      `,
       attachments: attachments
     };
 
     // Send email
-    await sgMail.send(msg);
+    const result = await resend.emails.send(emailData);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
-        message: 'Documents uploaded and emailed successfully!'
+        message: 'Documents uploaded and emailed successfully!',
+        emailId: result.data?.id
       })
     };
 

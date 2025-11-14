@@ -43,10 +43,10 @@ async function testFunction() {
   }
 }
 
-// Run test if SENDGRID_API_KEY is set
-if (process.env.SENDGRID_API_KEY) {
+// Run test if RESEND_API_KEY is set
+if (process.env.RESEND_API_KEY) {
   testFunction();
 } else {
-  console.log('Please set SENDGRID_API_KEY environment variable to run this test');
-  console.log('Example: SENDGRID_API_KEY=your_key_here node test-document-upload.js');
+  console.log('Please set RESEND_API_KEY environment variable to run this test');
+  console.log('Example: RESEND_API_KEY=re_123456789 node test-document-upload.js');
 }
