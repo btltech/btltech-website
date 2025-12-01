@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Basic Meta Tags -->
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Repairs – BTLTech Ltd</title>
-  
+
   <!-- Favicon and App Icons -->
-  <link rel="icon" href="favicon.ico"/>
-  <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
-  
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="btltech-logo-192.png" />
+
   <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2RMZGJHLD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-S2RMZGJHLD');
   </script>
@@ -29,279 +56,310 @@
   {"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://btltech.co.uk/#btltech","name":"BTLTech Ltd","image":"https://btltech.co.uk/btltech-logo-192.png","url":"https://btltech.co.uk/repairs.html","telephone":"+44 20 8746 0193","email":"info@btltech.co.uk","address":{"@type":"PostalAddress","streetAddress":"161 The Vale","addressLocality":"Acton","addressRegion":"London","postalCode":"W3 7RD","addressCountry":"GB"},"geo":{"@type":"GeoCoordinates","latitude":51.5074,"longitude":-0.1278},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"13:00","closes":"17:00"}],"sameAs":["https://wa.me/447445363599"],"priceRange":"££","mainEntityOfPage":"https://btltech.co.uk/repairs.html"}
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- SKIP LINKS -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip to main content</a>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
 
-<!-- TOP BAR: Contact Information -->
-<div class="w-full bg-blue-950 text-white text-sm">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <!-- Business Address -->
-    <div>
-      <i class="fa-solid fa-location-dot mr-1"></i>
-      161 The Vale, Acton, London W3 7RD
+  <!-- SKIP LINKS -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip
+    to main content</a>
+
+  <!-- HEADER: Modern Glassmorphism Navigation -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass" id="main-header">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-75 group-hover:opacity-100 blur transition duration-200">
+            </div>
+            <img src="btltech-logo-192.png" alt="BTLTech"
+              class="relative w-12 h-12 rounded-full border-2 border-white shadow-sm">
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-bold text-xl tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors">BTLTech</span>
+            <span class="text-[0.65rem] uppercase tracking-widest font-semibold text-slate-500">Repairs &
+              Solutions</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="index.html" class="hover:text-brand-primary transition-colors">Home</a>
+          <a href="repairs.html" class="text-brand-primary font-semibold">Repairs</a>
+          <a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a>
+          <a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a>
+          <a href="book.html"
+            class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-700 transition-all hover:shadow-glow font-semibold">Book
+            Now</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-primary transition-colors">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+      </div>
     </div>
-    
-    <!-- Contact Methods -->
-    <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk" class="hover:underline">
-        <i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk
-      </a>
-      <a href="tel:+442087460193" class="hover:underline">
-        <i class="fa-solid fa-phone mr-1"></i>020 8746 0193
-      </a>
-      <a href="tel:+447445363599" class="hover:underline">
-        <i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599
-      </a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700 transition" 
-         href="https://wa.me/447445363599" 
-         target="_blank" 
-         rel="noopener">
-        <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
-      </a>
-    </div>
-  </div>
-</div>
 
-<!-- HEADER: Navigation -->
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <!-- Logo and Brand -->
-    <a href="index.html" class="flex items-center gap-4">
-      <img src="btltech-logo-192.png" 
-           alt="BTLTech logo" 
-           class="w-20 h-20 logo-img"/>
-      <span class="brand-text">BTLTech Ltd</span>
-    </a>
-    
-    <!-- Desktop Navigation -->
-        <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 shadow-xl">
+      <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-center font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-brand-primary">Home</a>
+        <a href="repairs.html" class="text-brand-primary">Repairs</a>
+        <a href="printing.html" class="text-slate-600 hover:text-brand-primary">Printing</a>
+        <a href="data-recovery.html" class="text-slate-600 hover:text-brand-primary">Data Recovery</a>
+        <a href="book.html" class="bg-brand-primary text-white py-3 rounded-xl shadow-lg mx-4">Book Appointment</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB NAVIGATION -->
+  <div class="container mx-auto px-4">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
-      <a href="repairs.html" class="text-blue-600">Repairs</a>
-      <a href="printing.html">Printing</a>
-      <a href="data-recovery.html">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
+      <span class="breadcrumb-separator">/</span>
+      <span>Repairs</span>
     </nav>
-    
-    <!-- Mobile Menu Toggle -->
-    <button id="menuBtn" 
-            class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100" 
-            aria-label="Toggle mobile menu" 
-            aria-expanded="false">
-      <i class="fa-solid fa-bars"></i>
-    </button>
   </div>
-  
-  <!-- Mobile Navigation Menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
-    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a>
-      <a href="repairs.html">Repairs</a>
-      <a href="printing.html">Printing</a>
-      <a href="data-recovery.html">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
+
+  <!-- HERO: Page Introduction -->
+  <section id="main-content" class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-brand-light -z-20"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-blue-50 to-transparent -z-10 opacity-50">
     </div>
-  </div>
-</header>
 
-<!-- BREADCRUMB NAVIGATION -->
-<div class="container mx-auto px-4">
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="index.html">Home</a>
-    <span class="breadcrumb-separator">/</span>
-    <span>Repairs</span>
-  </nav>
-</div>
+    <div class="container mx-auto px-4 lg:px-8 text-center">
+      <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Our Expertise</span>
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mt-2 mb-6">Device Repairs</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Expert repairs for phones, laptops, tablets, and game consoles. Fast turnaround. Quality parts. 90-day warranty
+        on all repairs.
+      </p>
 
-<!-- HERO: Page Introduction -->
-<section id="main-content" class="container mx-auto px-4 py-16 text-center">
-  <h1 class="text-4xl font-extrabold">Device Repairs</h1>
-  <p class="mt-5 text-lg text-gray-600">Expert repairs for phones, laptops, tablets, and game consoles. Fast turnaround. Quality parts. 90-day warranty on all repairs.</p>
-  <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-    <a href="book.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
-      <i class="fa-solid fa-calendar-check"></i> Book a Repair
-    </a>
-    <a href="https://wa.me/447445363599?text=Hi! I need a repair quote for my device." target="_blank" rel="noopener" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors inline-flex items-center justify-center gap-2">
-      <i class="fa-brands fa-whatsapp"></i> Get a Quick Quote
-    </a>
-  </div>
-  <p class="text-xs text-gray-500 mt-3">*Prices below are starting estimates. Final price depends on device model.</p>
-</section>
-
-<!-- PHONE REPAIRS: Smartphone Services -->
-<section id="phone" class="container mx-auto px-4 py-12">
-  <div class="grid md:grid-cols-2 gap-8 items-center">
-    <div>
-      <h2 class="text-2xl font-bold mb-4">Phone Repairs</h2>
-      <p class="text-gray-600 mb-4">Cracked screen? Dead battery? Charging problems? We repair iPhones, Samsungs, Google Pixels, and all major smartphone brands. Most repairs are completed the same day while you wait.</p>
-      <ul class="text-sm text-gray-600 space-y-2 mb-4">
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Battery replacements</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Charging port repairs</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Water damage recovery</li>
-      </ul>
-      <p class="text-blue-600 font-semibold">Screen repairs from £35* | Battery from £25*</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="book.html"
+          class="px-8 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-blue-700 transition-all hover:shadow-lg inline-flex items-center justify-center gap-2">
+          <i class="fa-solid fa-calendar-check"></i> Book a Repair
+        </a>
+        <a href="https://wa.me/447445363599?text=Hi! I need a repair quote for my device." target="_blank"
+          rel="noopener"
+          class="px-8 py-3 bg-white text-brand-dark border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition-all hover:shadow-md inline-flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i> Get a Quick Quote
+        </a>
+      </div>
+      <p class="text-xs text-slate-500 mt-4">*Prices below are starting estimates. Final price depends on device model.
+      </p>
     </div>
-    <img src="Generated Image September 06, 2025 - 4_05AM.jpeg" alt="Phone repair service" class="w-full rounded shadow"/>
-  </div>
-</section>
+  </section>
 
-<!-- LAPTOP REPAIRS: Computer Services -->
-<section id="laptop" class="container mx-auto px-4 py-12 bg-gray-50">
-  <div class="grid md:grid-cols-2 gap-8 items-center">
-    <img src="Generated Image September 06, 2025 - 4_10AM.jpeg" alt="Laptop repair service" class="w-full rounded shadow order-2 md:order-1"/>
-    <div class="order-1 md:order-2">
-      <h2 class="text-2xl font-bold mb-4">Laptop Repairs</h2>
-      <p class="text-gray-600 mb-4">Slow laptop? Broken screen? Overheating? We fix MacBooks, Windows laptops, and Chromebooks. Our free diagnostics will identify the problem before we quote you.</p>
-      <ul class="text-sm text-gray-600 space-y-2 mb-4">
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Keyboard repairs</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Overheating fixes</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Boot & software issues</li>
-      </ul>
-      <p class="text-green-600 font-semibold">Free diagnostics | Repairs from £45*</p>
+  <!-- PHONE REPAIRS: Smartphone Services -->
+  <section id="phone" class="container mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Phone Repairs</h2>
+        <p class="text-gray-600 mb-4">Cracked screen? Dead battery? Charging problems? We repair iPhones, Samsungs,
+          Google Pixels, and all major smartphone brands. Most repairs are completed the same day while you wait.</p>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4">
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Battery replacements</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Charging port repairs</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Water damage recovery</li>
+        </ul>
+        <p class="text-blue-600 font-semibold">Screen repairs from £35* | Battery from £25*</p>
+      </div>
+      <img src="Generated Image September 06, 2025 - 4_05AM.jpeg" alt="Phone repair service"
+        class="w-full rounded shadow" />
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TABLET REPAIRS: Tablet Services -->
-<section id="tablet" class="container mx-auto px-4 py-12">
-  <div class="grid md:grid-cols-2 gap-8 items-center">
-    <div>
-      <h2 class="text-2xl font-bold mb-4">Tablet Repairs</h2>
-      <p class="text-gray-600 mb-4">iPads, Samsung Galaxy Tabs, and other tablets repaired with quality parts. Whether it's a cracked screen, charging issue, or battery problem, we'll get your tablet working like new.</p>
-      <ul class="text-sm text-gray-600 space-y-2 mb-4">
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Battery replacements</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Charging port repairs</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Button repairs</li>
-      </ul>
-      <p class="text-purple-600 font-semibold">Tablet repairs from £40*</p>
+  <!-- LAPTOP REPAIRS: Computer Services -->
+  <section id="laptop" class="container mx-auto px-4 py-12 bg-gray-50">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <img src="Generated Image September 06, 2025 - 4_10AM.jpeg" alt="Laptop repair service"
+        class="w-full rounded shadow order-2 md:order-1" />
+      <div class="order-1 md:order-2">
+        <h2 class="text-2xl font-bold mb-4">Laptop Repairs</h2>
+        <p class="text-gray-600 mb-4">Slow laptop? Broken screen? Overheating? We fix MacBooks, Windows laptops, and
+          Chromebooks. Our free diagnostics will identify the problem before we quote you.</p>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4">
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Keyboard repairs</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Overheating fixes</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Boot & software issues</li>
+        </ul>
+        <p class="text-green-600 font-semibold">Free diagnostics | Repairs from £45*</p>
+      </div>
     </div>
-    <img src="Generated Image September 07, 2025 - 3_42AM.jpeg" alt="Tablet repair service" class="w-full rounded shadow"/>
-  </div>
-</section>
+  </section>
 
-<!-- CONSOLE REPAIRS: Gaming Console Services -->
-<section id="console" class="container mx-auto px-4 py-12 bg-gray-50">
-  <div class="grid md:grid-cols-2 gap-8 items-center">
-    <img src="Generated Image September 07, 2025 - 3_37AM.jpeg" alt="Console repair service" class="w-full rounded shadow order-2 md:order-1"/>
-    <div class="order-1 md:order-2">
-      <h2 class="text-2xl font-bold mb-4">Game Console Repairs</h2>
-      <p class="text-gray-600 mb-4">PlayStation, Xbox, or Nintendo not working? We diagnose and fix disc drive errors, overheating, HDMI port issues, controller problems, and more. Get back to gaming faster.</p>
-      <ul class="text-sm text-gray-600 space-y-2 mb-4">
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>HDMI port repairs</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Disc drive fixes</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Overheating solutions</li>
-        <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Power supply repairs</li>
-      </ul>
-      <p class="text-orange-600 font-semibold">Console repairs from £35*</p>
+  <!-- TABLET REPAIRS: Tablet Services -->
+  <section id="tablet" class="container mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Tablet Repairs</h2>
+        <p class="text-gray-600 mb-4">iPads, Samsung Galaxy Tabs, and other tablets repaired with quality parts. Whether
+          it's a cracked screen, charging issue, or battery problem, we'll get your tablet working like new.</p>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4">
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Screen replacements</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Battery replacements</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Charging port repairs</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Button repairs</li>
+        </ul>
+        <p class="text-purple-600 font-semibold">Tablet repairs from £40*</p>
+      </div>
+      <img src="Generated Image September 07, 2025 - 3_42AM.jpeg" alt="Tablet repair service"
+        class="w-full rounded shadow" />
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WHATSAPP CTA FOR SERVICE PAGE -->
-<section class="py-10 bg-green-600 text-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-2xl font-bold mb-2">Need a Repair Quote?</h2>
-    <p class="text-green-100 mb-4">Send us your device details on WhatsApp. We'll reply with a quote fast.</p>
-    <a href="https://wa.me/447445363599?text=Hi! I need a repair quote. My device is:" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors">
-      <i class="fa-brands fa-whatsapp text-xl"></i>
-      Message Us for a Quote
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER: Site Information -->
-<footer class="bg-gray-900 text-white text-sm py-6">
-  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold mb-2">Quick Links</h3>
-      <p><a href="book.html" class="hover:underline">Book a Repair</a></p>
+  <!-- CONSOLE REPAIRS: Gaming Console Services -->
+  <section id="console" class="container mx-auto px-4 py-12 bg-gray-50">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <img src="Generated Image September 07, 2025 - 3_37AM.jpeg" alt="Console repair service"
+        class="w-full rounded shadow order-2 md:order-1" />
+      <div class="order-1 md:order-2">
+        <h2 class="text-2xl font-bold mb-4">Game Console Repairs</h2>
+        <p class="text-gray-600 mb-4">PlayStation, Xbox, or Nintendo not working? We diagnose and fix disc drive errors,
+          overheating, HDMI port issues, controller problems, and more. Get back to gaming faster.</p>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4">
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>HDMI port repairs</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Disc drive fixes</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Overheating solutions</li>
+          <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Power supply repairs</li>
+        </ul>
+        <p class="text-orange-600 font-semibold">Console repairs from £35*</p>
+      </div>
     </div>
-    
-    <!-- Contact Information -->
-    <div>
-      <h3 class="font-semibold mb-2">Contact Info</h3>
-      <p>161 The Vale, Acton, London W3 7RD</p>
-      <p>020 8746 0193 • 07445 363 599</p>
-      <p>info@btltech.co.uk</p>
+  </section>
+
+  <!-- WHATSAPP CTA FOR SERVICE PAGE -->
+  <section class="py-10 bg-green-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold mb-2">Need a Repair Quote?</h2>
+      <p class="text-green-100 mb-4">Send us your device details on WhatsApp. We'll reply with a quote fast.</p>
+      <a href="https://wa.me/447445363599?text=Hi! I need a repair quote. My device is:" target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors">
+        <i class="fa-brands fa-whatsapp text-xl"></i>
+        Message Us for a Quote
+      </a>
     </div>
-    
-    <!-- Business Hours -->
-    <div>
-      <h3 class="font-semibold mb-2">Opening Hours</h3>
-      <p>Mon-Fri: 10:00 - 19:00</p>
-      <p>Saturday: 13:00 - 17:00</p>
-      <p>Sunday: Closed</p>
+  </section>
+
+  <!-- FOOTER: Site Information -->
+  <footer class="bg-brand-dark text-white py-16 border-t border-slate-800">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand Info -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="btltech-logo-192.png" alt="BTLTech Logo" class="w-10 h-10 rounded-full border border-slate-700">
+            <span class="font-display font-bold text-xl">BTLTech Ltd</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+            Professional repair services for all your tech needs. We specialize in phone, laptop, and console repairs
+            with a focus on quality and speed.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li><a href="index.html" class="hover:text-brand-primary transition-colors">Home</a></li>
+            <li><a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a></li>
+            <li><a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a></li>
+            <li><a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a></li>
+            <li><a href="book.html" class="hover:text-brand-primary transition-colors">Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Contact Us</h3>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot mt-1 text-brand-primary"></i>
+              <span>161 The Vale, Acton,<br>London W3 7RD</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-brand-primary"></i>
+              <a href="tel:+442087460193" class="hover:text-white">020 8746 0193</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-brand-primary"></i>
+              <a href="mailto:info@btltech.co.uk" class="hover:text-white">info@btltech.co.uk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div
+        class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© <span id="year"></span> BTLTech Ltd. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
     </div>
-  </div>
-  
-  <!-- Copyright -->
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">
-    © <span id="year"></span> BTLTech Ltd
-  </div>
-</footer>
+  </footer>
 
-<!-- STICKY WHATSAPP BUTTON -->
-<a href="https://wa.me/447445363599?text=Hi! I need a repair quote." 
-   target="_blank" 
-   rel="noopener"
-   class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
-   aria-label="Chat on WhatsApp">
-  <i class="fa-brands fa-whatsapp text-2xl"></i>
-  <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get a Quote</span>
-</a>
+  <!-- STICKY WHATSAPP BUTTON -->
+  <a href="https://wa.me/447445363599?text=Hi! I need a repair quote." target="_blank" rel="noopener"
+    class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
+    aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+    <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get a Quote</span>
+  </a>
 
-<!-- Tawk.to Live Chat Integration -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+  <!-- Tawk.to Live Chat Integration -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
 
-<!-- JavaScript: Interactive Functionality -->
-<script>
-// Update copyright year dynamically
-document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- JavaScript: Interactive Functionality -->
+  <script>
+    // Update copyright year dynamically
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-// Sticky CTA Button
-const stickyCta = document.getElementById('stickyCta');
-window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
-    stickyCta.classList.add('visible');
-  } else {
-    stickyCta.classList.remove('visible');
-  }
-});
+    // Sticky CTA Button
+    const stickyCta = document.getElementById('stickyCta');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    });
 
-// Mobile menu toggle functionality with animation
-document.getElementById('menuBtn').addEventListener('click', () => {
-  const mobileMenu = document.getElementById('mobileMenu');
-  const menuBtn = document.getElementById('menuBtn');
-  
-  // Toggle menu visibility
-  mobileMenu.classList.toggle('hidden');
-  if (!mobileMenu.classList.contains('hidden')) {
-    mobileMenu.classList.add('mobile-menu-enter');
-  }
-  
-  // Update aria-expanded attribute for accessibility
-  const isExpanded = !mobileMenu.classList.contains('hidden');
-  menuBtn.setAttribute('aria-expanded', isExpanded);
-});
-</script>
+    // Mobile menu toggle functionality with animation
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.getElementById('menuBtn');
+
+      // Toggle menu visibility
+      mobileMenu.classList.toggle('hidden');
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('mobile-menu-enter');
+      }
+
+      // Update aria-expanded attribute for accessibility
+      const isExpanded = !mobileMenu.classList.contains('hidden');
+      menuBtn.setAttribute('aria-expanded', isExpanded);
+    });
+  </script>
 </body>
+
 </html>

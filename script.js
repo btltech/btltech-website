@@ -1,23 +1,10 @@
 // Enhanced JavaScript functionality for BTLTech website
 
 // Mobile menu functionality
-document.addEventListener('DOMContentLoaded', function() {
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', function() {
-      mobileMenu.classList.toggle('hidden');
-      const icon = menuBtn.querySelector('i');
-      if (mobileMenu.classList.contains('hidden')) {
-        icon.className = 'fa-solid fa-bars';
-      } else {
-        icon.className = 'fa-solid fa-times';
-      }
-    });
-  }
-  
-  // Update copyright year
+// Mobile menu functionality is handled in menu.js
+
+// Update copyright year
+document.addEventListener('DOMContentLoaded', function () {
   const yearElement = document.getElementById('year');
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
@@ -43,15 +30,15 @@ function enhanceForms() {
   const forms = document.querySelectorAll('form');
   forms.forEach(form => {
     const inputs = form.querySelectorAll('input, textarea, select');
-    
+
     inputs.forEach(input => {
       // Add real-time validation
-      input.addEventListener('blur', function() {
+      input.addEventListener('blur', function () {
         validateField(this);
       });
-      
+
       // Add loading state to submit button
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', function (e) {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
           submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Submitting...';
@@ -67,7 +54,7 @@ function validateField(field) {
   const type = field.type;
   let isValid = true;
   let message = '';
-  
+
   if (field.hasAttribute('required') && !value) {
     isValid = false;
     message = 'This field is required';
@@ -84,7 +71,7 @@ function validateField(field) {
       message = 'Please enter a valid phone number';
     }
   }
-  
+
   // Show/hide error message
   let errorElement = field.parentNode.querySelector('.error-message');
   if (!isValid) {
@@ -103,7 +90,7 @@ function validateField(field) {
     field.classList.remove('border-red-500');
     field.classList.add('border-gray-300');
   }
-  
+
   return isValid;
 }
 
@@ -113,7 +100,7 @@ function initScrollAnimations() {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -121,7 +108,7 @@ function initScrollAnimations() {
       }
     });
   }, observerOptions);
-  
+
   // Observe elements that should animate
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
@@ -131,12 +118,12 @@ function initScrollAnimations() {
 // Performance monitoring
 function trackPerformance() {
   if ('performance' in window) {
-    window.addEventListener('load', function() {
-      setTimeout(function() {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
         const perfData = performance.getEntriesByType('navigation')[0];
         if (perfData) {
           console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-          
+
           // Track Core Web Vitals
           if ('web-vital' in window) {
             // This would integrate with web-vitals library
@@ -149,7 +136,7 @@ function trackPerformance() {
 }
 
 // Initialize all functionality
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   enhanceForms();
   initScrollAnimations();
   trackPerformance();

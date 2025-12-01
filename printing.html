@@ -1,27 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Basic Meta Tags -->
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Document Printing Services – BTLTech Ltd</title>
-  <meta name="description" content="Professional document printing services in Acton Vale. PDF, Word, Excel, labels & custom printing. Fast, high-quality prints."/>
-  <meta name="keywords" content="document printing Acton Vale, PDF printing W3, label printing Acton, custom printing Acton Vale, print shop Acton, BTLTech printing"/>
+  <meta name="description"
+    content="Professional document printing services in Acton Vale. PDF, Word, Excel, labels & custom printing. Fast, high-quality prints." />
+  <meta name="keywords"
+    content="document printing Acton Vale, PDF printing W3, label printing Acton, custom printing Acton Vale, print shop Acton, BTLTech printing" />
 
   <!-- Favicon and App Icons -->
-  <link rel="icon" href="favicon.ico"/>
-  <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="btltech-logo-192.png" />
 
   <!-- External Stylesheets and Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2RMZGJHLD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-S2RMZGJHLD');
   </script>
@@ -54,431 +83,432 @@
   }
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- SKIP LINKS -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip to main content</a>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
 
-<!-- TOP BAR: Contact Information -->
-<div class="w-full bg-blue-950 text-white text-sm">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <!-- Business Address -->
-    <div>
-      <i class="fa-solid fa-location-dot mr-1"></i>
-      161 The Vale, Acton, London W3 7RD
+  <!-- SKIP LINKS -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip
+    to main content</a>
+
+  <!-- HEADER: Modern Glassmorphism Navigation -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass" id="main-header">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-75 group-hover:opacity-100 blur transition duration-200">
+            </div>
+            <img src="btltech-logo-192.png" alt="BTLTech"
+              class="relative w-12 h-12 rounded-full border-2 border-white shadow-sm">
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-bold text-xl tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors">BTLTech</span>
+            <span class="text-[0.65rem] uppercase tracking-widest font-semibold text-slate-500">Repairs &
+              Solutions</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="index.html" class="hover:text-brand-primary transition-colors">Home</a>
+          <a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a>
+          <a href="printing.html" class="text-brand-primary font-semibold">Printing</a>
+          <a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a>
+          <a href="book.html"
+            class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-700 transition-all hover:shadow-glow font-semibold">Book
+            Now</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-primary transition-colors">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+      </div>
     </div>
 
-    <!-- Contact Methods -->
-    <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk" class="hover:underline">
-        <i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk
-      </a>
-      <a href="tel:+442087460193" class="hover:underline">
-        <i class="fa-solid fa-phone mr-1"></i>020 8746 0193
-      </a>
-      <a href="tel:+447445363599" class="hover:underline">
-        <i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599
-      </a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700 transition"
-         href="https://wa.me/447445363599"
-         target="_blank"
-         rel="noopener">
-        <i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp
-      </a>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 shadow-xl">
+      <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-center font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-brand-primary">Home</a>
+        <a href="repairs.html" class="text-slate-600 hover:text-brand-primary">Repairs</a>
+        <a href="printing.html" class="text-brand-primary">Printing</a>
+        <a href="data-recovery.html" class="text-slate-600 hover:text-brand-primary">Data Recovery</a>
+        <a href="book.html" class="bg-brand-primary text-white py-3 rounded-xl shadow-lg mx-4">Book Appointment</a>
+      </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<!-- HEADER: Navigation -->
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <!-- Logo and Brand -->
-    <a href="index.html" class="flex items-center gap-4">
-      <img src="btltech-logo-192.png"
-           alt="BTLTech logo"
-           class="w-20 h-20 logo-img"/>
-      <span class="brand-text">BTLTech Ltd</span>
-    </a>
-
-    <!-- Desktop Navigation -->
-    <nav class="hidden md:flex gap-6 text-sm font-medium" role="navigation" aria-label="Main navigation">
+  <!-- BREADCRUMB NAVIGATION -->
+  <div class="container mx-auto px-4">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
-      <a href="repairs.html">Repairs</a>
-      <a href="printing.html" class="text-blue-600" aria-current="page">Printing</a>
-      <a href="data-recovery.html">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
+      <span class="breadcrumb-separator">/</span>
+      <span>Printing</span>
     </nav>
-
-    <!-- Mobile Menu Toggle -->
-    <button id="menuBtn"
-            class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100"
-            aria-label="Toggle mobile menu"
-            aria-expanded="false">
-      <i class="fa-solid fa-bars"></i>
-    </button>
   </div>
 
-  <!-- Mobile Navigation Menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
-    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a>
-      <a href="repairs.html">Repairs</a>
-      <a href="printing.html">Printing</a>
-      <a href="data-recovery.html">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
+  <!-- HERO: Printing Services Introduction -->
+  <section id="main-content" class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-brand-light -z-20"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-blue-50 to-transparent -z-10 opacity-50">
     </div>
-  </div>
-</header>
 
-<!-- BREADCRUMB NAVIGATION -->
-<div class="container mx-auto px-4">
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="index.html">Home</a>
-    <span class="breadcrumb-separator">/</span>
-    <span>Printing</span>
-  </nav>
-</div>
-
-<!-- HERO: Printing Services Introduction -->
-<section id="main-content" class="container mx-auto px-4 py-16 text-center">
-  <h1 class="text-4xl font-extrabold">Document Printing Services</h1>
-  <p class="mt-5 text-lg text-gray-600">Fast, affordable, and high-quality printing for all your document needs</p>
-</section>
-
-<!-- PRINTING SERVICES: Service Categories -->
-<section class="bg-white py-16">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-12">Our Printing Services</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-      <!-- Document Printing -->
-      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fa-solid fa-file-pdf text-2xl text-blue-600"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Document Printing</h3>
-        <p class="text-sm text-gray-600">Need something printed fast? We print PDFs, Word docs, Excel spreadsheets, and more. Colour or black & white. Bring a USB or email us your files.</p>
-        <p class="text-sm font-semibold text-blue-600 mt-2">From 50p/page*</p>
-      </div>
-
-      <!-- Label Printing -->
-      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fa-solid fa-tags text-2xl text-green-600"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Label Printing</h3>
-        <p class="text-sm text-gray-600">Custom labels, address stickers, product tags, and barcodes. Perfect for small businesses, eBay sellers, or personal use. Quick turnaround.</p>
-        <p class="text-sm font-semibold text-green-600 mt-2">Contact us for label pricing*</p>
-      </div>
+    <div class="container mx-auto px-4 lg:px-8 text-center">
+      <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Professional Printing</span>
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mt-2 mb-6">Document Printing Services
+      </h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Fast, affordable, and high-quality printing for all your document needs. From single pages to bulk orders.
+      </p>
     </div>
-    <p class="text-center text-xs text-gray-500 mt-6">*Prices are estimates. Final price depends on quantity and specifications.</p>
-  </div>
-</section>
+  </section>
 
-
-
-<!-- DOCUMENT UPLOAD FORM: Upload and Email Documents -->
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-8">Upload Your Documents</h2>
-      <p class="text-center text-gray-600 mb-8">Upload your documents directly and we'll email you a custom quote</p>
-
-      <!-- Upload Form -->
-      <div class="bg-white p-8 rounded-lg shadow-lg">
-        <form id="documentUploadForm" enctype="multipart/form-data">
-          <div class="grid md:grid-cols-2 gap-6 mb-6">
-            <!-- Name -->
-            <div>
-              <label for="uploadName" class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-              <input type="text"
-                     id="uploadName"
-                     name="name"
-                     required
-                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                     placeholder="Your full name">
-            </div>
-
-            <!-- Email -->
-            <div>
-              <label for="uploadEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-              <input type="email"
-                     id="uploadEmail"
-                     name="email"
-                     required
-                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                     placeholder="your.email@example.com">
-            </div>
+  <!-- PRINTING SERVICES: Service Categories -->
+  <section class="bg-white py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Printing Services</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- Document Printing -->
+        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-file-pdf text-2xl text-blue-600"></i>
           </div>
+          <h3 class="font-semibold mb-2">Document Printing</h3>
+          <p class="text-sm text-gray-600">Need something printed fast? We print PDFs, Word docs, Excel spreadsheets,
+            and more. Colour or black & white. Bring a USB or email us your files.</p>
+          <p class="text-sm font-semibold text-blue-600 mt-2">From 50p/page*</p>
+        </div>
 
-          <!-- Phone -->
-          <div class="mb-6">
-            <label for="uploadPhone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-            <input type="tel"
-                   id="uploadPhone"
-                   name="phone"
-                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                   placeholder="Your phone number (optional)">
+        <!-- Label Printing -->
+        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-tags text-2xl text-green-600"></i>
           </div>
+          <h3 class="font-semibold mb-2">Label Printing</h3>
+          <p class="text-sm text-gray-600">Custom labels, address stickers, product tags, and barcodes. Perfect for
+            small businesses, eBay sellers, or personal use. Quick turnaround.</p>
+          <p class="text-sm font-semibold text-green-600 mt-2">Contact us for label pricing*</p>
+        </div>
+      </div>
+      <p class="text-center text-xs text-gray-500 mt-6">*Prices are estimates. Final price depends on quantity and
+        specifications.</p>
+    </div>
+  </section>
 
-          <!-- Message -->
-          <div class="mb-6">
-            <label for="uploadMessage" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-            <textarea id="uploadMessage"
-                      name="message"
-                      rows="4"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Any special instructions or requirements..."></textarea>
-          </div>
 
-          <!-- File Upload -->
-          <div class="mb-6">
-            <label for="uploadFiles" class="block text-sm font-medium text-gray-700 mb-2">Upload Documents *</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-              <div class="mb-4">
-                <i class="fa-solid fa-cloud-upload-alt text-3xl text-gray-400"></i>
+
+  <!-- DOCUMENT UPLOAD FORM: Upload and Email Documents -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Upload Your Documents</h2>
+        <p class="text-center text-gray-600 mb-8">Upload your documents directly and we'll email you a custom quote</p>
+
+        <!-- Upload Form -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <form id="documentUploadForm" enctype="multipart/form-data">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <!-- Name -->
+              <div>
+                <label for="uploadName" class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                <input type="text" id="uploadName" name="name" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Your full name">
               </div>
-              <p class="text-gray-600 mb-2">Drag & drop your files here, or click to browse</p>
-              <p class="text-sm text-gray-500">Supported formats: PDF, Word, Excel, PowerPoint, Images (Max 10MB per file)</p>
-              <input type="file"
-                     id="uploadFiles"
-                     name="files"
-                     multiple
-                     accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif"
-                     required
-                     class="hidden">
-              <button type="button"
-                      onclick="document.getElementById('uploadFiles').click()"
-                      class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Choose Files
-              </button>
+
+              <!-- Email -->
+              <div>
+                <label for="uploadEmail" class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                <input type="email" id="uploadEmail" name="email" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="your.email@example.com">
+              </div>
             </div>
-            <div id="fileList" class="mt-4 space-y-2"></div>
-          </div>
 
-          <!-- Submit Button -->
-          <button type="submit"
-                  id="uploadSubmitBtn"
-                  class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
-            <i class="fa-solid fa-paper-plane mr-2"></i>
-            Send Documents & Get Quote
-          </button>
-        </form>
+            <!-- Phone -->
+            <div class="mb-6">
+              <label for="uploadPhone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+              <input type="tel" id="uploadPhone" name="phone"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Your phone number (optional)">
+            </div>
 
-        <!-- Upload Status -->
-        <div id="uploadStatus" class="mt-4 hidden" aria-live="polite" aria-atomic="true">
-          <div id="uploadSuccess" class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg hidden">
-            <i class="fa-solid fa-check-circle mr-2"></i>
-            <span id="successMessage"></span>
-          </div>
-          <div id="uploadError" class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg hidden">
-            <i class="fa-solid fa-exclamation-circle mr-2"></i>
-            <span id="errorMessage"></span>
+            <!-- Message -->
+            <div class="mb-6">
+              <label for="uploadMessage" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+              <textarea id="uploadMessage" name="message" rows="4"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Any special instructions or requirements..."></textarea>
+            </div>
+
+            <!-- File Upload -->
+            <div class="mb-6">
+              <label for="uploadFiles" class="block text-sm font-medium text-gray-700 mb-2">Upload Documents *</label>
+              <div
+                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                <div class="mb-4">
+                  <i class="fa-solid fa-cloud-upload-alt text-3xl text-gray-400"></i>
+                </div>
+                <p class="text-gray-600 mb-2">Drag & drop your files here, or click to browse</p>
+                <p class="text-sm text-gray-500">Supported formats: PDF, Word, Excel, PowerPoint, Images (Max 10MB per
+                  file)</p>
+                <input type="file" id="uploadFiles" name="files" multiple
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" required class="hidden">
+                <button type="button" onclick="document.getElementById('uploadFiles').click()"
+                  class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  Choose Files
+                </button>
+              </div>
+              <div id="fileList" class="mt-4 space-y-2"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="uploadSubmitBtn"
+              class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+              <i class="fa-solid fa-paper-plane mr-2"></i>
+              Send Documents & Get Quote
+            </button>
+          </form>
+
+          <!-- Upload Status -->
+          <div id="uploadStatus" class="mt-4 hidden" aria-live="polite" aria-atomic="true">
+            <div id="uploadSuccess" class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg hidden">
+              <i class="fa-solid fa-check-circle mr-2"></i>
+              <span id="successMessage"></span>
+            </div>
+            <div id="uploadError" class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg hidden">
+              <i class="fa-solid fa-exclamation-circle mr-2"></i>
+              <span id="errorMessage"></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CALL TO ACTION: Get Started -->
-<section class="bg-blue-600 text-white py-16">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold mb-4">Ready to Print?</h2>
-    <p class="text-lg text-blue-100 mb-8">Bring your files in or send them via email/WhatsApp for a custom quote</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="https://wa.me/447445363599?text=Hi! I'd like to get a quote for printing services."
-         class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
-         target="_blank"
-         rel="noopener">
-        <i class="fa-brands fa-whatsapp"></i>
-        Get Quote on WhatsApp
-      </a>
-      <a href="contact.html"
-         class="px-6 py-3 border-2 border-white text-white rounded-lg hover:bg-white hover:text-blue-600 transition-colors flex items-center justify-center gap-2">
-        <i class="fa-solid fa-envelope"></i>
-        Email Us
-      </a>
+  <!-- CALL TO ACTION: Get Started -->
+  <section class="bg-blue-600 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to Print?</h2>
+      <p class="text-lg text-blue-100 mb-8">Bring your files in or send them via email/WhatsApp for a custom quote</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://wa.me/447445363599?text=Hi! I'd like to get a quote for printing services."
+          class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+          target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i>
+          Get Quote on WhatsApp
+        </a>
+        <a href="contact.html"
+          class="px-6 py-3 border-2 border-white text-white rounded-lg hover:bg-white hover:text-blue-600 transition-colors flex items-center justify-center gap-2">
+          <i class="fa-solid fa-envelope"></i>
+          Email Us
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER: Site Information -->
-<footer class="bg-gray-900 text-white text-sm py-6">
-  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold mb-2">Quick Links</h3>
-      <p><a href="book.html" class="hover:underline">Book a Repair</a></p>
-      <p><a href="printing.html" class="hover:underline">Printing Services</a></p>
-      <p><a href="warranty.html" class="hover:underline">Warranty Terms</a></p>
+  <!-- FOOTER: Site Information -->
+  <footer class="bg-brand-dark text-white py-16 border-t border-slate-800">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand Info -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="btltech-logo-192.png" alt="BTLTech Logo" class="w-10 h-10 rounded-full border border-slate-700">
+            <span class="font-display font-bold text-xl">BTLTech Ltd</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+            Professional repair services for all your tech needs. We specialize in phone, laptop, and console repairs
+            with a focus on quality and speed.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li><a href="index.html" class="hover:text-brand-primary transition-colors">Home</a></li>
+            <li><a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a></li>
+            <li><a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a></li>
+            <li><a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a></li>
+            <li><a href="book.html" class="hover:text-brand-primary transition-colors">Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Contact Us</h3>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot mt-1 text-brand-primary"></i>
+              <span>161 The Vale, Acton,<br>London W3 7RD</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-brand-primary"></i>
+              <a href="tel:+442087460193" class="hover:text-white">020 8746 0193</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-brand-primary"></i>
+              <a href="mailto:info@btltech.co.uk" class="hover:text-white">info@btltech.co.uk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div
+        class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© <span id="year"></span> BTLTech Ltd. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
     </div>
+  </footer>
 
-    <!-- Contact Information -->
-    <div>
-      <h3 class="font-semibold mb-2">Contact Info</h3>
-      <p>161 The Vale, Acton, London W3 7RD</p>
-      <p>020 8746 0193 • 07445 363 599</p>
-      <p>info@btltech.co.uk</p>
-    </div>
+  <!-- STICKY WHATSAPP BUTTON -->
+  <a href="https://wa.me/447445363599?text=Hi! I need printing services." target="_blank" rel="noopener"
+    class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
+    aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+    <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get Quote</span>
+  </a>
 
-    <!-- Business Hours -->
-    <div>
-      <h3 class="font-semibold mb-2">Opening Hours</h3>
-      <p>Mon-Fri: 10:00 - 19:00</p>
-      <p>Saturday: 13:00 - 17:00</p>
-      <p>Sunday: Closed</p>
-    </div>
-  </div>
+  <!-- Tawk.to Live Chat Integration -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
 
-  <!-- Copyright -->
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">
-    © <span id="year"></span> BTLTech Ltd
-  </div>
-</footer>
+  <script src="menu.js"></script>
+  <script>
+    // Update copyright year dynamically
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<!-- STICKY WHATSAPP BUTTON -->
-<a href="https://wa.me/447445363599?text=Hi! I need printing services." 
-   target="_blank" 
-   rel="noopener"
-   class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
-   aria-label="Chat on WhatsApp">
-  <i class="fa-brands fa-whatsapp text-2xl"></i>
-  <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get Quote</span>
-</a>
-
-<!-- Tawk.to Live Chat Integration -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-
-<script src="menu.js"></script>
-<script>
-// Update copyright year dynamically
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// Sticky CTA Button
-const stickyCta = document.getElementById('stickyCta');
-window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
-    stickyCta.classList.add('visible');
-  } else {
-    stickyCta.classList.remove('visible');
-  }
-});
-
-// Mobile menu toggle functionality with animation
-document.getElementById('menuBtn').addEventListener('click', () => {
-  const mobileMenu = document.getElementById('mobileMenu');
-  const menuBtn = document.getElementById('menuBtn');
-
-  // Toggle menu visibility
-  mobileMenu.classList.toggle('hidden');
-  if (!mobileMenu.classList.contains('hidden')) {
-    mobileMenu.classList.add('mobile-menu-enter');
-  }
-
-  // Update aria-expanded attribute for accessibility
-  const isExpanded = !mobileMenu.classList.contains('hidden');
-  menuBtn.setAttribute('aria-expanded', isExpanded);
-});
-
-// Document Upload Functionality
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('documentUploadForm');
-  const fileInput = document.getElementById('uploadFiles');
-  const fileList = document.getElementById('fileList');
-  const submitBtn = document.getElementById('uploadSubmitBtn');
-  const uploadStatus = document.getElementById('uploadStatus');
-  const successDiv = document.getElementById('uploadSuccess');
-  const errorDiv = document.getElementById('uploadError');
-  const successMessage = document.getElementById('successMessage');
-  const errorMessage = document.getElementById('errorMessage');
-
-  let selectedFiles = [];
-
-  // Handle file selection
-  fileInput.addEventListener('change', handleFileSelection);
-
-  // Handle drag and drop
-  const uploadArea = fileInput.parentElement;
-  uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadArea.classList.add('border-blue-500', 'bg-blue-50');
-  });
-
-  uploadArea.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
-  });
-
-  uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
-
-    const files = Array.from(e.dataTransfer.files);
-    handleFiles(files);
-  });
-
-  function handleFileSelection(e) {
-    const files = Array.from(e.target.files);
-    handleFiles(files);
-  }
-
-  function handleFiles(files) {
-    // Filter valid file types
-    const validTypes = [
-      'application/pdf',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.ms-excel',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-powerpoint',
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      'image/jpeg',
-      'image/png',
-      'image/gif'
-    ];
-
-    const validFiles = files.filter(file => {
-      if (!validTypes.includes(file.type)) {
-        showError(`Invalid file type: ${file.name}. Please upload PDF, Word, Excel, PowerPoint, or image files.`);
-        return false;
+    // Sticky CTA Button
+    const stickyCta = document.getElementById('stickyCta');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
       }
-      if (file.size > 10 * 1024 * 1024) { // 10MB limit
-        showError(`File too large: ${file.name}. Maximum file size is 10MB.`);
-        return false;
-      }
-      return true;
     });
 
-    selectedFiles = validFiles;
-    updateFileList();
-  }
+    // Mobile menu toggle functionality with animation
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuBtn = document.getElementById('menuBtn');
 
-  function updateFileList() {
-    fileList.innerHTML = '';
+      // Toggle menu visibility
+      mobileMenu.classList.toggle('hidden');
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('mobile-menu-enter');
+      }
 
-    if (selectedFiles.length === 0) {
-      fileList.innerHTML = '<p class="text-gray-500 text-sm">No files selected</p>';
-      return;
-    }
+      // Update aria-expanded attribute for accessibility
+      const isExpanded = !mobileMenu.classList.contains('hidden');
+      menuBtn.setAttribute('aria-expanded', isExpanded);
+    });
 
-    selectedFiles.forEach((file, index) => {
-      const fileItem = document.createElement('div');
-      fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
-      fileItem.innerHTML = `
+    // Document Upload Functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('documentUploadForm');
+      const fileInput = document.getElementById('uploadFiles');
+      const fileList = document.getElementById('fileList');
+      const submitBtn = document.getElementById('uploadSubmitBtn');
+      const uploadStatus = document.getElementById('uploadStatus');
+      const successDiv = document.getElementById('uploadSuccess');
+      const errorDiv = document.getElementById('uploadError');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+
+      let selectedFiles = [];
+
+      // Handle file selection
+      fileInput.addEventListener('change', handleFileSelection);
+
+      // Handle drag and drop
+      const uploadArea = fileInput.parentElement;
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('border-blue-500', 'bg-blue-50');
+      });
+
+      uploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+      });
+
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('border-blue-500', 'bg-blue-50');
+
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+      });
+
+      function handleFileSelection(e) {
+        const files = Array.from(e.target.files);
+        handleFiles(files);
+      }
+
+      function handleFiles(files) {
+        // Filter valid file types
+        const validTypes = [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'application/vnd.ms-powerpoint',
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          'image/jpeg',
+          'image/png',
+          'image/gif'
+        ];
+
+        const validFiles = files.filter(file => {
+          if (!validTypes.includes(file.type)) {
+            showError(`Invalid file type: ${file.name}. Please upload PDF, Word, Excel, PowerPoint, or image files.`);
+            return false;
+          }
+          if (file.size > 10 * 1024 * 1024) { // 10MB limit
+            showError(`File too large: ${file.name}. Maximum file size is 10MB.`);
+            return false;
+          }
+          return true;
+        });
+
+        selectedFiles = validFiles;
+        updateFileList();
+      }
+
+      function updateFileList() {
+        fileList.innerHTML = '';
+
+        if (selectedFiles.length === 0) {
+          fileList.innerHTML = '<p class="text-gray-500 text-sm">No files selected</p>';
+          return;
+        }
+
+        selectedFiles.forEach((file, index) => {
+          const fileItem = document.createElement('div');
+          fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
+          fileItem.innerHTML = `
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-file text-blue-600"></i>
           <div>
@@ -490,100 +520,101 @@ document.addEventListener('DOMContentLoaded', () => {
           <i class="fa-solid fa-times"></i>
         </button>
       `;
-      fileList.appendChild(fileItem);
-    });
-  }
-
-  // Remove file function (accessible globally)
-  window.removeFile = (index) => {
-    selectedFiles.splice(index, 1);
-    updateFileList();
-  };
-
-  // Handle form submission
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (selectedFiles.length === 0) {
-      showError('Please select at least one file to upload.');
-      return;
-    }
-
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Uploading...';
-
-    try {
-      // Convert files to base64
-      const filePromises = selectedFiles.map(file => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve({
-            name: file.name,
-            type: file.type,
-            content: reader.result.split(',')[1] // Remove data URL prefix
-          });
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
+          fileList.appendChild(fileItem);
         });
-      });
-
-      const filesData = await Promise.all(filePromises);
-
-      // Prepare form data
-      const formData = {
-        name: document.getElementById('uploadName').value,
-        email: document.getElementById('uploadEmail').value,
-        phone: document.getElementById('uploadPhone').value,
-        message: document.getElementById('uploadMessage').value,
-        files: filesData
-      };
-
-      // Send to Netlify function
-      const response = await fetch('/.netlify/functions/document-upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        showSuccess(result.message);
-        form.reset();
-        selectedFiles = [];
-        updateFileList();
-      } else {
-        showError(result.error || 'Failed to upload documents. Please try again.');
       }
 
-    } catch (error) {
-      console.error('Upload error:', error);
-      showError('Network error. Please check your connection and try again.');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>Send Documents & Get Quote';
-    }
-  });
+      // Remove file function (accessible globally)
+      window.removeFile = (index) => {
+        selectedFiles.splice(index, 1);
+        updateFileList();
+      };
 
-  function showSuccess(message) {
-    uploadStatus.classList.remove('hidden');
-    successDiv.classList.remove('hidden');
-    errorDiv.classList.add('hidden');
-    successMessage.textContent = message;
-    successDiv.scrollIntoView({ behavior: 'smooth' });
-  }
+      // Handle form submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-  function showError(message) {
-    uploadStatus.classList.remove('hidden');
-    errorDiv.classList.remove('hidden');
-    successDiv.classList.add('hidden');
-    errorMessage.textContent = message;
-    errorDiv.scrollIntoView({ behavior: 'smooth' });
-  }
-});
-</script>
+        if (selectedFiles.length === 0) {
+          showError('Please select at least one file to upload.');
+          return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Uploading...';
+
+        try {
+          // Convert files to base64
+          const filePromises = selectedFiles.map(file => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve({
+                name: file.name,
+                type: file.type,
+                content: reader.result.split(',')[1] // Remove data URL prefix
+              });
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            });
+          });
+
+          const filesData = await Promise.all(filePromises);
+
+          // Prepare form data
+          const formData = {
+            name: document.getElementById('uploadName').value,
+            email: document.getElementById('uploadEmail').value,
+            phone: document.getElementById('uploadPhone').value,
+            message: document.getElementById('uploadMessage').value,
+            files: filesData
+          };
+
+          // Send to Netlify function
+          const response = await fetch('/.netlify/functions/document-upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showSuccess(result.message);
+            form.reset();
+            selectedFiles = [];
+            updateFileList();
+          } else {
+            showError(result.error || 'Failed to upload documents. Please try again.');
+          }
+
+        } catch (error) {
+          console.error('Upload error:', error);
+          showError('Network error. Please check your connection and try again.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>Send Documents & Get Quote';
+        }
+      });
+
+      function showSuccess(message) {
+        uploadStatus.classList.remove('hidden');
+        successDiv.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        successMessage.textContent = message;
+        successDiv.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function showError(message) {
+        uploadStatus.classList.remove('hidden');
+        errorDiv.classList.remove('hidden');
+        successDiv.classList.add('hidden');
+        errorMessage.textContent = message;
+        errorDiv.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  </script>
 </body>
+
 </html>

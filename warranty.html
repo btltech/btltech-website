@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Warranty & Service Terms – BTLTech Ltd</title>
-  <meta name="description" content="BTLTech Ltd warranty terms and service conditions for phone, laptop, tablet and console repairs in Acton Vale."/>
-  <link rel="icon" href="favicon.ico"/>
-  <link rel="apple-touch-icon" href="btltech-logo-192.png"/>
+  <meta name="description"
+    content="BTLTech Ltd warranty terms and service conditions for phone, laptop, tablet and console repairs in Acton Vale." />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="btltech-logo-192.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css" />
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
   <script src="cookie-consent.js"></script>
 
@@ -18,148 +46,235 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2RMZGJHLD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-S2RMZGJHLD');
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- TOP BAR -->
-<div class="w-full bg-blue-950 text-white text-sm">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <div><i class="fa-solid fa-location-dot mr-1"></i>161 The Vale, Acton, London W3 7RD</div>
-    <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk"><i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk</a>
-      <a href="tel:+442087460193"><i class="fa-solid fa-phone mr-1"></i>020 8746 0193</a>
-      <a href="tel:+447445363599"><i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599</a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
+
+  <!-- HEADER: Modern Glassmorphism Navigation -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass" id="main-header">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-75 group-hover:opacity-100 blur transition duration-200">
+            </div>
+            <img src="btltech-logo-192.png" alt="BTLTech"
+              class="relative w-12 h-12 rounded-full border-2 border-white shadow-sm">
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-bold text-xl tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors">BTLTech</span>
+            <span class="text-[0.65rem] uppercase tracking-widest font-semibold text-slate-500">Repairs &
+              Solutions</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="index.html" class="hover:text-brand-primary transition-colors">Home</a>
+          <a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a>
+          <a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a>
+          <a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a>
+          <a href="book.html"
+            class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-700 transition-all hover:shadow-glow font-semibold">Book
+            Now</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-primary transition-colors">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20 logo-img"/><span class="brand-text">BTLTech Ltd</span></a>
-    <nav class="hidden md:flex gap-6 text-sm font-medium">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="printing.html">Printing</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html">Contact</a>
-    </nav>
-    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100"><i class="fa-solid fa-bars"></i></button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
-    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="printing.html">Printing</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html">Contact</a>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 shadow-xl">
+      <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-center font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-brand-primary">Home</a>
+        <a href="repairs.html" class="text-slate-600 hover:text-brand-primary">Repairs</a>
+        <a href="printing.html" class="text-slate-600 hover:text-brand-primary">Printing</a>
+        <a href="data-recovery.html" class="text-slate-600 hover:text-brand-primary">Data Recovery</a>
+        <a href="book.html" class="bg-brand-primary text-white py-3 rounded-xl shadow-lg mx-4">Book Appointment</a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- HERO -->
-<section class="bg-blue-600 text-white py-16 text-center">
-  <div class="container mx-auto px-4">
-    <h1 class="text-4xl font-bold">Warranty & Service Terms</h1>
-    <p class="mt-3 text-lg text-blue-100">Transparent terms for all our repair services</p>
-  </div>
-</section>
+  <!-- HERO -->
+  <section id="main-content" class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-brand-light -z-20"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-blue-50 to-transparent -z-10 opacity-50">
+    </div>
 
-<!-- WARRANTY TERMS -->
-<section class="py-16">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      
-      <!-- Repair Warranty -->
-      <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-          <i class="fa-solid fa-shield-halved text-blue-600"></i>
-          Repair Warranty
-        </h2>
-        <div class="space-y-4 text-gray-700">
-          <p><strong>Standard Warranty:</strong> 90 days on all repair work and parts used</p>
-          <p><strong>Coverage:</strong> Warranty covers the specific repair performed and parts replaced</p>
-          <p><strong>Exclusions:</strong> Warranty does not cover:</p>
-          <ul class="list-disc list-inside ml-4 space-y-1">
-            <li>Physical damage caused by customer after repair</li>
-            <li>Water damage occurring after repair</li>
-            <li>Software issues unrelated to the repair</li>
-            <li>Pre-existing conditions not addressed in the repair</li>
-          </ul>
+    <div class="container mx-auto px-4 lg:px-8 text-center">
+      <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Our Guarantee</span>
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mt-2 mb-6">Warranty & Service Terms
+      </h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Transparent terms for all our repair services. We stand by our work.
+      </p>
+    </div>
+  </section>
+
+  <!-- WARRANTY TERMS -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+
+        <!-- Repair Warranty -->
+        <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-shield-halved text-blue-600"></i>
+            Repair Warranty
+          </h2>
+          <div class="space-y-4 text-gray-700">
+            <p><strong>Standard Warranty:</strong> 90 days on all repair work and parts used</p>
+            <p><strong>Coverage:</strong> Warranty covers the specific repair performed and parts replaced</p>
+            <p><strong>Exclusions:</strong> Warranty does not cover:</p>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+              <li>Physical damage caused by customer after repair</li>
+              <li>Water damage occurring after repair</li>
+              <li>Software issues unrelated to the repair</li>
+              <li>Pre-existing conditions not addressed in the repair</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <!-- Service Times -->
-      <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-          <i class="fa-solid fa-clock text-green-600"></i>
-          Service Times
-        </h2>
-        <div class="space-y-4 text-gray-700">
-          <p><strong>Standard Repairs:</strong> 1-3 business days (depending on parts availability)</p>
-          <p><strong>Same Day Service:</strong> Available when parts are in stock and repair is straightforward</p>
-          <p><strong>Complex Repairs:</strong> May take longer due to parts ordering or technical complexity</p>
-          <p><strong>Data Recovery:</strong> Time varies based on damage severity (1-7 days typically)</p>
+        <!-- Service Times -->
+        <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-clock text-green-600"></i>
+            Service Times
+          </h2>
+          <div class="space-y-4 text-gray-700">
+            <p><strong>Standard Repairs:</strong> 1-3 business days (depending on parts availability)</p>
+            <p><strong>Same Day Service:</strong> Available when parts are in stock and repair is straightforward</p>
+            <p><strong>Complex Repairs:</strong> May take longer due to parts ordering or technical complexity</p>
+            <p><strong>Data Recovery:</strong> Time varies based on damage severity (1-7 days typically)</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Parts & Quality -->
-      <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-          <i class="fa-solid fa-tools text-purple-600"></i>
-          Parts & Quality
-        </h2>
-        <div class="space-y-4 text-gray-700">
-          <p><strong>Quality Parts:</strong> We use high-quality, compatible parts for all repairs</p>
-          <p><strong>OEM Parts:</strong> Original equipment manufacturer parts when available and requested</p>
-          <p><strong>Compatible Parts:</strong> High-quality compatible alternatives when OEM parts are unavailable</p>
-          <p><strong>Part Sourcing:</strong> We source parts from reputable suppliers to ensure quality and reliability</p>
+        <!-- Parts & Quality -->
+        <div class="bg-white p-8 rounded-lg shadow-sm border mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-tools text-purple-600"></i>
+            Parts & Quality
+          </h2>
+          <div class="space-y-4 text-gray-700">
+            <p><strong>Quality Parts:</strong> We use high-quality, compatible parts for all repairs</p>
+            <p><strong>OEM Parts:</strong> Original equipment manufacturer parts when available and requested</p>
+            <p><strong>Compatible Parts:</strong> High-quality compatible alternatives when OEM parts are unavailable
+            </p>
+            <p><strong>Part Sourcing:</strong> We source parts from reputable suppliers to ensure quality and
+              reliability</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Customer Responsibilities -->
-      <div class="bg-white p-8 rounded-lg shadow-sm border">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
-          <i class="fa-solid fa-user text-orange-600"></i>
-          Customer Responsibilities
-        </h2>
-        <div class="space-y-4 text-gray-700">
-          <p><strong>Data Backup:</strong> Customers are responsible for backing up their data before repair</p>
-          <p><strong>Device Condition:</strong> Please inform us of any existing damage or previous repairs</p>
-          <p><strong>Collection:</strong> Devices should be collected within 30 days of completion</p>
-          <p><strong>Payment:</strong> Payment is due upon collection or completion of repair</p>
+        <!-- Customer Responsibilities -->
+        <div class="bg-white p-8 rounded-lg shadow-sm border">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-user text-orange-600"></i>
+            Customer Responsibilities
+          </h2>
+          <div class="space-y-4 text-gray-700">
+            <p><strong>Data Backup:</strong> Customers are responsible for backing up their data before repair</p>
+            <p><strong>Device Condition:</strong> Please inform us of any existing damage or previous repairs</p>
+            <p><strong>Collection:</strong> Devices should be collected within 30 days of completion</p>
+            <p><strong>Payment:</strong> Payment is due upon collection or completion of repair</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Contact for Questions -->
-      <div class="mt-12 text-center">
-        <div class="bg-blue-50 p-6 rounded-lg">
-          <h3 class="text-xl font-bold mb-4">Questions About Our Terms?</h3>
-          <p class="text-gray-600 mb-4">We're happy to explain any part of our warranty or service terms</p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+442087460193" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              <i class="fa-solid fa-phone mr-2"></i>Call Us
-            </a>
-            <a href="https://wa.me/447445363599" target="_blank" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-              <i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp
-            </a>
+        <!-- Contact for Questions -->
+        <div class="mt-12 text-center">
+          <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-xl font-bold mb-4">Questions About Our Terms?</h3>
+            <p class="text-gray-600 mb-4">We're happy to explain any part of our warranty or service terms</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="tel:+442087460193"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <i class="fa-solid fa-phone mr-2"></i>Call Us
+              </a>
+              <a href="https://wa.me/447445363599" target="_blank"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                <i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-white text-sm py-6">
-  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="book.html" class="hover:underline">Book a Repair</a></p></div>
-    <div><h3 class="font-semibold mb-2">Contact Info</h3><p>161 The Vale, Acton, London W3 7RD</p><p>020 8746 0193 • 07445 363 599</p><p>info@btltech.co.uk</p></div>
-    <div><h3 class="font-semibold mb-2">Opening Hours</h3><p>Mon-Fri: 10:00 - 19:00</p><p>Saturday: 13:00 - 17:00</p><p>Sunday: Closed</p></div>
-  </div>
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">© <span id="year"></span> BTLTech Ltd</div>
-</footer>
+  <!-- FOOTER: Site Information -->
+  <footer class="bg-brand-dark text-white py-16 border-t border-slate-800">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand Info -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="btltech-logo-192.png" alt="BTLTech Logo" class="w-10 h-10 rounded-full border border-slate-700">
+            <span class="font-display font-bold text-xl">BTLTech Ltd</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+            Professional repair services for all your tech needs. We specialize in phone, laptop, and console repairs
+            with a focus on quality and speed.
+          </p>
+        </div>
 
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
-document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileMenu').classList.toggle('hidden');
-</script>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li><a href="index.html" class="hover:text-brand-primary transition-colors">Home</a></li>
+            <li><a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a></li>
+            <li><a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a></li>
+            <li><a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a></li>
+            <li><a href="book.html" class="hover:text-brand-primary transition-colors">Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Contact Us</h3>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot mt-1 text-brand-primary"></i>
+              <span>161 The Vale, Acton,<br>London W3 7RD</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-brand-primary"></i>
+              <a href="tel:+442087460193" class="hover:text-white">020 8746 0193</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-brand-primary"></i>
+              <a href="mailto:info@btltech.co.uk" class="hover:text-white">info@btltech.co.uk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div
+        class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© <span id="year"></span> BTLTech Ltd. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('menuBtn').onclick = () => document.getElementById('mobileMenu').classList.toggle('hidden');
+  </script>
 </body>
+
 </html>

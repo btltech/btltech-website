@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Data Recovery – BTLTech Ltd</title>
-  <link rel="icon" href="favicon.ico"/><link rel="apple-touch-icon" href="btltech-logo-192.png"/>
-  <script src="https://cdn.tailwindcss.com"></script>  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="btltech-logo-192.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css" />
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
   <script src="cookie-consent.js"></script>
 
@@ -14,7 +44,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2RMZGJHLD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-S2RMZGJHLD');
   </script>
@@ -23,144 +53,237 @@
   {"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://btltech.co.uk/#btltech","name":"BTLTech Ltd","image":"https://btltech.co.uk/btltech-logo-192.png","url":"https://btltech.co.uk/data-recovery.html","telephone":"+44 20 8746 0193","email":"info@btltech.co.uk","address":{"@type":"PostalAddress","streetAddress":"161 The Vale","addressLocality":"Acton","addressRegion":"London","postalCode":"W3 7RD","addressCountry":"GB"},"geo":{"@type":"GeoCoordinates","latitude":51.5074,"longitude":-0.1278},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"13:00","closes":"17:00"}],"sameAs":["https://wa.me/447445363599"],"priceRange":"££","mainEntityOfPage":"https://btltech.co.uk/data-recovery.html"}
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- SKIP LINKS -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip to main content</a>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
 
-<!-- TOP BAR -->
-<div class="w-full bg-blue-950 text-white text-sm">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <div><i class="fa-solid fa-location-dot mr-1"></i>161 The Vale, Acton, London W3 7RD</div>
-    <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk"><i class="fa-solid fa-at mr-1"></i>info@btltech.co.uk</a>
-      <a href="tel:+442087460193"><i class="fa-solid fa-phone mr-1"></i>020 8746 0193</a>
-      <a href="tel:+447445363599"><i class="fa-solid fa-mobile-screen mr-1"></i>07445 363 599</a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>
-    </div>
-  </div>
-</div>
+  <!-- SKIP LINKS -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip
+    to main content</a>
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20 logo-img"/><span class="brand-text">BTLTech Ltd</span></a>
-        <nav class="hidden md:flex gap-6 text-sm font-medium">
-      <a href="index.html">Home</a>
-      <a href="repairs.html">Repairs</a>
-      <a href="printing.html">Printing</a>
-      <a href="data-recovery.html" class="text-blue-600">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100"><i class="fa-solid fa-bars"></i></button>
-  </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
-    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a>
-      <a href="repairs.html">Repairs</a>
-      <a href="printing.html">Printing</a>
-      <a href="data-recovery.html">Data Recovery</a>
-      <a href="faq.html">FAQ</a>
-      <a href="book.html">Book</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-</header>
+  <!-- HEADER: Modern Glassmorphism Navigation -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass" id="main-header">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-75 group-hover:opacity-100 blur transition duration-200">
+            </div>
+            <img src="btltech-logo-192.png" alt="BTLTech"
+              class="relative w-12 h-12 rounded-full border-2 border-white shadow-sm">
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-bold text-xl tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors">BTLTech</span>
+            <span class="text-[0.65rem] uppercase tracking-widest font-semibold text-slate-500">Repairs &
+              Solutions</span>
+          </div>
+        </a>
 
-<!-- HERO -->
-<section id="main-content" class="container mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-  <div>
-    <h1 class="text-4xl font-extrabold">Secure Data Recovery</h1>
-    <p class="mt-4 text-lg text-gray-600">Lost precious photos or important files? Don't panic. We recover data from phones, laptops, hard drives, SSDs, and USB sticks. Your files are handled with complete confidentiality.</p>
-    <ul class="text-sm text-gray-600 space-y-2 mt-4 mb-4">
-      <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Hard drive & SSD recovery</li>
-      <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Phone & tablet data recovery</li>
-      <li><i class="fa-solid fa-check text-green-600 mr-2"></i>USB & memory card recovery</li>
-      <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Accidental deletion recovery</li>
-      <li><i class="fa-solid fa-check text-green-600 mr-2"></i>Water-damaged device recovery</li>
-    </ul>
-    <p class="text-yellow-600 font-semibold mb-4">Data recovery from £50* | Free assessment</p>
-    <p class="text-xs text-gray-500 mb-6">*Price depends on device type and damage level. No data, no fee policy on select services.</p>
-    <div class="flex flex-col sm:flex-row gap-3">
-      <a href="book.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
-        <i class="fa-solid fa-calendar-check"></i> Book Assessment
-      </a>
-      <a href="https://wa.me/447445363599?text=Hi! I need help recovering data from my device." target="_blank" rel="noopener" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors inline-flex items-center justify-center gap-2">
-        <i class="fa-brands fa-whatsapp"></i> Ask About Data Recovery
-      </a>
-    </div>
-  </div>
-  <img src="Generated Image September 06, 2025 - 4_01AM.jpeg" alt="Data recovery service" class="w-full rounded shadow"/>
-</section>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="index.html" class="hover:text-brand-primary transition-colors">Home</a>
+          <a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a>
+          <a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a>
+          <a href="data-recovery.html" class="text-brand-primary font-semibold">Data Recovery</a>
+          <a href="book.html"
+            class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-700 transition-all hover:shadow-glow font-semibold">Book
+            Now</a>
+        </nav>
 
-<!-- HOW IT WORKS -->
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
-    <h2 class="text-2xl font-bold text-center mb-8">How Data Recovery Works</h2>
-    <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-      <div class="text-center p-6">
-        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="text-blue-600 font-bold">1</span>
-        </div>
-        <h3 class="font-semibold mb-2">Bring Your Device</h3>
-        <p class="text-sm text-gray-600">Drop off your device for a free assessment. We'll diagnose the issue.</p>
-      </div>
-      <div class="text-center p-6">
-        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="text-blue-600 font-bold">2</span>
-        </div>
-        <h3 class="font-semibold mb-2">Get a Quote</h3>
-        <p class="text-sm text-gray-600">We'll tell you what's recoverable and give you a fixed price. No surprises.</p>
-      </div>
-      <div class="text-center p-6">
-        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="text-blue-600 font-bold">3</span>
-        </div>
-        <h3 class="font-semibold mb-2">Get Your Data Back</h3>
-        <p class="text-sm text-gray-600">We recover your files and transfer them to a new drive or USB.</p>
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-primary transition-colors">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-white text-sm py-6">
-  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="book.html" class="hover:underline">Book a Repair</a></p></div>
-    <div><h3 class="font-semibold mb-2">Contact Info</h3><p>161 The Vale, Acton, London W3 7RD</p><p>020 8746 0193 • 07445 363 599</p><p>info@btltech.co.uk</p></div>
-    <div><h3 class="font-semibold mb-2">Opening Hours</h3><p>Mon-Fri: 10:00 - 19:00</p><p>Saturday: 13:00 - 17:00</p><p>Sunday: Closed</p></div>
-  </div>
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">© <span id="year"></span> BTLTech Ltd</div>
-</footer>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 shadow-xl">
+      <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-center font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-brand-primary">Home</a>
+        <a href="repairs.html" class="text-slate-600 hover:text-brand-primary">Repairs</a>
+        <a href="printing.html" class="text-slate-600 hover:text-brand-primary">Printing</a>
+        <a href="data-recovery.html" class="text-brand-primary">Data Recovery</a>
+        <a href="book.html" class="bg-brand-primary text-white py-3 rounded-xl shadow-lg mx-4">Book Appointment</a>
+      </div>
+    </div>
+  </header>
 
-<!-- STICKY WHATSAPP BUTTON -->
-<a href="https://wa.me/447445363599?text=Hi! I need help with data recovery." 
-   target="_blank" 
-   rel="noopener"
-   class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
-   aria-label="Chat on WhatsApp">
-  <i class="fa-brands fa-whatsapp text-2xl"></i>
-  <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get Help</span>
-</a>
+  <!-- HERO -->
+  <section id="main-content" class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-brand-light -z-20"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-blue-50 to-transparent -z-10 opacity-50">
+    </div>
 
-<!-- Tawk.to Live Chat -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+    <div class="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Secure & Confidential</span>
+        <h1 class="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mt-2 mb-6">Secure Data Recovery</h1>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          Lost precious photos or important files? Don't panic. We recover data from phones, laptops, hard drives, SSDs,
+          and USB sticks. Your files are handled with complete confidentiality.
+        </p>
 
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
-document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileMenu').classList.toggle('hidden');
-</script>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-center gap-3 text-slate-700">
+            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs"><i
+                class="fa-solid fa-check"></i></div>
+            Hard drive & SSD recovery
+          </li>
+          <li class="flex items-center gap-3 text-slate-700">
+            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs"><i
+                class="fa-solid fa-check"></i></div>
+            Phone & tablet data recovery
+          </li>
+          <li class="flex items-center gap-3 text-slate-700">
+            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs"><i
+                class="fa-solid fa-check"></i></div>
+            USB & memory card recovery
+          </li>
+        </ul>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="book.html"
+            class="px-8 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-blue-700 transition-all hover:shadow-lg inline-flex items-center justify-center gap-2">
+            <i class="fa-solid fa-calendar-check"></i> Book Assessment
+          </a>
+          <a href="https://wa.me/447445363599?text=Hi! I need help recovering data from my device." target="_blank"
+            rel="noopener"
+            class="px-8 py-3 bg-white text-brand-dark border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition-all hover:shadow-md inline-flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i> Ask Expert
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div
+          class="absolute -inset-4 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-2xl blur-xl -z-10">
+        </div>
+        <img src="Generated Image September 06, 2025 - 4_01AM.jpeg" alt="Data recovery service"
+          class="w-full rounded-2xl shadow-2xl border-4 border-white transform hover:scale-[1.02] transition-transform duration-500" />
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-center mb-8">How Data Recovery Works</h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div class="text-center p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-blue-600 font-bold">1</span>
+          </div>
+          <h3 class="font-semibold mb-2">Bring Your Device</h3>
+          <p class="text-sm text-gray-600">Drop off your device for a free assessment. We'll diagnose the issue.</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-blue-600 font-bold">2</span>
+          </div>
+          <h3 class="font-semibold mb-2">Get a Quote</h3>
+          <p class="text-sm text-gray-600">We'll tell you what's recoverable and give you a fixed price. No surprises.
+          </p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-blue-600 font-bold">3</span>
+          </div>
+          <h3 class="font-semibold mb-2">Get Your Data Back</h3>
+          <p class="text-sm text-gray-600">We recover your files and transfer them to a new drive or USB.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER: Site Information -->
+  <footer class="bg-brand-dark text-white py-16 border-t border-slate-800">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand Info -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="btltech-logo-192.png" alt="BTLTech Logo" class="w-10 h-10 rounded-full border border-slate-700">
+            <span class="font-display font-bold text-xl">BTLTech Ltd</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+            Professional repair services for all your tech needs. We specialize in phone, laptop, and console repairs
+            with a focus on quality and speed.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li><a href="index.html" class="hover:text-brand-primary transition-colors">Home</a></li>
+            <li><a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a></li>
+            <li><a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a></li>
+            <li><a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a></li>
+            <li><a href="book.html" class="hover:text-brand-primary transition-colors">Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Contact Us</h3>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot mt-1 text-brand-primary"></i>
+              <span>161 The Vale, Acton,<br>London W3 7RD</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-brand-primary"></i>
+              <a href="tel:+442087460193" class="hover:text-white">020 8746 0193</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-brand-primary"></i>
+              <a href="mailto:info@btltech.co.uk" class="hover:text-white">info@btltech.co.uk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div
+        class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© <span id="year"></span> BTLTech Ltd. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY WHATSAPP BUTTON -->
+  <a href="https://wa.me/447445363599?text=Hi! I need help with data recovery." target="_blank" rel="noopener"
+    class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group"
+    aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+    <span class="hidden group-hover:inline-block text-sm font-medium whitespace-nowrap">Get Help</span>
+  </a>
+
+  <!-- Tawk.to Live Chat -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('menuBtn').onclick = () => document.getElementById('mobileMenu').classList.toggle('hidden');
+  </script>
 </body>
+
 </html>

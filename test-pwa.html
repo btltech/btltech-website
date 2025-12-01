@@ -1,143 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>PWA Test - BTLTech Ltd</title>
-  <link rel="icon" href="favicon.ico"/>
-  <link rel="manifest" href="manifest.json"/>
-  <meta name="theme-color" content="#1e3a8a"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- PWA Test Dashboard -->
-<div class="min-h-screen p-8">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-8 text-blue-600">
-      <i class="fa-solid fa-mobile-screen mr-3"></i>
-      BTLTech PWA Test Dashboard
-    </h1>
-    
-    <!-- Test Results Grid -->
-    <div class="grid md:grid-cols-2 gap-6 mb-8">
-      <!-- Service Worker Status -->
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4 text-green-600">
-          <i class="fa-solid fa-cog mr-2"></i>Service Worker
-        </h2>
-        <div id="sw-status" class="text-sm space-y-2">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
-            <span>Checking Service Worker...</span>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PWA Test - BTLTech Ltd</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1e3a8a" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
+
+  <!-- PWA Test Dashboard -->
+  <div class="min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold text-center mb-8 text-blue-600">
+        <i class="fa-solid fa-mobile-screen mr-3"></i>
+        BTLTech PWA Test Dashboard
+      </h1>
+
+      <!-- Test Results Grid -->
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <!-- Service Worker Status -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-xl font-bold mb-4 text-green-600">
+            <i class="fa-solid fa-cog mr-2"></i>Service Worker
+          </h2>
+          <div id="sw-status" class="text-sm space-y-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
+              <span>Checking Service Worker...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manifest Status -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-xl font-bold mb-4 text-blue-600">
+            <i class="fa-solid fa-file-code mr-2"></i>Manifest
+          </h2>
+          <div id="manifest-status" class="text-sm space-y-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
+              <span>Checking Manifest...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cache Status -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-xl font-bold mb-4 text-purple-600">
+            <i class="fa-solid fa-database mr-2"></i>Cache Storage
+          </h2>
+          <div id="cache-status" class="text-sm space-y-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
+              <span>Checking Cache...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Install Status -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-xl font-bold mb-4 text-orange-600">
+            <i class="fa-solid fa-download mr-2"></i>Install Status
+          </h2>
+          <div id="install-status" class="text-sm space-y-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
+              <span>Checking Install Status...</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      <!-- Manifest Status -->
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4 text-blue-600">
-          <i class="fa-solid fa-file-code mr-2"></i>Manifest
+
+      <!-- Test Actions -->
+      <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">
+          <i class="fa-solid fa-play mr-2"></i>Test Actions
         </h2>
-        <div id="manifest-status" class="text-sm space-y-2">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
-            <span>Checking Manifest...</span>
-          </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <button id="test-offline"
+            class="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-wifi-slash"></i>
+            Test Offline
+          </button>
+          <button id="clear-cache"
+            class="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-trash"></i>
+            Clear Cache
+          </button>
+          <button id="update-sw"
+            class="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-sync"></i>
+            Update SW
+          </button>
         </div>
       </div>
-      
-      <!-- Cache Status -->
+
+      <!-- Network Status -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4 text-purple-600">
-          <i class="fa-solid fa-database mr-2"></i>Cache Storage
+        <h2 class="text-xl font-bold mb-4 text-gray-800">
+          <i class="fa-solid fa-network-wired mr-2"></i>Network Status
         </h2>
-        <div id="cache-status" class="text-sm space-y-2">
+        <div id="network-status" class="text-sm">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
-            <span>Checking Cache...</span>
+            <span>Checking network status...</span>
           </div>
-        </div>
-      </div>
-      
-      <!-- Install Status -->
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold mb-4 text-orange-600">
-          <i class="fa-solid fa-download mr-2"></i>Install Status
-        </h2>
-        <div id="install-status" class="text-sm space-y-2">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
-            <span>Checking Install Status...</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Test Actions -->
-    <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
-      <h2 class="text-xl font-bold mb-4 text-gray-800">
-        <i class="fa-solid fa-play mr-2"></i>Test Actions
-      </h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <button id="test-offline" 
-                class="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center gap-2">
-          <i class="fa-solid fa-wifi-slash"></i>
-          Test Offline
-        </button>
-        <button id="clear-cache" 
-                class="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
-          <i class="fa-solid fa-trash"></i>
-          Clear Cache
-        </button>
-        <button id="update-sw" 
-                class="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
-          <i class="fa-solid fa-sync"></i>
-          Update SW
-        </button>
-      </div>
-    </div>
-    
-    <!-- Network Status -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4 text-gray-800">
-        <i class="fa-solid fa-network-wired mr-2"></i>Network Status
-      </h2>
-      <div id="network-status" class="text-sm">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-spinner fa-spin text-blue-500"></i>
-          <span>Checking network status...</span>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-// PWA Test Functions
-class PWATester {
-  constructor() {
-    this.init();
-  }
-  
-  async init() {
-    await this.testServiceWorker();
-    await this.testManifest();
-    await this.testCache();
-    await this.testInstallStatus();
-    this.testNetworkStatus();
-    this.setupEventListeners();
-  }
-  
-  async testServiceWorker() {
-    const statusEl = document.getElementById('sw-status');
-    
-    if ('serviceWorker' in navigator) {
-      try {
-        const registration = await navigator.serviceWorker.getRegistration();
-        if (registration) {
-          statusEl.innerHTML = `
+  <script>
+    // PWA Test Functions
+    class PWATester {
+      constructor() {
+        this.init();
+      }
+
+      async init() {
+        await this.testServiceWorker();
+        await this.testManifest();
+        await this.testCache();
+        await this.testInstallStatus();
+        this.testNetworkStatus();
+        this.setupEventListeners();
+      }
+
+      async testServiceWorker() {
+        const statusEl = document.getElementById('sw-status');
+
+        if ('serviceWorker' in navigator) {
+          try {
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (registration) {
+              statusEl.innerHTML = `
             <div class="flex items-center gap-2 text-green-600">
               <i class="fa-solid fa-check-circle"></i>
               <span>Service Worker Active</span>
@@ -149,40 +177,40 @@ class PWATester {
               State: ${registration.active ? registration.active.state : 'Unknown'}
             </div>
           `;
-        } else {
-          statusEl.innerHTML = `
+            } else {
+              statusEl.innerHTML = `
             <div class="flex items-center gap-2 text-yellow-600">
               <i class="fa-solid fa-exclamation-triangle"></i>
               <span>Service Worker Not Found</span>
             </div>
           `;
-        }
-      } catch (error) {
-        statusEl.innerHTML = `
+            }
+          } catch (error) {
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-red-600">
             <i class="fa-solid fa-times-circle"></i>
             <span>Service Worker Error: ${error.message}</span>
           </div>
         `;
-      }
-    } else {
-      statusEl.innerHTML = `
+          }
+        } else {
+          statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-red-600">
           <i class="fa-solid fa-times-circle"></i>
           <span>Service Worker Not Supported</span>
         </div>
       `;
-    }
-  }
-  
-  async testManifest() {
-    const statusEl = document.getElementById('manifest-status');
-    
-    try {
-      const response = await fetch('/manifest.json');
-      if (response.ok) {
-        const manifest = await response.json();
-        statusEl.innerHTML = `
+        }
+      }
+
+      async testManifest() {
+        const statusEl = document.getElementById('manifest-status');
+
+        try {
+          const response = await fetch('/manifest.json');
+          if (response.ok) {
+            const manifest = await response.json();
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-green-600">
             <i class="fa-solid fa-check-circle"></i>
             <span>Manifest Loaded</span>
@@ -194,34 +222,34 @@ class PWATester {
             Theme: ${manifest.theme_color}
           </div>
         `;
-      } else {
-        statusEl.innerHTML = `
+          } else {
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-red-600">
             <i class="fa-solid fa-times-circle"></i>
             <span>Manifest Failed: ${response.status}</span>
           </div>
         `;
-      }
-    } catch (error) {
-      statusEl.innerHTML = `
+          }
+        } catch (error) {
+          statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-red-600">
           <i class="fa-solid fa-times-circle"></i>
           <span>Manifest Error: ${error.message}</span>
         </div>
       `;
-    }
-  }
-  
-  async testCache() {
-    const statusEl = document.getElementById('cache-status');
-    
-    if ('caches' in window) {
-      try {
-        const cacheNames = await caches.keys();
-        const cacheList = cacheNames.join(', ');
-        
-        if (cacheNames.length > 0) {
-          statusEl.innerHTML = `
+        }
+      }
+
+      async testCache() {
+        const statusEl = document.getElementById('cache-status');
+
+        if ('caches' in window) {
+          try {
+            const cacheNames = await caches.keys();
+            const cacheList = cacheNames.join(', ');
+
+            if (cacheNames.length > 0) {
+              statusEl.innerHTML = `
             <div class="flex items-center gap-2 text-green-600">
               <i class="fa-solid fa-check-circle"></i>
               <span>Cache Active</span>
@@ -230,38 +258,38 @@ class PWATester {
               Caches: ${cacheList}
             </div>
           `;
-        } else {
-          statusEl.innerHTML = `
+            } else {
+              statusEl.innerHTML = `
             <div class="flex items-center gap-2 text-yellow-600">
               <i class="fa-solid fa-exclamation-triangle"></i>
               <span>No Caches Found</span>
             </div>
           `;
-        }
-      } catch (error) {
-        statusEl.innerHTML = `
+            }
+          } catch (error) {
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-red-600">
             <i class="fa-solid fa-times-circle"></i>
             <span>Cache Error: ${error.message}</span>
           </div>
         `;
-      }
-    } else {
-      statusEl.innerHTML = `
+          }
+        } else {
+          statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-red-600">
           <i class="fa-solid fa-times-circle"></i>
           <span>Cache API Not Supported</span>
         </div>
       `;
-    }
-  }
-  
-  async testInstallStatus() {
-    const statusEl = document.getElementById('install-status');
-    
-    // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      statusEl.innerHTML = `
+        }
+      }
+
+      async testInstallStatus() {
+        const statusEl = document.getElementById('install-status');
+
+        // Check if app is already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+          statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-green-600">
           <i class="fa-solid fa-check-circle"></i>
           <span>App Installed</span>
@@ -270,8 +298,8 @@ class PWATester {
           Running in standalone mode
         </div>
       `;
-    } else {
-      statusEl.innerHTML = `
+        } else {
+          statusEl.innerHTML = `
         <div class="flex items-center gap-2 text-blue-600">
           <i class="fa-solid fa-info-circle"></i>
           <span>Install Available</span>
@@ -280,96 +308,97 @@ class PWATester {
           Can be installed as PWA
         </div>
       `;
-    }
-  }
-  
-  testNetworkStatus() {
-    const statusEl = document.getElementById('network-status');
-    
-    const updateStatus = () => {
-      if (navigator.onLine) {
-        statusEl.innerHTML = `
+        }
+      }
+
+      testNetworkStatus() {
+        const statusEl = document.getElementById('network-status');
+
+        const updateStatus = () => {
+          if (navigator.onLine) {
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-green-600">
             <i class="fa-solid fa-wifi"></i>
             <span>Online</span>
           </div>
         `;
-      } else {
-        statusEl.innerHTML = `
+          } else {
+            statusEl.innerHTML = `
           <div class="flex items-center gap-2 text-red-600">
             <i class="fa-solid fa-wifi-slash"></i>
             <span>Offline</span>
           </div>
         `;
-      }
-    };
-    
-    updateStatus();
-    window.addEventListener('online', updateStatus);
-    window.addEventListener('offline', updateStatus);
-  }
-  
-  setupEventListeners() {
-    // Test Offline
-    document.getElementById('test-offline').addEventListener('click', () => {
-      alert('To test offline functionality:\n1. Open DevTools (F12)\n2. Go to Network tab\n3. Check "Offline" checkbox\n4. Refresh the page\n5. The page should still work from cache');
-    });
-    
-    // Clear Cache
-    document.getElementById('clear-cache').addEventListener('click', async () => {
-      if ('caches' in window) {
-        try {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map(name => caches.delete(name)));
-          alert('Cache cleared successfully!');
-          await this.testCache();
-        } catch (error) {
-          alert('Error clearing cache: ' + error.message);
-        }
-      } else {
-        alert('Cache API not supported');
-      }
-    });
-    
-    // Update Service Worker
-    document.getElementById('update-sw').addEventListener('click', async () => {
-      if ('serviceWorker' in navigator) {
-        try {
-          const registration = await navigator.serviceWorker.getRegistration();
-          if (registration) {
-            await registration.update();
-            alert('Service Worker update triggered!');
-            await this.testServiceWorker();
-          } else {
-            alert('No service worker found');
           }
-        } catch (error) {
-          alert('Error updating service worker: ' + error.message);
-        }
-      } else {
-        alert('Service Worker not supported');
+        };
+
+        updateStatus();
+        window.addEventListener('online', updateStatus);
+        window.addEventListener('offline', updateStatus);
       }
+
+      setupEventListeners() {
+        // Test Offline
+        document.getElementById('test-offline').addEventListener('click', () => {
+          alert('To test offline functionality:\n1. Open DevTools (F12)\n2. Go to Network tab\n3. Check "Offline" checkbox\n4. Refresh the page\n5. The page should still work from cache');
+        });
+
+        // Clear Cache
+        document.getElementById('clear-cache').addEventListener('click', async () => {
+          if ('caches' in window) {
+            try {
+              const cacheNames = await caches.keys();
+              await Promise.all(cacheNames.map(name => caches.delete(name)));
+              alert('Cache cleared successfully!');
+              await this.testCache();
+            } catch (error) {
+              alert('Error clearing cache: ' + error.message);
+            }
+          } else {
+            alert('Cache API not supported');
+          }
+        });
+
+        // Update Service Worker
+        document.getElementById('update-sw').addEventListener('click', async () => {
+          if ('serviceWorker' in navigator) {
+            try {
+              const registration = await navigator.serviceWorker.getRegistration();
+              if (registration) {
+                await registration.update();
+                alert('Service Worker update triggered!');
+                await this.testServiceWorker();
+              } else {
+                alert('No service worker found');
+              }
+            } catch (error) {
+              alert('Error updating service worker: ' + error.message);
+            }
+          } else {
+            alert('Service Worker not supported');
+          }
+        });
+      }
+    }
+
+    // Initialize PWA Tester
+    document.addEventListener('DOMContentLoaded', () => {
+      new PWATester();
     });
-  }
-}
 
-// Initialize PWA Tester
-document.addEventListener('DOMContentLoaded', () => {
-  new PWATester();
-});
-
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('PWA Test: Service Worker registered', registration);
-      })
-      .catch(error => {
-        console.error('PWA Test: Service Worker registration failed', error);
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('PWA Test: Service Worker registered', registration);
+          })
+          .catch(error => {
+            console.error('PWA Test: Service Worker registration failed', error);
+          });
       });
-  });
-}
-</script>
+    }
+  </script>
 </body>
+
 </html>

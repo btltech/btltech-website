@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us – BTLTech Ltd</title>
-  <link rel="icon" href="favicon.ico"/><link rel="apple-touch-icon" href="btltech-logo-192.png"/>
-  <script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css"/>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="btltech-logo-192.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#0f172a",
+              primary: "#2563eb",
+              secondary: "#0ea5e9",
+              accent: "#f59e0b",
+              dark: "#020617",
+              light: "#f8fafc",
+            },
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glow': '0 0 20px rgba(37, 99, 235, 0.5)',
+          }
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.css" />
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.0/dist/cookieconsent.js"></script>
   <script src="cookie-consent.js"></script>
 
@@ -14,7 +44,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2RMZGJHLD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-S2RMZGJHLD');
   </script>
@@ -26,137 +56,210 @@
   {"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://btltech.co.uk/#btltech","name":"BTLTech Ltd","image":"https://btltech.co.uk/btltech-logo-192.png","url":"https://btltech.co.uk/contact.html","telephone":"+44 20 8746 0193","email":"info@btltech.co.uk","address":{"@type":"PostalAddress","streetAddress":"161 The Vale","addressLocality":"Acton","addressRegion":"London","postalCode":"W3 7RD","addressCountry":"GB"},"geo":{"@type":"GeoCoordinates","latitude":51.5074,"longitude":-0.1278},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"13:00","closes":"17:00"}],"sameAs":["https://wa.me/447445363599"],"priceRange":"££","hasMap":"https://www.google.com/maps?q=161%20The+Vale%2C%20W3%207RD&output=embed","mainEntityOfPage":"https://btltech.co.uk/contact.html"}
   </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
 
-<!-- SKIP LINKS -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip to main content</a>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-primary selection:text-white">
 
-<!-- TOP BAR -->
-<div class="w-full bg-blue-950 text-white text-sm">
-  <div class="container mx-auto px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-2">
-    <div>
-      <a href="https://www.google.com/maps/place/BTLTech+Ltd/@51.509942,-0.258805,17z/data=!3m1!4b1!4m6!3m5!1s0x48760e6d33323ded:0x23622be085a83e0!8m2!3d51.509942!4d-0.258805!16s%2Fg%2F11h3f_0y1l?entry=ttu" target="_blank" rel="noopener" aria-label="View our address on Google Maps">
-        <i class="fa-solid fa-location-dot mr-1" aria-hidden="true"></i>161 The Vale, Acton, London W3 7RD
-      </a>
-    </div>
-    <div class="flex items-center gap-3">
-      <a href="mailto:info@btltech.co.uk" aria-label="Email us at info@btltech.co.uk">
-        <i class="fa-solid fa-at mr-1" aria-hidden="true"></i>info@btltech.co.uk
-      </a>
-      <a href="tel:+442087460193" aria-label="Call us at 020 8746 0193">
-        <i class="fa-solid fa-phone mr-1" aria-hidden="true"></i>020 8746 0193
-      </a>
-      <a href="tel:+447445363599" aria-label="Call us at 07445 363 599">
-        <i class="fa-solid fa-mobile-screen mr-1" aria-hidden="true"></i>07445 363 599
-      </a>
-      <a class="bg-green-600 px-3 py-1 rounded hover:bg-green-700" href="https://wa.me/447445363599" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
-        <i class="fa-brands fa-whatsapp mr-1" aria-hidden="true"></i>WhatsApp
-      </a>
-    </div>
-  </div>
-</div>
+  <!-- SKIP LINKS -->
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">Skip
+    to main content</a>
 
-<!-- HEADER -->
-<header class="sticky top-0 z-50 bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-4"><img src="btltech-logo-192.png" alt="BTLTech logo" class="w-20 h-20 logo-img"/><span class="brand-text">BTLTech Ltd</span></a>
-    <nav class="hidden md:flex gap-6 text-sm font-medium">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="printing.html">Printing</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html" class="text-blue-600" aria-current="page">Contact</a>
-    </nav>
-    <button id="menuBtn" class="md:hidden w-12 h-12 border rounded-lg flex items-center justify-center hover:bg-gray-100" aria-label="Toggle mobile menu"><i class="fa-solid fa-bars"></i></button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
-    <div class="container mx-auto px-4 py-3 grid grid-cols-2 gap-3 text-sm">
-      <a href="index.html">Home</a><a href="repairs.html">Repairs</a><a href="printing.html">Printing</a><a href="data-recovery.html">Data Recovery</a><a href="faq.html">FAQ</a><a href="book.html">Book</a><a href="contact.html">Contact</a>
-    </div>
-  </div>
-</header>
+  <!-- HEADER: Modern Glassmorphism Navigation -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass" id="main-header">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-75 group-hover:opacity-100 blur transition duration-200">
+            </div>
+            <img src="btltech-logo-192.png" alt="BTLTech"
+              class="relative w-12 h-12 rounded-full border-2 border-white shadow-sm">
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-bold text-xl tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors">BTLTech</span>
+            <span class="text-[0.65rem] uppercase tracking-widest font-semibold text-slate-500">Repairs &
+              Solutions</span>
+          </div>
+        </a>
 
-<!-- BREADCRUMB NAVIGATION -->
-<div class="container mx-auto px-4">
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="index.html">Home</a>
-    <span class="breadcrumb-separator">/</span>
-    <span>Contact</span>
-  </nav>
-</div>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+          <a href="index.html" class="hover:text-brand-primary transition-colors">Home</a>
+          <a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a>
+          <a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a>
+          <a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a>
+          <a href="book.html"
+            class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-700 transition-all hover:shadow-glow font-semibold">Book
+            Now</a>
+        </nav>
 
-<!-- HERO -->
-<section id="main-content" class="bg-blue-600 text-white py-16 text-center">
-  <div class="container mx-auto px-4">
-    <h1 class="text-4xl font-bold">Contact Us</h1>
-    <p class="mt-3 text-lg text-blue-100">We’re here to help</p>
-  </div>
-</section>
-
-<!-- CONTACT INFO -->
-<main class="container mx-auto px-4 py-16">
-  <div class="grid md:grid-cols-2 gap-12 items-start mb-12">
-    <div class="space-y-4 text-gray-700">
-      <p><i class="fa-solid fa-location-dot text-blue-600 mr-2"></i>161 The Vale, Acton, London W3 7RD</p>
-      <p><i class="fa-solid fa-phone text-blue-600 mr-2"></i><a href="tel:+442087460193">020 8746 0193</a> • <a href="tel:+447445363599">07445 363 599</a></p>
-      <p><i class="fa-brands fa-whatsapp text-green-600 mr-2"></i><a href="https://wa.me/447445363599">WhatsApp Chat</a></p>
-      <p><i class="fa-solid fa-at text-blue-600 mr-2"></i><a href="mailto:info@btltech.co.uk">info@btltech.co.uk</a></p>
-      <p><i class="fa-solid fa-clock text-blue-600 mr-2"></i>Mon–Fri: 10–19 • Sat: 13–17 • Sun: Closed</p>
-      <div class="flex gap-3 mt-4">
-        <a href="https://maps.google.com/?q=161+The+Vale+W3+7RD" target="_blank" rel="noopener" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Directions</a>
-        <a href="book.html" class="px-4 py-2 border rounded-lg">Book a Repair</a>
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-primary transition-colors">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
       </div>
     </div>
-    <iframe class="w-full h-72 md:h-96 rounded-2xl border shadow-lg" 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7!2d-0.258805!3d51.509942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760e6d33323ded%3A0x23622be085a83e0!2sBTLTech%20Ltd!5e0!3m2!1sen!2suk!4v1699999999999!5m2!1sen!2suk" 
-            title="BTLTech Ltd location on Google Maps - 161 The Vale, Acton, London W3 7RD" 
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            style="border:0;"></iframe>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 shadow-xl">
+      <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-center font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-brand-primary">Home</a>
+        <a href="repairs.html" class="text-slate-600 hover:text-brand-primary">Repairs</a>
+        <a href="printing.html" class="text-slate-600 hover:text-brand-primary">Printing</a>
+        <a href="data-recovery.html" class="text-slate-600 hover:text-brand-primary">Data Recovery</a>
+        <a href="book.html" class="bg-brand-primary text-white py-3 rounded-xl shadow-lg mx-4">Book Appointment</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB NAVIGATION -->
+  <div class="container mx-auto px-4">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span>Contact</span>
+    </nav>
   </div>
-</main>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-white text-sm py-6">
-  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6 text-center md:text-left">
-    <div><h3 class="font-semibold mb-2">Quick Links</h3><p><a href="book.html" class="hover:underline">Book a Repair</a></p></div>
-    <div><h3 class="font-semibold mb-2">Contact Info</h3><p>161 The Vale, Acton, London W3 7RD</p><p>020 8746 0193 • 07445 363 599</p><p>info@btltech.co.uk</p></div>
-    <div><h3 class="font-semibold mb-2">Opening Hours</h3><p>Mon-Fri: 10:00 - 19:00</p><p>Saturday: 13:00 - 17:00</p><p>Sunday: Closed</p></div>
+  <!-- HERO -->
+  <section id="main-content" class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-brand-light -z-20"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-blue-50 to-transparent -z-10 opacity-50">
+    </div>
+
+    <div class="container mx-auto px-4 lg:px-8 text-center">
+      <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Get in Touch</span>
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mt-2 mb-6">Contact Us</h1>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        We’re here to help with all your tech needs. Visit our store, call us, or send a message.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT INFO -->
+  <main class="container mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 gap-12 items-start mb-12">
+      <div class="space-y-4 text-gray-700">
+        <p><i class="fa-solid fa-location-dot text-blue-600 mr-2"></i>161 The Vale, Acton, London W3 7RD</p>
+        <p><i class="fa-solid fa-phone text-blue-600 mr-2"></i><a href="tel:+442087460193">020 8746 0193</a> • <a
+            href="tel:+447445363599">07445 363 599</a></p>
+        <p><i class="fa-brands fa-whatsapp text-green-600 mr-2"></i><a href="https://wa.me/447445363599">WhatsApp
+            Chat</a></p>
+        <p><i class="fa-solid fa-at text-blue-600 mr-2"></i><a href="mailto:info@btltech.co.uk">info@btltech.co.uk</a>
+        </p>
+        <p><i class="fa-solid fa-clock text-blue-600 mr-2"></i>Mon–Fri: 10–19 • Sat: 13–17 • Sun: Closed</p>
+        <div class="flex gap-3 mt-4">
+          <a href="https://maps.google.com/?q=161+The+Vale+W3+7RD" target="_blank" rel="noopener"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg">Directions</a>
+          <a href="book.html" class="px-4 py-2 border rounded-lg">Book a Repair</a>
+        </div>
+      </div>
+      <iframe class="w-full h-72 md:h-96 rounded-2xl border shadow-lg"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7!2d-0.258805!3d51.509942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760e6d33323ded%3A0x23622be085a83e0!2sBTLTech%20Ltd!5e0!3m2!1sen!2suk!4v1699999999999!5m2!1sen!2suk"
+        title="BTLTech Ltd location on Google Maps - 161 The Vale, Acton, London W3 7RD" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" allowfullscreen style="border:0;"></iframe>
+    </div>
+  </main>
+
+  <!-- FOOTER: Site Information -->
+  <footer class="bg-brand-dark text-white py-16 border-t border-slate-800">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12">
+        <!-- Brand Info -->
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <img src="btltech-logo-192.png" alt="BTLTech Logo" class="w-10 h-10 rounded-full border border-slate-700">
+            <span class="font-display font-bold text-xl">BTLTech Ltd</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+            Professional repair services for all your tech needs. We specialize in phone, laptop, and console repairs
+            with a focus on quality and speed.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Quick Links</h3>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li><a href="index.html" class="hover:text-brand-primary transition-colors">Home</a></li>
+            <li><a href="repairs.html" class="hover:text-brand-primary transition-colors">Repairs</a></li>
+            <li><a href="printing.html" class="hover:text-brand-primary transition-colors">Printing</a></li>
+            <li><a href="data-recovery.html" class="hover:text-brand-primary transition-colors">Data Recovery</a></li>
+            <li><a href="book.html" class="hover:text-brand-primary transition-colors">Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-6">Contact Us</h3>
+          <ul class="space-y-4 text-slate-400 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot mt-1 text-brand-primary"></i>
+              <span>161 The Vale, Acton,<br>London W3 7RD</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-brand-primary"></i>
+              <a href="tel:+442087460193" class="hover:text-white">020 8746 0193</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-brand-primary"></i>
+              <a href="mailto:info@btltech.co.uk" class="hover:text-white">info@btltech.co.uk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div
+        class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© <span id="year"></span> BTLTech Ltd. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY CTA BUTTON -->
+  <div class="sticky-cta" id="stickyCta">
+    <button onclick="window.location.href='book.html'" aria-label="Book a repair now">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span>Book Now</span>
+    </button>
   </div>
-  <div class="text-center mt-6 border-t border-gray-700 pt-4">© <span id="year"></span> BTLTech Ltd</div>
-</footer>
 
-<!-- STICKY CTA BUTTON -->
-<div class="sticky-cta" id="stickyCta">
-  <button onclick="window.location.href='book.html'" aria-label="Book a repair now">
-    <i class="fa-solid fa-calendar-check"></i>
-    <span>Book Now</span>
-  </button>
-</div>
+  <!-- Tawk.to Live Chat -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
 
-<!-- Tawk.to Live Chat -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/68bd42afff0b1f192377f6cd/1j4hkovqa';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+  <script src="menu.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<script src="menu.js"></script>
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
-
-// Sticky CTA Button
-const stickyCta = document.getElementById('stickyCta');
-window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
-    stickyCta.classList.add('visible');
-  } else {
-    stickyCta.classList.remove('visible');
-  }
-});
-</script>
+    // Sticky CTA Button
+    const stickyCta = document.getElementById('stickyCta');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    });
+  </script>
 </body>
+
 </html>
